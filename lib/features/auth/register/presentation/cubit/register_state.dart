@@ -1,6 +1,28 @@
 part of 'register_cubit.dart';
 
-@immutable
-abstract class RegisterState {}
+class RegisterState extends Equatable {
+  @override
+  // TODO: implement props
+  List<Object?> get props => throw UnimplementedError();
 
-class RegisterInitial extends RegisterState {}
+}
+
+class RegisterChangePasswordVisibilityState extends RegisterState {}
+
+class RegisterChangeRememberMeState extends RegisterState {}
+
+/*class RegisterInitial extends RegisterState {}
+
+class RegisterSuccess extends RegisterState {
+  ApiResponse<RegisterResponse>? user;
+  dynamic userdata;
+
+  RegisterSuccess({this.user, this.userdata});
+}
+
+class RegisterFailure extends RegisterState {
+  String error;
+
+  RegisterFailure(this.error);
+
+}*/
