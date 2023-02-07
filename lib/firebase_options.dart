@@ -17,7 +17,10 @@ import 'package:flutter/foundation.dart'
 class DefaultFirebaseOptions {
   static FirebaseOptions get currentPlatform {
     if (kIsWeb) {
-      return web;
+      throw UnsupportedError(
+        'DefaultFirebaseOptions have not been configured for web - '
+        'you can reconfigure this by running the FlutterFire CLI again.',
+      );
     }
     switch (defaultTargetPlatform) {
       case TargetPlatform.android:
@@ -25,7 +28,10 @@ class DefaultFirebaseOptions {
       case TargetPlatform.iOS:
         return ios;
       case TargetPlatform.macOS:
-        return macos;
+        throw UnsupportedError(
+          'DefaultFirebaseOptions have not been configured for macos - '
+          'you can reconfigure this by running the FlutterFire CLI again.',
+        );
       case TargetPlatform.windows:
         throw UnsupportedError(
           'DefaultFirebaseOptions have not been configured for windows - '
@@ -43,19 +49,9 @@ class DefaultFirebaseOptions {
     }
   }
 
-  static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyAUcgf3xys2B_DhcBF8bBEU5MTeyF6lHQk',
-    appId: '1:160484421125:web:8cfb4e199bde060fdcb66c',
-    messagingSenderId: '160484421125',
-    projectId: 'construction-95d49',
-    authDomain: 'construction-95d49.firebaseapp.com',
-    storageBucket: 'construction-95d49.appspot.com',
-    measurementId: 'G-EXVVDGNNTG',
-  );
-
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyDBGFnInQEarkgZW0HEkdzZbw1hzSQCQVs',
-    appId: '1:160484421125:android:c800ffc5eb02bbe4dcb66c',
+    appId: '1:160484421125:android:96f0fcf4925808fcdcb66c',
     messagingSenderId: '160484421125',
     projectId: 'construction-95d49',
     storageBucket: 'construction-95d49.appspot.com',
@@ -63,23 +59,12 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions ios = FirebaseOptions(
     apiKey: 'AIzaSyAta9Sk0Ew119Jokn-YojQe0xYOOLzrox8',
-    appId: '1:160484421125:ios:52453c0f22dfaacedcb66c',
+    appId: '1:160484421125:ios:f62eefe8d64533b6dcb66c',
     messagingSenderId: '160484421125',
     projectId: 'construction-95d49',
     storageBucket: 'construction-95d49.appspot.com',
     androidClientId: '160484421125-jash4lgb0k01vi47pl6bnjktt384lccc.apps.googleusercontent.com',
-    iosClientId: '160484421125-6js0tkktc1gufvcplh8l5f6ou2471nmq.apps.googleusercontent.com',
-    iosBundleId: 'com.integrated.designSprit',
-  );
-
-  static const FirebaseOptions macos = FirebaseOptions(
-    apiKey: 'AIzaSyAta9Sk0Ew119Jokn-YojQe0xYOOLzrox8',
-    appId: '1:160484421125:ios:52453c0f22dfaacedcb66c',
-    messagingSenderId: '160484421125',
-    projectId: 'construction-95d49',
-    storageBucket: 'construction-95d49.appspot.com',
-    androidClientId: '160484421125-jash4lgb0k01vi47pl6bnjktt384lccc.apps.googleusercontent.com',
-    iosClientId: '160484421125-6js0tkktc1gufvcplh8l5f6ou2471nmq.apps.googleusercontent.com',
-    iosBundleId: 'com.integrated.designSprit',
+    iosClientId: '160484421125-a8h9vu5p937sbk4l46fi6hn5anuiuvqm.apps.googleusercontent.com',
+    iosBundleId: 'com.example.designsprit',
   );
 }

@@ -4,6 +4,7 @@ import 'package:designsprit/core/utils/cache_helper.dart';
 import 'package:designsprit/core/utils/function/custom_snack_bar.dart';
 import 'package:designsprit/core/utils/strings.dart';
 import 'package:designsprit/core/utils/styles.dart';
+import 'package:designsprit/features/auth/login/presentation/cubit/login_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -19,9 +20,9 @@ class LoginViewBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<AuthCubit, AuthState>(
+    return BlocConsumer<LoginCubit, LoginState>(
       listener: (context, state) {
-        if (state is LoginLoading) {
+       /* if (state is LoginLoading) {
           isLoading = true;
         } else if (state is LoginSuccess) {
           CacheHelper.saveData(key: Constants.uuid, value: state.user?.uid);
@@ -30,7 +31,7 @@ class LoginViewBody extends StatelessWidget {
         } else if (state is LoginFailure) {
           isLoading = false;
           customSnackBar(context, state.error);
-        }
+        }*/
       },
       builder: (context, state) {
         return ModalProgressHUD(
@@ -51,15 +52,15 @@ class LoginViewBody extends StatelessWidget {
                   children: [
                     InkWell(
                       onTap: () {
-                        AuthCubit.get(context).changeCheckState();
+                        LoginCubit.get(context).changeCheckState();
                       },
                       child: Row(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           Checkbox(
-                            value: AuthCubit.get(context).checked,
+                            value: LoginCubit.get(context).checked,
                             onChanged: (value) {
-                              AuthCubit.get(context).changeCheckState();
+                              LoginCubit.get(context).changeCheckState();
                             },
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(10)),
@@ -105,9 +106,9 @@ class LoginViewBody extends StatelessWidget {
             ),
             floatingActionButton: FloatingActionButton(
               onPressed: () {
-                AuthCubit.get(context).login(
+                /*LoginCubit.get(context).login(
                     email: emailController.text,
-                    password: passwordController.text);
+                    password: passwordController.text);*/
               },
               child: const Icon(Icons.arrow_forward),
             ),

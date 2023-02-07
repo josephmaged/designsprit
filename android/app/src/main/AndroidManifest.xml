@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.designsprit">
+    package="com.integrated.designsprit">
    <application
         android:label="designsprit"
         android:name="${applicationName}"

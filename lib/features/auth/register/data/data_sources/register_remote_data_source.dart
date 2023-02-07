@@ -4,7 +4,7 @@ import 'package:designsprit/core/network/error_message_model.dart';
 import 'package:designsprit/features/auth/register/data/models/register_response_model.dart';
 import 'package:dio/dio.dart';
 
-abstract class BaseRegisterDataSource {
+abstract class BaseRegisterRemoteDataSource {
   Future<RegisterResponseModel> registerAPI();
 
   Future<RegisterResponseModel> registerWithApple();
@@ -14,7 +14,7 @@ abstract class BaseRegisterDataSource {
   Future<RegisterResponseModel> registerWithFacebook();
 }
 
-class RegisterDataSource extends BaseRegisterDataSource {
+class RegisterRemoteDataSource extends BaseRegisterRemoteDataSource {
   @override
   Future<RegisterResponseModel> registerAPI() async {
     final response = await Dio().get(ApiConst.registerPath);

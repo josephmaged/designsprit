@@ -5,6 +5,7 @@ import 'package:designsprit/core/utils/function/custom_snack_bar.dart';
 import 'package:designsprit/core/utils/strings.dart';
 import 'package:designsprit/core/utils/styles.dart';
 import 'package:designsprit/core/widgets/social_button.dart';
+import 'package:designsprit/features/auth/login/presentation/cubit/login_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -20,9 +21,9 @@ class LoginForm extends StatelessWidget {
 
   @override
   Widget build(BuildContext buildContext) {
-    return BlocConsumer<AuthCubit, AuthState>(
+    return BlocConsumer<LoginCubit, LoginState>(
       listener: (context, state) {
-        if (state is LoginLoading) {
+       /* if (state is LoginLoading) {
           isLoading = true;
         } else if (state is LoginSuccess) {
           CacheHelper.saveData(key: "uuid", value: state.user?.uid).then((value) {
@@ -34,7 +35,7 @@ class LoginForm extends StatelessWidget {
         } else if (state is LoginFailure) {
           isLoading = false;
           customSnackBar(context, state.error);
-        }
+        }*/
       },
       builder: (context, state) => GestureDetector(
         onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
@@ -80,7 +81,7 @@ class LoginForm extends StatelessWidget {
                       TextFormField(
                         keyboardType: TextInputType.text,
                         controller: passwordController,
-                        obscureText: AuthCubit.get(context).isPassword,
+                        obscureText: LoginCubit.get(context).isPassword,
                         decoration: InputDecoration(
                           enabledBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(10),
@@ -91,9 +92,9 @@ class LoginForm extends StatelessWidget {
                           labelText: 'Password',
                           hintText: 'Enter your password',
                           suffixIcon: IconButton(
-                            icon: Icon(AuthCubit.get(context).suffix),
+                            icon: Icon(LoginCubit.get(context).suffix),
                             onPressed: () {
-                              AuthCubit.get(context).changePasswordVisibility();
+                              LoginCubit.get(context).changePasswordVisibility();
                             },
                           ),
                         ),
@@ -129,19 +130,19 @@ class LoginForm extends StatelessWidget {
                 Row(
                   children: [
                     SocialButton(MediaQuery.of(context).size, AssetsData.google, 'Google', () {
-                      AuthCubit.get(context).loginWithGoogle();
+                      //LoginCubit.get(context).loginWithGoogle();
                     }),
                     const SizedBox(
                       width: 5,
                     ),
                     SocialButton(MediaQuery.of(context).size, AssetsData.facebook, 'Facebook', () {
-                      AuthCubit.get(context).loginWithFacebook();
+                     // LoginCubit.get(context).loginWithFacebook();
                     }),
                     const SizedBox(
                       width: 5,
                     ),
                     SocialButton(MediaQuery.of(context).size, AssetsData.apple, 'Apple', () {
-                      AuthCubit.get(context).loginWithApple();
+                     // LoginCubit.get(context).loginWithApple();
                     }),
                   ],
                 ),

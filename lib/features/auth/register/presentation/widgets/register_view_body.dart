@@ -1,7 +1,7 @@
-import 'package:design_sprit/core/utils/app_router.dart';
-import 'package:design_sprit/core/utils/function/launch_url.dart';
-import 'package:design_sprit/features/auth/presentation/cubit/auth_cubit.dart';
-import 'package:design_sprit/features/auth/presentation/views/register/widgets/register_form.dart';
+import 'package:designsprit/core/utils/app_router.dart';
+import 'package:designsprit/core/utils/function/launch_url.dart';
+import 'package:designsprit/features/auth/register/presentation/cubit/register_cubit.dart';
+import 'package:designsprit/features/auth/register/presentation/widgets/register_form.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -20,20 +20,20 @@ class RegisterViewBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<AuthCubit, AuthState>(
+    return BlocConsumer<RegisterCubit, RegisterState>(
       listener: (context, state) {
-        if (state is RegisterLoading) {
+        /* if (state is RegisterLoading) {
           isLoading = true;
         } else {
           isLoading = false;
-        }
+        }*/
       },
       builder: (context, state) {
         return ModalProgressHUD(
           dismissible: false,
           inAsyncCall: isLoading,
           child: Scaffold(
-            appBar: AppBar(elevation: 0,backgroundColor: Colors.white),
+            appBar: AppBar(elevation: 0, backgroundColor: Colors.white),
             body: RegisterForm(
                 nameController: nameController,
                 emailController: emailController,
@@ -72,15 +72,12 @@ class RegisterViewBody extends StatelessWidget {
             ),
             floatingActionButton: FloatingActionButton(
               onPressed: () {
-                AuthCubit.get(context).register(
-                    name: nameController.text,
-                    email: emailController.text,
-                    password: passwordController.text);
+                RegisterCubit.get(context).register(
+                    name: nameController.text, email: emailController.text, password: passwordController.text);
               },
               child: const Icon(Icons.arrow_forward),
             ),
-            floatingActionButtonLocation:
-                FloatingActionButtonLocation.endDocked,
+            floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
           ),
         );
       },
@@ -91,33 +88,39 @@ class RegisterViewBody extends StatelessWidget {
     return Container(
       alignment: Alignment.center,
       child: Center(
-          child: Text.rich(
-              textAlign: TextAlign.center,
+        child: Text.rich(
+          textAlign: TextAlign.center,
+          TextSpan(
+            text: 'By continuing, you agree to our ',
+            children: <TextSpan>[
               TextSpan(
-                  text: 'By continuing, you agree to our ',
-                  children: <TextSpan>[
-                    TextSpan(
-                        text: 'Terms of Service \n',
-                        style: const TextStyle(
-                          fontSize: 16,
-                          decoration: TextDecoration.underline,
-                        ),
-                        recognizer: TapGestureRecognizer()
-                          ..onTap = () {
-                            // code to open / launch terms of service link here
-                          }),
-                    TextSpan(text: 'and ', children: <TextSpan>[
-                      TextSpan(
-                          text: 'Privacy Policy',
-                          style: const TextStyle(
-                              decoration: TextDecoration.underline),
-                          recognizer: TapGestureRecognizer()
-                            ..onTap = () {
-                              launchCustomUr(context,
-                                  'https://policies.google.com/terms?hl=en-EG&fg=1');
-                            }),
-                    ]),
-                  ]))),
+                text: 'Terms of Service \n',
+                style: const TextStyle(
+                  fontSize: 16,
+                  decoration: TextDecoration.underline,
+                ),
+                recognizer: TapGestureRecognizer()
+                  ..onTap = () {
+                    // code to open / launch terms of service link here
+                  },
+              ),
+              TextSpan(
+                text: 'and ',
+                children: <TextSpan>[
+                  TextSpan(
+                    text: 'Privacy Policy',
+                    style: const TextStyle(decoration: TextDecoration.underline),
+                    recognizer: TapGestureRecognizer()
+                      ..onTap = () {
+                        launchCustomUr(context, 'https://policies.google.com/terms?hl=en-EG&fg=1');
+                      },
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ),
+      ),
     );
   }
 }
