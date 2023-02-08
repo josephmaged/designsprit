@@ -21,7 +21,7 @@ void setupServiceLocator() {
 
   /// BLOC
   getIt.registerFactory(() => LoginCubit());
-  getIt.registerFactory(() => RegisterCubit());
+  getIt.registerFactory(() => RegisterCubit(getIt()));
 
   /// USE CASES
   getIt.registerSingleton(() => RegisterApi(getIt()));

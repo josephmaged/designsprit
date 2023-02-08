@@ -3,18 +3,22 @@ import 'package:designsprit/core/network/api_const.dart';
 import 'package:designsprit/core/network/error_message_model.dart';
 import 'package:designsprit/features/auth/register/data/models/register_response_model.dart';
 import 'package:dio/dio.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 abstract class BaseRegisterRemoteDataSource {
   Future<RegisterResponseModel> registerAPI();
 
   Future<RegisterResponseModel> registerWithApple();
 
-  Future<RegisterResponseModel> registerWithGoogle();
+  Future<UserCredential> registerWithGoogle();
 
   Future<RegisterResponseModel> registerWithFacebook();
 }
 
 class RegisterRemoteDataSource extends BaseRegisterRemoteDataSource {
+  late FirebaseAuth auth;
+
   @override
   Future<RegisterResponseModel> registerAPI() async {
     final response = await Dio().get(ApiConst.registerPath);
@@ -40,8 +44,15 @@ class RegisterRemoteDataSource extends BaseRegisterRemoteDataSource {
   }
 
   @override
-  Future<RegisterResponseModel> registerWithGoogle() {
-    // TODO: implement registerWithGoogle
-    throw UnimplementedError();
+  Future<UserCredential> registerWithGoogle() async {
+    final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+
+    final GoogleSignInAuthentication? googleAuth = await googleUser?.authentication;
+    final credential = GoogleAuthProvider.credential(
+      accessToken: googleAuth?.accessToken,
+      idToken: googleAuth?.idToken,
+    );
+    var user = await auth.signInWithCredential(credential);
+    return user;
   }
 }

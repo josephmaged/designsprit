@@ -4,6 +4,7 @@ import 'package:designsprit/core/errors/failures.dart';
 import 'package:designsprit/features/auth/register/data/data_sources/register_remote_data_source.dart';
 import 'package:designsprit/features/auth/register/domain/entities/register_response.dart';
 import 'package:designsprit/features/auth/register/domain/repositories/base_register_repo.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class RegisterRepo extends BaseRegisterRepo {
   final BaseRegisterRemoteDataSource baseRegisterDataSource;
@@ -44,7 +45,7 @@ class RegisterRepo extends BaseRegisterRepo {
   }
 
   @override
-  Future<Either<Failure, RegisterResponse>> registerWithGoogle() async {
+  Future<Either<Failure, UserCredential>> registerWithGoogle() async {
     final result = await baseRegisterDataSource.registerWithGoogle();
 
     try {
