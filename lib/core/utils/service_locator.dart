@@ -7,41 +7,41 @@ import 'package:designsprit/features/auth/register/domain/use_cases/register_wit
 import 'package:designsprit/features/auth/register/domain/use_cases/register_with_facebook.dart';
 import 'package:designsprit/features/auth/register/domain/use_cases/register_with_google.dart';
 import 'package:designsprit/features/auth/register/presentation/cubit/register_cubit.dart';
-import 'package:dio/dio.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:get_it/get_it.dart';
 
 import 'api_service.dart';
 
-final getIt = GetIt.instance;
+final sl = GetIt.instance;
 
-void setupServiceLocator() {
-  getIt.registerSingleton<ApiService>(ApiService(Dio()));
-
-  /// BLOC
-  getIt.registerFactory(() => LoginCubit());
-  getIt.registerFactory(() => RegisterCubit(getIt()));
-
-  /// USE CASES
-  getIt.registerSingleton(() => RegisterApi(getIt()));
-  getIt.registerSingleton(() => RegisterWithApple(getIt()));
-  getIt.registerSingleton(() => RegisterWithGoogle(getIt()));
-  getIt.registerSingleton(() => RegisterWithFacebook(getIt()));
-
-  /// Repository
-  getIt.registerLazySingleton<BaseRegisterRepo>(() => RegisterRepo(getIt()));
-
-  /// DATA SOURCE
-  getIt.registerLazySingleton<BaseRegisterRemoteDataSource>(() => RegisterRemoteDataSource());
+class SetupServiceLocator {
+  void init(){
+    //getIt.registerSingleton<ApiService>(ApiService(Dio()));
 
 
-  getIt.registerSingleton<FirebaseAuth>(FirebaseAuth.instance);
-  getIt.registerSingleton<FacebookAuth>(FacebookAuth.instance);
+    /// BLOC
+    sl.registerFactory(() => LoginCubit());
+    sl.registerFactory(() => RegisterCubit(sl(),sl()));
 
-  /*getIt.registerSingleton<AuthRepoImpl>(AuthRepoImpl(
-    getIt<FirebaseAuth>(),
-    getIt<FacebookAuth>(),
-    getIt.get<ApiService>(),
+    /// USE CASES
+    sl.registerLazySingleton(() => RegisterApiUsecase(sl()));
+    sl.registerLazySingleton(() => RegisterWithAppleUsecase(sl()));
+    sl.registerLazySingleton(() => RegisterWithGoogleUsecase(sl()));
+    sl.registerLazySingleton(() => RegisterWithFacebookUsecase(sl()));
+
+    /// Repository
+    sl.registerLazySingleton<BaseRegisterRepo>(() => RegisterRepo(sl()));
+
+    /// DATA SOURCE
+    sl.registerLazySingleton<BaseRegisterRemoteDataSource>(() => RegisterRemoteDataSource());
+
+
+/*    sl.registerSingleton<FirebaseAuth>(FirebaseAuth.instance);
+    sl.registerSingleton<FacebookAuth>(FacebookAuth.instance);*/
+
+    /*sl.registerSingleton<AuthRepoImpl>(AuthRepoImpl(
+    sl<FirebaseAuth>(),
+    sl<FacebookAuth>(),
+    sl.get<ApiService>(),
   ));*/
+  }
 }

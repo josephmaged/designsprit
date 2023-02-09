@@ -4,6 +4,7 @@ import 'package:designsprit/core/errors/failures.dart';
 import 'package:designsprit/features/auth/register/data/data_sources/register_remote_data_source.dart';
 import 'package:designsprit/features/auth/register/domain/entities/register_response.dart';
 import 'package:designsprit/features/auth/register/domain/repositories/base_register_repo.dart';
+import 'package:designsprit/features/auth/register/domain/use_cases/register_API.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class RegisterRepo extends BaseRegisterRepo {
@@ -12,8 +13,8 @@ class RegisterRepo extends BaseRegisterRepo {
   RegisterRepo(this.baseRegisterDataSource);
 
   @override
-  Future<Either<Failure, RegisterResponse>> registerAPI() async {
-    final result = await baseRegisterDataSource.registerAPI();
+  Future<Either<Failure, RegisterResponse>> registerAPI(RegisterApiParameters parameters) async {
+    final result = await baseRegisterDataSource.registerAPI(parameters);
 
     try {
       return Right(result);

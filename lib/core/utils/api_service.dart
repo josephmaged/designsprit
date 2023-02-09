@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-
+/*
 class ApiService {
   final _baseUrl = 'https://10.10.100.116:45455/api/';
   final Dio _dio;
@@ -17,4 +17,4 @@ class ApiService {
 
     return response.extra;
   }
-}
+}*/

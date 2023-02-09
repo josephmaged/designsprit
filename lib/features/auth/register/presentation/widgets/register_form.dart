@@ -2,6 +2,7 @@ import 'package:designsprit/core/utils/app_router.dart';
 import 'package:designsprit/core/utils/assets.dart';
 import 'package:designsprit/core/utils/cache_helper.dart';
 import 'package:designsprit/core/utils/function/custom_snack_bar.dart';
+import 'package:designsprit/core/utils/service_locator.dart';
 import 'package:designsprit/core/utils/strings.dart';
 import 'package:designsprit/core/utils/styles.dart';
 import 'package:designsprit/core/widgets/social_button.dart';
@@ -31,7 +32,7 @@ class RegisterForm extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocConsumer<RegisterCubit, RegisterState>(
       listener: (context, state) {
-      /*  if (state is RegisterLoading) {
+        /*  if (state is RegisterLoading) {
           isLoading = true;
         } else if (state is RegisterSuccess) {
           CacheHelper.saveData(key: "uuid", value: state.user?.data?.id);
@@ -114,7 +115,9 @@ class RegisterForm extends StatelessWidget {
                             labelText: 'Password',
                             hintText: 'Enter your password',
                             suffixIcon: IconButton(
-                              icon: Icon(RegisterCubit.get(context).suffix),
+                              icon: RegisterCubit.get(context).isPassword == true
+                                  ? const Icon(Icons.visibility_off_outlined)
+                                  : const Icon(Icons.visibility_outlined),
                               onPressed: () {
                                 RegisterCubit.get(context).changePasswordVisibility();
                               },
@@ -133,19 +136,19 @@ class RegisterForm extends StatelessWidget {
                         Row(
                           children: [
                             SocialButton(MediaQuery.of(context).size, AssetsData.google, 'Google', () {
-                             // RegisterCubit.get(context).loginWithGoogle();
+                              RegisterCubit.get(context).registerWithGoogle();
                             }),
                             const SizedBox(
                               width: 5,
                             ),
                             SocialButton(MediaQuery.of(context).size, AssetsData.facebook, 'Facebook', () {
-                             // RegisterCubit.get(context).loginWithFacebook();
+                              // RegisterCubit.get(context).loginWithFacebook();
                             }),
                             const SizedBox(
                               width: 5,
                             ),
                             SocialButton(MediaQuery.of(context).size, AssetsData.apple, 'Apple', () {
-                             // RegisterCubit.get(context).loginWithApple();
+                              // RegisterCubit.get(context).loginWithApple();
                             }),
                           ],
                         ),

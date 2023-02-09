@@ -5,10 +5,10 @@ import 'package:designsprit/features/auth/register/domain/entities/register_resp
 import 'package:designsprit/features/auth/register/domain/repositories/base_register_repo.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
-class RegisterWithGoogle extends BaseUseCase<UserCredential, NoParameters> {
+class RegisterWithGoogleUsecase extends BaseUseCase<UserCredential, NoParameters> {
   final BaseRegisterRepo baseRegisterRepo;
 
-  RegisterWithGoogle(this.baseRegisterRepo);
+  RegisterWithGoogleUsecase(this.baseRegisterRepo);
 
   @override
   Future<Either<Failure, UserCredential>> call(NoParameters noParameters) async {

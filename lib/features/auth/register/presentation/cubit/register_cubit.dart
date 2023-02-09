@@ -1,18 +1,21 @@
 import 'package:bloc/bloc.dart';
-import 'package:designsprit/core/utils/api_response.dart';
+import 'package:designsprit/core/usecase/base_usecase.dart';
 import 'package:designsprit/core/utils/enum.dart';
 import 'package:designsprit/features/auth/register/domain/entities/register_response.dart';
 import 'package:designsprit/features/auth/register/domain/use_cases/register_API.dart';
+import 'package:designsprit/features/auth/register/domain/use_cases/register_with_google.dart';
 import 'package:equatable/equatable.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 part 'register_state.dart';
 
 class RegisterCubit extends Cubit<RegisterState> {
-  final RegisterApi registerApi;
+  final RegisterApiUsecase registerApi;
+  final RegisterWithGoogleUsecase registerWithGoogleUsecase;
 
-  RegisterCubit(this.registerApi) : super(RegisterState());
+  RegisterCubit(this.registerApi, this.registerWithGoogleUsecase) : super(const RegisterState());
 
   static RegisterCubit get(context) => BlocProvider.of(context);
 
@@ -40,13 +43,25 @@ class RegisterCubit extends Cubit<RegisterState> {
     });
   }
 
-  IconData suffix = Icons.visibility_outlined;
+  Future<void> registerWithGoogle() async {
+    final result = await registerWithGoogleUsecase(const NoParameters());
+    result.fold((l) {
+      emit(state.copyWith(
+        requestState: RequestState.error,
+        registerMessage: l.errMessage
+      ));
+    }, (r) {
+      emit(state.copyWith(
+        userCredential: r,
+        requestState: RequestState.loaded
+      ));
+    });
+  }
+
   bool isPassword = true;
 
   void changePasswordVisibility() {
     isPassword = !isPassword;
-    suffix = isPassword ? Icons.visibility_outlined : Icons.visibility_off_outlined;
-
     emit(RegisterChangePasswordVisibilityState());
   }
 

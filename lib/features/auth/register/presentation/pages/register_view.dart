@@ -1,4 +1,5 @@
 import 'package:designsprit/features/auth/register/presentation/widgets/register_view_body.dart';
+
 import 'package:flutter/material.dart';
 
 class RegisterView extends StatelessWidget {

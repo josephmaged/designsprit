@@ -2,12 +2,13 @@ import 'package:designsprit/core/errors/exceptions.dart';
 import 'package:designsprit/core/network/api_const.dart';
 import 'package:designsprit/core/network/error_message_model.dart';
 import 'package:designsprit/features/auth/register/data/models/register_response_model.dart';
+import 'package:designsprit/features/auth/register/domain/use_cases/register_API.dart';
 import 'package:dio/dio.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 abstract class BaseRegisterRemoteDataSource {
-  Future<RegisterResponseModel> registerAPI();
+  Future<RegisterResponseModel> registerAPI(RegisterApiParameters parameters);
 
   Future<RegisterResponseModel> registerWithApple();
 
@@ -20,7 +21,7 @@ class RegisterRemoteDataSource extends BaseRegisterRemoteDataSource {
   late FirebaseAuth auth;
 
   @override
-  Future<RegisterResponseModel> registerAPI() async {
+  Future<RegisterResponseModel> registerAPI(RegisterApiParameters parameters) async {
     final response = await Dio().get(ApiConst.registerPath);
     if (response.statusCode == 200) {
       return (response.data['data']).map((e) => RegisterResponseModel.fromJson(e));

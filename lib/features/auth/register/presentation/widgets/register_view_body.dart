@@ -1,5 +1,6 @@
 import 'package:designsprit/core/utils/app_router.dart';
 import 'package:designsprit/core/utils/function/launch_url.dart';
+import 'package:designsprit/core/utils/service_locator.dart';
 import 'package:designsprit/features/auth/register/presentation/cubit/register_cubit.dart';
 import 'package:designsprit/features/auth/register/presentation/widgets/register_form.dart';
 import 'package:flutter/gestures.dart';
@@ -72,8 +73,8 @@ class RegisterViewBody extends StatelessWidget {
             ),
             floatingActionButton: FloatingActionButton(
               onPressed: () {
-                RegisterCubit.get(context).register(
-                    name: nameController.text, email: emailController.text, password: passwordController.text);
+              /*  RegisterCubit.get(context).register(
+                    name: nameController.text, email: emailController.text, password: passwordController.text);*/
               },
               child: const Icon(Icons.arrow_forward),
             ),

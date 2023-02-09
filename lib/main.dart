@@ -3,6 +3,8 @@ import 'package:designsprit/core/utils/app_router.dart';
 import 'package:designsprit/core/utils/bloc_observer.dart';
 import 'package:designsprit/core/utils/cache_helper.dart';
 import 'package:designsprit/core/utils/service_locator.dart';
+import 'package:designsprit/features/auth/register/presentation/cubit/register_cubit.dart';
+import 'package:designsprit/features/home/presentation/cubit/home_cubit.dart';
 import 'package:designsprit/firebase_options.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -11,12 +13,12 @@ import 'package:google_fonts/google_fonts.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  SetupServiceLocator().init();
   Bloc.observer = MyBlocObserver();
 
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  setupServiceLocator();
   await CacheHelper.init();
 
   runApp(const MyApp());
@@ -28,15 +30,8 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
-      providers: const [
-       /* BlocProvider(
-          create: (context) => AuthCubit(
-            getIt.get<AuthRepoImpl>(),
-          ),
-        ),*/
-        // BlocProvider(
-        //   create: (context) => HomeCubit(),
-        // ),
+      providers: [
+        BlocProvider(create: (context) => RegisterCubit(sl(),sl())),
       ],
       child: MaterialApp.router(
         routerConfig: AppRouter.router,
@@ -52,8 +47,7 @@ class MyApp extends StatelessWidget {
               selectedIconTheme: IconThemeData(color: Colors.white),
               selectedItemColor: Colors.white,
               type: BottomNavigationBarType.fixed),
-          textTheme:
-              GoogleFonts.montserratTextTheme(ThemeData.light().textTheme),
+          textTheme: GoogleFonts.montserratTextTheme(ThemeData.light().textTheme),
         ),
       ),
     );

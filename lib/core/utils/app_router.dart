@@ -1,4 +1,3 @@
-
 import 'package:designsprit/features/auth/login/presentation/pages/login_view.dart';
 import 'package:designsprit/features/auth/register/presentation/pages/register_view.dart';
 import 'package:designsprit/features/home/presentation/pages/home_view.dart';
@@ -35,7 +34,7 @@ abstract class AppRouter {
       ),
       GoRoute(
         path: kRegisterView,
-        builder: (context, state) => const RegisterView(),
+        builder: (context, state) => RegisterView(),
       )
       // GoRoute(
       //   path: kBookDetailsView,
