@@ -2,6 +2,7 @@ import 'package:designsprit/constants.dart';
 import 'package:designsprit/core/utils/assets.dart';
 import 'package:designsprit/core/utils/cache_helper.dart';
 import 'package:designsprit/core/utils/function/custom_snack_bar.dart';
+import 'package:designsprit/core/utils/service_locator.dart';
 import 'package:designsprit/core/utils/strings.dart';
 import 'package:designsprit/core/utils/styles.dart';
 import 'package:designsprit/core/widgets/social_button.dart';
@@ -17,13 +18,17 @@ class LoginForm extends StatelessWidget {
 
   TextEditingController passwordController;
 
-  LoginForm(this.emailController, this.passwordController);
+  LoginForm({
+    required this.emailController,
+    required this.passwordController,
+    super.key,
+  });
 
   @override
-  Widget build(BuildContext buildContext) {
+  Widget build(BuildContext context) {
     return BlocConsumer<LoginCubit, LoginState>(
       listener: (context, state) {
-       /* if (state is LoginLoading) {
+        /* if (state is LoginLoading) {
           isLoading = true;
         } else if (state is LoginSuccess) {
           CacheHelper.saveData(key: "uuid", value: state.user?.uid).then((value) {
@@ -92,7 +97,9 @@ class LoginForm extends StatelessWidget {
                           labelText: 'Password',
                           hintText: 'Enter your password',
                           suffixIcon: IconButton(
-                            icon: Icon(LoginCubit.get(context).suffix),
+                            icon: LoginCubit.get(context).isPassword == true
+                                ? const Icon(Icons.visibility_off_outlined)
+                                : const Icon(Icons.visibility_outlined),
                             onPressed: () {
                               LoginCubit.get(context).changePasswordVisibility();
                             },
@@ -136,13 +143,13 @@ class LoginForm extends StatelessWidget {
                       width: 5,
                     ),
                     SocialButton(MediaQuery.of(context).size, AssetsData.facebook, 'Facebook', () {
-                     // LoginCubit.get(context).loginWithFacebook();
+                      // LoginCubit.get(context).loginWithFacebook();
                     }),
                     const SizedBox(
                       width: 5,
                     ),
                     SocialButton(MediaQuery.of(context).size, AssetsData.apple, 'Apple', () {
-                     // LoginCubit.get(context).loginWithApple();
+                      // LoginCubit.get(context).loginWithApple();
                     }),
                   ],
                 ),

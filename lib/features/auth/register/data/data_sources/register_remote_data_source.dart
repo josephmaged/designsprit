@@ -22,7 +22,7 @@ class RegisterRemoteDataSource extends BaseRegisterRemoteDataSource {
 
   @override
   Future<RegisterResponseModel> registerAPI(RegisterApiParameters parameters) async {
-    final response = await Dio().get(ApiConst.registerPath);
+    final response = await Dio().post(ApiConst.registerPath, data: {parameters});
     if (response.statusCode == 200) {
       return (response.data['data']).map((e) => RegisterResponseModel.fromJson(e));
     } else {

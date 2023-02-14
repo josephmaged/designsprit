@@ -59,16 +59,21 @@ class RegisterCubit extends Cubit<RegisterState> {
   }
 
   bool isPassword = true;
-
   void changePasswordVisibility() {
     isPassword = !isPassword;
-    emit(RegisterChangePasswordVisibilityState());
+    emit(state.copyWith(
+        isPassword : isPassword
+    ));
   }
 
   bool checked = false;
 
   void changeCheckState() {
     checked = !checked;
-    emit(RegisterChangeRememberMeState());
+    emit(
+      state.copyWith(
+        checkState: checked
+      )
+    );
   }
 }

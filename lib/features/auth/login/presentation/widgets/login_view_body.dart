@@ -39,7 +39,7 @@ class LoginViewBody extends StatelessWidget {
           inAsyncCall: isLoading,
           child: Scaffold(
             appBar: AppBar(elevation: 0,backgroundColor: Colors.white),
-            body: LoginForm(emailController, passwordController),
+            body: LoginForm(emailController: emailController, passwordController: passwordController),
             bottomNavigationBar: BottomAppBar(
               surfaceTintColor: kPrimaryColor,
               notchMargin: 8,

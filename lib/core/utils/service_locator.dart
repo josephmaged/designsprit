@@ -1,3 +1,10 @@
+import 'package:designsprit/features/auth/login/data/data_sources/login_remote_data_source.dart';
+import 'package:designsprit/features/auth/login/data/repositories/login_repo.dart';
+import 'package:designsprit/features/auth/login/domain/repositories/base_login_repo.dart';
+import 'package:designsprit/features/auth/login/domain/use_cases/login_API.dart';
+import 'package:designsprit/features/auth/login/domain/use_cases/login_with_apple.dart';
+import 'package:designsprit/features/auth/login/domain/use_cases/login_with_facebook.dart';
+import 'package:designsprit/features/auth/login/domain/use_cases/login_with_google.dart';
 import 'package:designsprit/features/auth/login/presentation/cubit/login_cubit.dart';
 import 'package:designsprit/features/auth/register/data/data_sources/register_remote_data_source.dart';
 import 'package:designsprit/features/auth/register/data/repositories/register_repo.dart';
@@ -19,9 +26,10 @@ class SetupServiceLocator {
 
 
     /// BLOC
-    sl.registerFactory(() => LoginCubit());
+    sl.registerFactory(() => LoginCubit(sl(),sl()));
     sl.registerFactory(() => RegisterCubit(sl(),sl()));
 
+    /// Register
     /// USE CASES
     sl.registerLazySingleton(() => RegisterApiUsecase(sl()));
     sl.registerLazySingleton(() => RegisterWithAppleUsecase(sl()));
@@ -34,14 +42,17 @@ class SetupServiceLocator {
     /// DATA SOURCE
     sl.registerLazySingleton<BaseRegisterRemoteDataSource>(() => RegisterRemoteDataSource());
 
+    /// Login
+    /// USE CASES
+    sl.registerLazySingleton(() => LoginApiUsecase(sl()));
+    sl.registerLazySingleton(() => LoginWithAppleUsecase(sl()));
+    sl.registerLazySingleton(() => LoginWithGoogleUsecase(sl()));
+    sl.registerLazySingleton(() => LoginWithFacebookUsecase(sl()));
 
-/*    sl.registerSingleton<FirebaseAuth>(FirebaseAuth.instance);
-    sl.registerSingleton<FacebookAuth>(FacebookAuth.instance);*/
+    /// Repository
+    sl.registerLazySingleton<BaseLoginRepo>(() => LoginRepo(sl()));
 
-    /*sl.registerSingleton<AuthRepoImpl>(AuthRepoImpl(
-    sl<FirebaseAuth>(),
-    sl<FacebookAuth>(),
-    sl.get<ApiService>(),
-  ));*/
+    /// DATA SOURCE
+    sl.registerLazySingleton<BaseLoginRemoteDataSource>(() => LoginRemoteDataSource());
   }
 }

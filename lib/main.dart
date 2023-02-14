@@ -29,26 +29,21 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MultiBlocProvider(
-      providers: [
-        BlocProvider(create: (context) => RegisterCubit(sl(),sl())),
-      ],
-      child: MaterialApp.router(
-        routerConfig: AppRouter.router,
-        debugShowCheckedModeBanner: false,
-        themeMode: ThemeMode.light,
-        theme: ThemeData.light().copyWith(
-          floatingActionButtonTheme: const FloatingActionButtonThemeData(
-            backgroundColor: Colors.black,
-          ),
-          bottomNavigationBarTheme: const BottomNavigationBarThemeData(
-              backgroundColor: kPrimaryColor,
-              unselectedItemColor: kLightGrey,
-              selectedIconTheme: IconThemeData(color: Colors.white),
-              selectedItemColor: Colors.white,
-              type: BottomNavigationBarType.fixed),
-          textTheme: GoogleFonts.montserratTextTheme(ThemeData.light().textTheme),
+    return MaterialApp.router(
+      routerConfig: AppRouter.router,
+      debugShowCheckedModeBanner: false,
+      themeMode: ThemeMode.light,
+      theme: ThemeData.light().copyWith(
+        floatingActionButtonTheme: const FloatingActionButtonThemeData(
+          backgroundColor: Colors.black,
         ),
+        bottomNavigationBarTheme: const BottomNavigationBarThemeData(
+            backgroundColor: kPrimaryColor,
+            unselectedItemColor: kLightGrey,
+            selectedIconTheme: IconThemeData(color: Colors.white),
+            selectedItemColor: Colors.white,
+            type: BottomNavigationBarType.fixed),
+        textTheme: GoogleFonts.montserratTextTheme(ThemeData.light().textTheme),
       ),
     );
   }
