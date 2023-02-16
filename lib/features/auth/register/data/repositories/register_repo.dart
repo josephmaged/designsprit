@@ -5,6 +5,7 @@ import 'package:designsprit/features/auth/register/data/data_sources/register_re
 import 'package:designsprit/features/auth/register/domain/entities/register_response.dart';
 import 'package:designsprit/features/auth/register/domain/repositories/base_register_repo.dart';
 import 'package:designsprit/features/auth/register/domain/use_cases/register_API.dart';
+import 'package:designsprit/features/auth/register/domain/use_cases/register_with_email.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class RegisterRepo extends BaseRegisterRepo {
@@ -26,6 +27,16 @@ class RegisterRepo extends BaseRegisterRepo {
   @override
   Future<Either<Failure, RegisterResponse>> registerWithApple() async {
     final result = await baseRegisterDataSource.registerWithApple();
+
+    try {
+      return Right(result);
+    } on ServerException catch (failure) {
+      return Left(ServerFailure(failure.errorMessageModel.statusMessage));
+    }
+  }
+  @override
+  Future<Either<Failure, UserCredential>> registerWithEmail(RegisterEmailParameters parameters) async {
+    final result = await baseRegisterDataSource.registerWithEmail(parameters);
 
     try {
       return Right(result);

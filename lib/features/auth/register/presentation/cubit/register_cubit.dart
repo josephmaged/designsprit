@@ -15,19 +15,22 @@ class RegisterCubit extends Cubit<RegisterState> {
   final RegisterApiUsecase registerApi;
   final RegisterWithGoogleUsecase registerWithGoogleUsecase;
 
+
+  final nameController = TextEditingController();
+  final emailController = TextEditingController();
+  final passwordController = TextEditingController();
+  final phoneController = TextEditingController();
+
   RegisterCubit(this.registerApi, this.registerWithGoogleUsecase) : super(const RegisterState());
 
   static RegisterCubit get(context) => BlocProvider.of(context);
 
-  Future<void> register({
-    required String name,
-    required String email,
-    required String password,
-  }) async {
+  Future<void> register() async {
     final result = await registerApi(RegisterApiParameters(
-      name: name,
-      email: email,
-      password: password,
+      name: nameController.text,
+      email: emailController.text,
+      password: passwordController.text,
+      phone: phoneController.text,
     ));
 
     result.fold((l) {

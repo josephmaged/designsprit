@@ -25,7 +25,7 @@ class OnBoardingViewBody extends StatelessWidget {
           CacheHelper.saveData(key: Constants.isFirstTime, value: false)
               .then((value) {
             if (value!) {
-              GoRouter.of(context).pushReplacement(AppRouter.kHomeView);
+              GoRouter.of(context).pushReplacement(AppRouter.kRegisterView);
             }
           });
         },

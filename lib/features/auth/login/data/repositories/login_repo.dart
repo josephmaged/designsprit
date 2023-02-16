@@ -1,4 +1,3 @@
-
 import 'package:dartz/dartz.dart';
 import 'package:designsprit/core/errors/exceptions.dart';
 import 'package:designsprit/core/errors/failures.dart';
@@ -6,6 +5,7 @@ import 'package:designsprit/features/auth/login/data/data_sources/login_remote_d
 import 'package:designsprit/features/auth/login/domain/entities/login_response.dart';
 import 'package:designsprit/features/auth/login/domain/repositories/base_login_repo.dart';
 import 'package:designsprit/features/auth/login/domain/use_cases/login_API.dart';
+import 'package:designsprit/features/auth/login/domain/use_cases/login_with_email.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class LoginRepo extends BaseLoginRepo {
@@ -49,6 +49,17 @@ class LoginRepo extends BaseLoginRepo {
   @override
   Future<Either<Failure, UserCredential>> loginWithGoogle() async {
     final result = await baseLoginDataSource.loginWithGoogle();
+
+    try {
+      return Right(result);
+    } on ServerException catch (failure) {
+      return Left(ServerFailure(failure.errorMessageModel.statusMessage));
+    }
+  }
+
+  @override
+  Future<Either<Failure, UserCredential>> loginWithEmail(LoginEmailParameters parameters) async {
+    final result = await baseLoginDataSource.loginWithEmail(parameters);
 
     try {
       return Right(result);

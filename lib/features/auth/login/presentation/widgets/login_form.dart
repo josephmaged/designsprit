@@ -1,10 +1,14 @@
 import 'package:designsprit/constants.dart';
+import 'package:designsprit/core/utils/app_router.dart';
 import 'package:designsprit/core/utils/assets.dart';
 import 'package:designsprit/core/utils/cache_helper.dart';
 import 'package:designsprit/core/utils/function/custom_snack_bar.dart';
 import 'package:designsprit/core/utils/service_locator.dart';
 import 'package:designsprit/core/utils/strings.dart';
 import 'package:designsprit/core/utils/styles.dart';
+import 'package:designsprit/core/utils/validator.dart';
+import 'package:designsprit/core/widgets/custom_form_field.dart';
+import 'package:designsprit/core/widgets/custom_primary_button.dart';
 import 'package:designsprit/core/widgets/social_button.dart';
 import 'package:designsprit/features/auth/login/presentation/cubit/login_cubit.dart';
 import 'package:flutter/material.dart';
@@ -12,20 +16,16 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
 class LoginForm extends StatelessWidget {
+  final _formKey = GlobalKey<FormState>();
   bool isLoading = false;
 
-  TextEditingController emailController;
-
-  TextEditingController passwordController;
-
   LoginForm({
-    required this.emailController,
-    required this.passwordController,
     super.key,
   });
 
   @override
   Widget build(BuildContext context) {
+    var cubit = LoginCubit.get(context);
     return BlocConsumer<LoginCubit, LoginState>(
       listener: (context, state) {
         /* if (state is LoginLoading) {
@@ -44,9 +44,9 @@ class LoginForm extends StatelessWidget {
       },
       builder: (context, state) => GestureDetector(
         onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
-        child: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 50),
+          child: SingleChildScrollView(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
@@ -63,61 +63,62 @@ class LoginForm extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.only(top: 20),
                   child: Form(
-                      child: Column(
-                    children: [
-                      TextFormField(
-                        controller: emailController,
-                        decoration: InputDecoration(
-                          labelText: AppStrings.emailHint,
-                          hintText: 'Enter your Email',
-                          enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10),
-                            borderSide: const BorderSide(
-                              color: kPrimaryColor,
-                              width: 2,
-                            ),
-                          ),
+                    key: _formKey,
+                    child: Column(
+                      children: [
+                        CustomTextFormField(
+                          controller: cubit.emailController,
+                          validator: (value) => Validator.validateEmail(value),
+                          label: AppStrings.emailHint,
+                          errorMessage: "Please enter a valid email",
+                          textInputType: TextInputType.emailAddress,
                         ),
-                        keyboardType: TextInputType.emailAddress,
-                      ),
-                      const SizedBox(
-                        height: 12,
-                      ),
-                      TextFormField(
-                        keyboardType: TextInputType.text,
-                        controller: passwordController,
-                        obscureText: LoginCubit.get(context).isPassword,
-                        decoration: InputDecoration(
-                          enabledBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(10),
-                              borderSide: const BorderSide(
-                                color: kPrimaryColor,
-                                width: 2,
-                              )),
-                          labelText: 'Password',
-                          hintText: 'Enter your password',
-                          suffixIcon: IconButton(
-                            icon: LoginCubit.get(context).isPassword == true
+                        const SizedBox(
+                          height: 12,
+                        ),
+                        CustomTextFormField(
+                          controller: cubit.passwordController,
+                          validator: (value) => Validator.validatePassword(value),
+                          secure: cubit.isPassword,
+                          label: 'Password',
+                          errorMessage: "Please enter your password",
+                          textInputType: TextInputType.visiblePassword,
+                          suffixWidget: IconButton(
+                            icon: cubit.isPassword == true
                                 ? const Icon(Icons.visibility_off_outlined)
                                 : const Icon(Icons.visibility_outlined),
                             onPressed: () {
-                              LoginCubit.get(context).changePasswordVisibility();
+                              cubit.changePasswordVisibility();
                             },
                           ),
                         ),
-                      )
-                    ],
-                  )),
-                ),
-                Align(
-                  alignment: Alignment.bottomRight,
-                  child: TextButton(
-                      style: TextButton.styleFrom(minimumSize: const Size(50, 30), alignment: Alignment.centerLeft),
-                      onPressed: () {},
-                      child: const Text(
-                        AppStrings.forgetPassword,
-                        style: Styles.textStyle14,
-                      )),
+
+                        Align(
+                          alignment: Alignment.bottomRight,
+                          child: TextButton(
+                            style: TextButton.styleFrom(
+                                minimumSize: const Size(50, 30), alignment: Alignment.centerLeft),
+                            onPressed: () {},
+                            child: const Text(
+                              AppStrings.forgetPassword,
+                              style: Styles.textStyle14,
+                            ),
+                          ),
+                        ),
+                        const SizedBox(height: 20),
+                        CustomPrimaryButton(
+                          text: AppStrings.login,
+                          press: () {
+                            GoRouter.of(context).push(AppRouter.kMainScreenView);
+                            /* if (_formKey.currentState!.validate()) {
+                              cubit.login(uid: '');
+                            }*/
+                          },
+                        ),
+                        const SizedBox(height: 10),
+                      ],
+                    ),
+                  ),
                 ),
                 const SizedBox(height: 10),
                 Row(children: const <Widget>[
@@ -137,7 +138,7 @@ class LoginForm extends StatelessWidget {
                 Row(
                   children: [
                     SocialButton(MediaQuery.of(context).size, AssetsData.google, 'Google', () {
-                      //LoginCubit.get(context).loginWithGoogle();
+                      cubit.loginWithGoogle();
                     }),
                     const SizedBox(
                       width: 5,

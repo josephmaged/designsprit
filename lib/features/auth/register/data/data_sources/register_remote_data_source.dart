@@ -3,12 +3,15 @@ import 'package:designsprit/core/network/api_const.dart';
 import 'package:designsprit/core/network/error_message_model.dart';
 import 'package:designsprit/features/auth/register/data/models/register_response_model.dart';
 import 'package:designsprit/features/auth/register/domain/use_cases/register_API.dart';
+import 'package:designsprit/features/auth/register/domain/use_cases/register_with_email.dart';
 import 'package:dio/dio.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 abstract class BaseRegisterRemoteDataSource {
   Future<RegisterResponseModel> registerAPI(RegisterApiParameters parameters);
+
+  Future<UserCredential> registerWithEmail(RegisterEmailParameters parameters);
 
   Future<RegisterResponseModel> registerWithApple();
 
@@ -54,6 +57,13 @@ class RegisterRemoteDataSource extends BaseRegisterRemoteDataSource {
       idToken: googleAuth?.idToken,
     );
     var user = await auth.signInWithCredential(credential);
+    return user;
+  }
+
+  @override
+  Future<UserCredential> registerWithEmail(RegisterEmailParameters parameters) async {
+    final user = await FirebaseAuth.instance
+        .createUserWithEmailAndPassword(email: parameters.email, password: parameters.password);
     return user;
   }
 }

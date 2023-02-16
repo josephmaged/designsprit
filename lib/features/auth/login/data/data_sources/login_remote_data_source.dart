@@ -3,6 +3,7 @@ import 'package:designsprit/core/network/api_const.dart';
 import 'package:designsprit/core/network/error_message_model.dart';
 import 'package:designsprit/features/auth/login/data/models/login_response_model.dart';
 import 'package:designsprit/features/auth/login/domain/use_cases/login_API.dart';
+import 'package:designsprit/features/auth/login/domain/use_cases/login_with_email.dart';
 import 'package:dio/dio.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -13,6 +14,8 @@ abstract class BaseLoginRemoteDataSource {
   Future<LoginResponseModel> loginWithApple();
 
   Future<UserCredential> loginWithGoogle();
+
+  Future<UserCredential> loginWithEmail(LoginEmailParameters parameters);
 
   Future<LoginResponseModel> loginWithFacebook();
 }
@@ -56,5 +59,14 @@ class LoginRemoteDataSource extends BaseLoginRemoteDataSource {
     );
     var user = await auth.signInWithCredential(credential);
     return user;
+  }
+
+  @override
+  Future<UserCredential> loginWithEmail(LoginEmailParameters parameters) async {
+   final user = await FirebaseAuth.instance.signInWithEmailAndPassword(
+     email: parameters.email,
+     password: parameters.password
+   );
+   return user;
   }
 }

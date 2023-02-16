@@ -20,9 +20,15 @@ class RegisterApiParameters extends Equatable {
   final String name;
   final String email;
   final String password;
+  final String phone;
 
-  const RegisterApiParameters({required this.name, required this.email, required this.password});
+  const RegisterApiParameters({
+    required this.name,
+    required this.email,
+    required this.password,
+    required this.phone,
+  });
 
   @override
-  List<Object?> get props => [name, email, password];
+  List<Object?> get props => [name, email, password, phone];
 }

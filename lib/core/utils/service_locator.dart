@@ -20,6 +20,7 @@ import 'package:designsprit/features/home/domain/repositories/base_home_repo.dar
 import 'package:designsprit/features/home/domain/use_cases/home_categories_use_case.dart';
 import 'package:designsprit/features/home/domain/use_cases/home_populars_use_case.dart';
 import 'package:designsprit/features/home/presentation/cubit/home_cubit.dart';
+import 'package:designsprit/features/main_screen/cubit/main_screen_cubit.dart';
 import 'package:get_it/get_it.dart';
 
 import 'api_service.dart';
@@ -27,13 +28,14 @@ import 'api_service.dart';
 final sl = GetIt.instance;
 
 class SetupServiceLocator {
-  void init(){
+  void init() {
     //getIt.registerSingleton<ApiService>(ApiService(Dio()));
 
-
     /// BLOC
-    sl.registerFactory(() => LoginCubit(sl(),sl()));
-    sl.registerFactory(() => RegisterCubit(sl(),sl()));
+    sl.registerFactory(() => LoginCubit(sl(), sl()));
+    sl.registerFactory(() => RegisterCubit(sl(), sl()));
+    sl.registerFactory(() => MainScreenCubit());
+    sl.registerFactory(() => HomeCubit(sl(), sl()));
 
     /// Register
     /// USE CASES
@@ -62,20 +64,14 @@ class SetupServiceLocator {
     sl.registerLazySingleton<BaseLoginRemoteDataSource>(() => LoginRemoteDataSource());
 
     /// Home
-    /// Bloc
-    sl.registerFactory(() => HomeCubit(sl(),sl()));
-
     /// USE CASES
     sl.registerLazySingleton(() => HomeCategoriesUseCase(sl()));
     sl.registerLazySingleton(() => HomePopularsUseCase(sl()));
-
 
     /// Repository
     sl.registerLazySingleton<BaseHomeRepo>(() => HomeRepo(sl()));
 
     /// DATA SOURCE
     sl.registerLazySingleton<BaseHomeRemoteDataSource>(() => HomeRemoteDataSource());
-
-
   }
 }

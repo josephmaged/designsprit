@@ -15,29 +15,8 @@ class HomeView extends StatelessWidget {
     return BlocConsumer<HomeCubit, HomeState>(
       listener: (context, state) {},
       builder: (context, state) {
-        return Scaffold(
-          appBar: CustomAppBar(
-            tittle: 'Home',
-            color: kPrimaryColor,
-          ),
-          body: const HomeViewBody(),
-          bottomNavigationBar: BottomNavigationBar(
-            onTap: (index) {
-              HomeCubit.get(context).changeIndex(index);
-            },
-            currentIndex: HomeCubit.get(context).currentIndex,
-            items: HomeCubit.get(context).bottomItems,
-          ),
-          floatingActionButton: FloatingActionButton(
-            backgroundColor: Colors.black,
-            shape: const StadiumBorder(
-                side: BorderSide(color: Colors.white, width: 4)),
-            onPressed: () {
-            },
-            child: const Icon(Icons.add),
-          ),
-          floatingActionButtonLocation:
-              FloatingActionButtonLocation.centerDocked,
+        return const Scaffold(
+          body: HomeViewBody(),
         );
       },
     );

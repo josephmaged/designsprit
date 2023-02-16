@@ -16,6 +16,9 @@ class LoginCubit extends Cubit<LoginState> {
   final LoginApiUsecase loginApi;
   final LoginWithGoogleUsecase loginWithGoogleUsecase;
 
+  final emailController = TextEditingController();
+  final passwordController = TextEditingController();
+
   LoginCubit(this.loginApi, this.loginWithGoogleUsecase) : super(const LoginState());
 
   static LoginCubit get(context) => BlocProvider.of(context);

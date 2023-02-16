@@ -1,4 +1,5 @@
 import 'package:designsprit/core/utils/app_router.dart';
+import 'package:designsprit/core/utils/enum.dart';
 import 'package:designsprit/core/utils/function/launch_url.dart';
 import 'package:designsprit/core/utils/service_locator.dart';
 import 'package:designsprit/features/auth/register/presentation/cubit/register_cubit.dart';
@@ -13,10 +14,6 @@ import '../../../../../../constants.dart';
 import '../../../../../../core/utils/strings.dart';
 
 class RegisterViewBody extends StatelessWidget {
-  final nameController = TextEditingController();
-  final emailController = TextEditingController();
-
-  final passwordController = TextEditingController();
   bool isLoading = false;
 
   @override
@@ -28,57 +25,22 @@ class RegisterViewBody extends StatelessWidget {
         } else {
           isLoading = false;
         }*/
+        if (state.requestState == RequestState.loading) {}
       },
       builder: (context, state) {
         return ModalProgressHUD(
           dismissible: false,
           inAsyncCall: isLoading,
           child: Scaffold(
-            appBar: AppBar(elevation: 0, backgroundColor: Colors.white),
-            body: RegisterForm(
-                nameController: nameController,
-                emailController: emailController,
-                passwordController: passwordController),
+            body: RegisterForm(),
             bottomNavigationBar: BottomAppBar(
-              surfaceTintColor: kPrimaryColor,
-              notchMargin: 8,
               color: kPrimaryColor,
-              height: 200,
-              child: SizedBox(
-                height: 200,
-                child: Padding(
-                  padding: const EdgeInsets.all(10.0),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      privacyPolicyLinkAndTermsOfService(context),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          const Text(
-                            AppStrings.haveAccount,
-                          ),
-                          TextButton(
-                            onPressed: () {
-                              GoRouter.of(context).push(AppRouter.kLoginView);
-                            },
-                            child: const Text(AppStrings.login),
-                          )
-                        ],
-                      )
-                    ],
-                  ),
-                ),
+              height: MediaQuery.of(context).size.height * 0.1,
+              child: Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: privacyPolicyLinkAndTermsOfService(context),
               ),
             ),
-            floatingActionButton: FloatingActionButton(
-              onPressed: () {
-              /*  RegisterCubit.get(context).register(
-                    name: nameController.text, email: emailController.text, password: passwordController.text);*/
-              },
-              child: const Icon(Icons.arrow_forward),
-            ),
-            floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
           ),
         );
       },
@@ -90,6 +52,9 @@ class RegisterViewBody extends StatelessWidget {
       alignment: Alignment.center,
       child: Center(
         child: Text.rich(
+          style: const TextStyle(
+            color: Colors.white
+          ),
           textAlign: TextAlign.center,
           TextSpan(
             text: 'By continuing, you agree to our ',
@@ -97,7 +62,7 @@ class RegisterViewBody extends StatelessWidget {
               TextSpan(
                 text: 'Terms of Service \n',
                 style: const TextStyle(
-                  fontSize: 16,
+                  fontSize: 14,
                   decoration: TextDecoration.underline,
                 ),
                 recognizer: TapGestureRecognizer()

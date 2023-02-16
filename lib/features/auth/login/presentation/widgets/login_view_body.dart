@@ -13,16 +13,13 @@ import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'login_form.dart';
 
 class LoginViewBody extends StatelessWidget {
-  TextEditingController emailController = TextEditingController();
-
-  TextEditingController passwordController = TextEditingController();
   bool isLoading = false;
 
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<LoginCubit, LoginState>(
       listener: (context, state) {
-       /* if (state is LoginLoading) {
+        /* if (state is LoginLoading) {
           isLoading = true;
         } else if (state is LoginSuccess) {
           CacheHelper.saveData(key: Constants.uuid, value: state.user?.uid);
@@ -38,13 +35,10 @@ class LoginViewBody extends StatelessWidget {
           dismissible: false,
           inAsyncCall: isLoading,
           child: Scaffold(
-            appBar: AppBar(elevation: 0,backgroundColor: Colors.white),
-            body: LoginForm(emailController: emailController, passwordController: passwordController),
+            body: LoginForm(),
             bottomNavigationBar: BottomAppBar(
-              surfaceTintColor: kPrimaryColor,
-              notchMargin: 8,
               color: kPrimaryColor,
-              height: MediaQuery.of(context).size.height / 5,
+              height: MediaQuery.of(context).size.height * 0.15,
               child: Padding(
                 padding: const EdgeInsets.all(10.0),
                 child: Column(
@@ -62,17 +56,14 @@ class LoginViewBody extends StatelessWidget {
                             onChanged: (value) {
                               LoginCubit.get(context).changeCheckState();
                             },
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(10)),
+                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
                             side: const BorderSide(
                               width: 1,
                             ),
                           ),
                           Text(
                             AppStrings.rememberMe,
-                            style: Styles.textStyle14.copyWith(
-                              color: Colors.white
-                            ),
+                            style: Styles.textStyle14.copyWith(color: Colors.white),
                           ),
                         ],
                       ),
@@ -82,20 +73,16 @@ class LoginViewBody extends StatelessWidget {
                       children: [
                         Text(
                           AppStrings.registerText,
-                          style: Styles.textStyle14.copyWith(
-                              color: Colors.white
-                          ),
+                          style: Styles.textStyle14.copyWith(color: Colors.white),
                         ),
                         TextButton(
                           onPressed: () {
                             GoRouter.of(context).push(AppRouter.kRegisterView);
                           },
-                          child: Text(AppStrings.signUp,
-                            style: Styles.textStyle16.copyWith(
-                              color: Colors.lightBlueAccent,
-                              fontWeight: FontWeight.bold
-                            ),
-
+                          child: Text(
+                            AppStrings.signUp,
+                            style:
+                                Styles.textStyle16.copyWith(color: Colors.lightBlueAccent, fontWeight: FontWeight.bold),
                           ),
                         )
                       ],
@@ -104,16 +91,6 @@ class LoginViewBody extends StatelessWidget {
                 ),
               ),
             ),
-            floatingActionButton: FloatingActionButton(
-              onPressed: () {
-                /*LoginCubit.get(context).login(
-                    email: emailController.text,
-                    password: passwordController.text);*/
-              },
-              child: const Icon(Icons.arrow_forward),
-            ),
-            floatingActionButtonLocation:
-                FloatingActionButtonLocation.endDocked,
           ),
         );
       },

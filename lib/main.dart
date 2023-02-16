@@ -3,9 +3,9 @@ import 'package:designsprit/core/utils/app_router.dart';
 import 'package:designsprit/core/utils/bloc_observer.dart';
 import 'package:designsprit/core/utils/cache_helper.dart';
 import 'package:designsprit/core/utils/service_locator.dart';
-import 'package:designsprit/features/auth/login/presentation/cubit/login_cubit.dart';
 import 'package:designsprit/features/auth/register/presentation/cubit/register_cubit.dart';
 import 'package:designsprit/features/home/presentation/cubit/home_cubit.dart';
+import 'package:designsprit/features/main_screen/cubit/main_screen_cubit.dart';
 import 'package:designsprit/firebase_options.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -33,13 +33,10 @@ class MyApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(
-          create: (context) => sl<HomeCubit>()..getCategories()..getIPopulars(),
+          create: (context) => sl<MainScreenCubit>(),
         ),
         BlocProvider(
-          create: (context) => sl<LoginCubit>(),
-        ),
-        BlocProvider(
-          create: (context) => sl<RegisterCubit>(),
+          create: (context) => sl<HomeCubit>(),
         ),
       ],
       child: MaterialApp.router(
@@ -56,8 +53,7 @@ class MyApp extends StatelessWidget {
               selectedIconTheme: IconThemeData(color: Colors.white),
               selectedItemColor: Colors.white,
               type: BottomNavigationBarType.fixed),
-          textTheme:
-              GoogleFonts.montserratTextTheme(ThemeData.light().textTheme),
+          textTheme: GoogleFonts.montserratTextTheme(ThemeData.light().textTheme),
         ),
       ),
     );
