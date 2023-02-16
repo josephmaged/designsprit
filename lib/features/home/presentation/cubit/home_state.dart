@@ -5,8 +5,6 @@ abstract class HomeState {}
 
 class HomeInitial extends HomeState {}
 
-class HomeChangeBottomNavBarState extends HomeState {}
-
 class HomeCategoryLoading extends HomeState {}
 
 class HomeCategorySuccess extends HomeState {

@@ -36,33 +36,4 @@ class HomeCubit extends Cubit<HomeState> {
     result.fold((l) => emit(HomePopularFailure(l.errMessage)),
         (r) => emit(HomePopularSuccess(r)));
   }
-
-  List<Widget> screens = [];
-
-  List<BottomNavigationBarItem> bottomItems = [
-    const BottomNavigationBarItem(
-      icon: Icon(
-        Icons.home,
-      ),
-      label: 'Home',
-    ),
-    const BottomNavigationBarItem(
-      icon: Icon(
-        Icons.search,
-      ),
-      label: 'Search',
-    ),
-    const BottomNavigationBarItem(
-      icon: Icon(
-        Icons.bookmark_border_rounded,
-      ),
-      label: 'Favorites',
-    ),
-    const BottomNavigationBarItem(icon: Icon(Icons.more_vert), label: 'More'),
-  ];
-
-  void changeIndex(int index) {
-    currentIndex = index;
-    emit(HomeChangeBottomNavBarState());
-  }
 }
