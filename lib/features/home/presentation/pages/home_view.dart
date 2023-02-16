@@ -1,3 +1,4 @@
+import 'package:designsprit/constants.dart';
 import 'package:designsprit/core/utils/app_router.dart';
 import 'package:designsprit/core/widgets/custom_app_bar.dart';
 import 'package:designsprit/features/home/presentation/cubit/home_cubit.dart';
@@ -17,6 +18,7 @@ class HomeView extends StatelessWidget {
         return Scaffold(
           appBar: CustomAppBar(
             tittle: 'Home',
+            color: kPrimaryColor,
           ),
           body: const HomeViewBody(),
           bottomNavigationBar: BottomNavigationBar(
@@ -31,7 +33,6 @@ class HomeView extends StatelessWidget {
             shape: const StadiumBorder(
                 side: BorderSide(color: Colors.white, width: 4)),
             onPressed: () {
-              GoRouter.of(context).pushNamed(AppRouter.kProjectView);
             },
             child: const Icon(Icons.add),
           ),

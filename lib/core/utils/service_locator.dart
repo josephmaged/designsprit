@@ -14,6 +14,12 @@ import 'package:designsprit/features/auth/register/domain/use_cases/register_wit
 import 'package:designsprit/features/auth/register/domain/use_cases/register_with_facebook.dart';
 import 'package:designsprit/features/auth/register/domain/use_cases/register_with_google.dart';
 import 'package:designsprit/features/auth/register/presentation/cubit/register_cubit.dart';
+import 'package:designsprit/features/home/data/data_sources/home_remote_data_source.dart';
+import 'package:designsprit/features/home/data/repositories/HomeRepo.dart';
+import 'package:designsprit/features/home/domain/repositories/base_home_repo.dart';
+import 'package:designsprit/features/home/domain/use_cases/home_categories_use_case.dart';
+import 'package:designsprit/features/home/domain/use_cases/home_populars_use_case.dart';
+import 'package:designsprit/features/home/presentation/cubit/home_cubit.dart';
 import 'package:get_it/get_it.dart';
 
 import 'api_service.dart';
@@ -54,5 +60,22 @@ class SetupServiceLocator {
 
     /// DATA SOURCE
     sl.registerLazySingleton<BaseLoginRemoteDataSource>(() => LoginRemoteDataSource());
+
+    /// Home
+    /// Bloc
+    sl.registerFactory(() => HomeCubit(sl(),sl()));
+
+    /// USE CASES
+    sl.registerLazySingleton(() => HomeCategoriesUseCase(sl()));
+    sl.registerLazySingleton(() => HomePopularsUseCase(sl()));
+
+
+    /// Repository
+    sl.registerLazySingleton<BaseHomeRepo>(() => HomeRepo(sl()));
+
+    /// DATA SOURCE
+    sl.registerLazySingleton<BaseHomeRemoteDataSource>(() => HomeRemoteDataSource());
+
+
   }
 }

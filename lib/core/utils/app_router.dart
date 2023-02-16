@@ -34,7 +34,7 @@ abstract class AppRouter {
       ),
       GoRoute(
         path: kRegisterView,
-        builder: (context, state) => RegisterView(),
+        builder: (context, state) => const RegisterView(),
       )
       // GoRoute(
       //   path: kBookDetailsView,

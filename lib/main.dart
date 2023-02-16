@@ -3,6 +3,7 @@ import 'package:designsprit/core/utils/app_router.dart';
 import 'package:designsprit/core/utils/bloc_observer.dart';
 import 'package:designsprit/core/utils/cache_helper.dart';
 import 'package:designsprit/core/utils/service_locator.dart';
+import 'package:designsprit/features/auth/login/presentation/cubit/login_cubit.dart';
 import 'package:designsprit/features/auth/register/presentation/cubit/register_cubit.dart';
 import 'package:designsprit/features/home/presentation/cubit/home_cubit.dart';
 import 'package:designsprit/firebase_options.dart';
@@ -29,21 +30,35 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp.router(
-      routerConfig: AppRouter.router,
-      debugShowCheckedModeBanner: false,
-      themeMode: ThemeMode.light,
-      theme: ThemeData.light().copyWith(
-        floatingActionButtonTheme: const FloatingActionButtonThemeData(
-          backgroundColor: Colors.black,
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (context) => sl<HomeCubit>()..getCategories()..getIPopulars(),
         ),
-        bottomNavigationBarTheme: const BottomNavigationBarThemeData(
-            backgroundColor: kPrimaryColor,
-            unselectedItemColor: kLightGrey,
-            selectedIconTheme: IconThemeData(color: Colors.white),
-            selectedItemColor: Colors.white,
-            type: BottomNavigationBarType.fixed),
-        textTheme: GoogleFonts.montserratTextTheme(ThemeData.light().textTheme),
+        BlocProvider(
+          create: (context) => sl<LoginCubit>(),
+        ),
+        BlocProvider(
+          create: (context) => sl<RegisterCubit>(),
+        ),
+      ],
+      child: MaterialApp.router(
+        routerConfig: AppRouter.router,
+        debugShowCheckedModeBanner: false,
+        themeMode: ThemeMode.light,
+        theme: ThemeData.light().copyWith(
+          floatingActionButtonTheme: const FloatingActionButtonThemeData(
+            backgroundColor: Colors.black,
+          ),
+          bottomNavigationBarTheme: const BottomNavigationBarThemeData(
+              backgroundColor: kPrimaryColor,
+              unselectedItemColor: kLightGrey,
+              selectedIconTheme: IconThemeData(color: Colors.white),
+              selectedItemColor: Colors.white,
+              type: BottomNavigationBarType.fixed),
+          textTheme:
+              GoogleFonts.montserratTextTheme(ThemeData.light().textTheme),
+        ),
       ),
     );
   }

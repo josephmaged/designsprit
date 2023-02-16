@@ -18,7 +18,7 @@ class CustomAppBar extends AppBar {
   @override
   Widget? get title => Text(
         tittle,
-        style: Styles.textStyle16,
+        style: Styles.textStyle16.copyWith(color: Colors.white),
       );
 
   @override
@@ -29,9 +29,11 @@ class CustomAppBar extends AppBar {
       listOfActions ??
       [
         IconButton(
+          splashColor: Colors.white,
+          disabledColor: Colors.white,
           icon: const Icon(Icons.notifications),
           onPressed: notificationIconClickedCallBack,
-          // color: Colors.white,
+          color: Colors.white,
         ),
         const SizedBox(width: 20),
       ];
