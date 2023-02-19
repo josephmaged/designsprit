@@ -4,6 +4,7 @@ import 'package:designsprit/generated/assets.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:go_router/go_router.dart';
 
 class MorePage extends StatelessWidget {
   const MorePage({Key? key}) : super(key: key);
@@ -21,7 +22,7 @@ class MorePage extends StatelessWidget {
             Assets.imagesSettingsRightArrowIc,
           ),
           onTap: () {
-           // Navigator.pushNamed(context, AppRouter.profileRoute);
+            GoRouter.of(context).push(AppRouter.kProfileView);
           },
         ),
         ListTile(
@@ -42,8 +43,7 @@ class MorePage extends StatelessWidget {
           trailing: SvgPicture.asset(
             Assets.imagesSettingsRightArrowIc,
           ),
-          onTap: () {
-          },
+          onTap: () {},
         ),
         ListTile(
           title: const Text(
@@ -54,7 +54,7 @@ class MorePage extends StatelessWidget {
             Assets.imagesSettingsRightArrowIc,
           ),
           onTap: () {
-           // Navigator.pushNamed(context, AppRouter.chatRoute);
+            // Navigator.pushNamed(context, AppRouter.chatRoute);
           },
         ),
         ListTile(

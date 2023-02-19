@@ -4,6 +4,7 @@ import 'package:designsprit/features/home/presentation/pages/home_view.dart';
 import 'package:designsprit/features/main_screen/page/main_screen_view.dart';
 import 'package:designsprit/features/more/presentation/pages/more_page.dart';
 import 'package:designsprit/features/onboarding/presentation/pages/onboarding_view.dart';
+import 'package:designsprit/features/profile/presentation/pages/profile_view.dart';
 import 'package:designsprit/features/splash/presentation/pages/splash_view.dart';
 import 'package:go_router/go_router.dart';
 
@@ -17,6 +18,7 @@ abstract class AppRouter {
   static const kRegisterView = '/registerView';
   static const kProjectView = '/projectView';
   static const kMoreView = '/moreView';
+  static const kProfileView = '/profileView';
 
   static final router = GoRouter(
     routes: [
@@ -47,6 +49,10 @@ abstract class AppRouter {
       GoRoute(
         path: kMoreView,
         builder: (context, state) => const MorePage(),
+      ),
+      GoRoute(
+        path: kProfileView,
+        builder: (context, state) => const ProfileView(),
       )
       // GoRoute(
       //   path: kBookDetailsView,

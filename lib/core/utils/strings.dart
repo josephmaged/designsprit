@@ -53,4 +53,5 @@ class AppStrings{
   static const String inviteYourFriends = 'Invite Your Friends';
   static const String logout = 'Logout';
   static const String projectStatus = 'Project Status';
+  static const String updateProfile = 'Update';
 }

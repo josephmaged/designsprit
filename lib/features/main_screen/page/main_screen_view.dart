@@ -18,7 +18,6 @@ class MainScreenView extends StatelessWidget {
         return Scaffold(
           appBar: CustomAppBar(
             tittle: 'Home',
-            color: kPrimaryColor,
           ),
           body: cubit.screens[cubit.currentIndex],
           bottomNavigationBar: BottomNavigationBar(
@@ -31,14 +30,17 @@ class MainScreenView extends StatelessWidget {
           floatingActionButton: FloatingActionButton(
             backgroundColor: Colors.black,
             shape: const StadiumBorder(
-                side: BorderSide(color: Colors.white, width: 4)),
+              side: BorderSide(
+                color: Colors.white,
+                width: 4,
+              ),
+            ),
             onPressed: () {
               GoRouter.of(context).pushNamed(AppRouter.kProjectView);
             },
             child: const Icon(Icons.add),
           ),
-          floatingActionButtonLocation:
-          FloatingActionButtonLocation.centerDocked,
+          floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
         );
       },
     );

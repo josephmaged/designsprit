@@ -18,10 +18,8 @@ class CustomPrimaryButton extends StatelessWidget {
       height: height,
       child: ElevatedButton(
         style: TextButton.styleFrom(
-          foregroundColor: Theme.of(context).scaffoldBackgroundColor,
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-          backgroundColor: Theme.of(context).primaryColor,
         ),
         onPressed: press,
         child: Text(text!,),

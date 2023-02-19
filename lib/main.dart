@@ -44,15 +44,24 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         themeMode: ThemeMode.light,
         theme: ThemeData.light().copyWith(
+          elevatedButtonTheme: ElevatedButtonThemeData(
+            style: ButtonStyle(
+              backgroundColor: MaterialStateProperty.all<Color>(kPrimaryColor),
+            )
+          ),
           floatingActionButtonTheme: const FloatingActionButtonThemeData(
             backgroundColor: Colors.black,
           ),
+          appBarTheme: const AppBarTheme(
+            backgroundColor: kPrimaryColor,
+          ),
           bottomNavigationBarTheme: const BottomNavigationBarThemeData(
-              backgroundColor: kPrimaryColor,
-              unselectedItemColor: kLightGrey,
-              selectedIconTheme: IconThemeData(color: Colors.white),
-              selectedItemColor: Colors.white,
-              type: BottomNavigationBarType.fixed),
+            backgroundColor: kPrimaryColor,
+            unselectedItemColor: kLightGrey,
+            selectedIconTheme: IconThemeData(color: Colors.white),
+            selectedItemColor: Colors.white,
+            type: BottomNavigationBarType.fixed,
+          ),
           textTheme: GoogleFonts.montserratTextTheme(ThemeData.light().textTheme),
         ),
       ),
