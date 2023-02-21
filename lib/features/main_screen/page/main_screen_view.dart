@@ -36,7 +36,7 @@ class MainScreenView extends StatelessWidget {
               ),
             ),
             onPressed: () {
-              GoRouter.of(context).pushNamed(AppRouter.kProjectView);
+              GoRouter.of(context).push(AppRouter.kAppointmentView);
             },
             child: const Icon(Icons.add),
           ),

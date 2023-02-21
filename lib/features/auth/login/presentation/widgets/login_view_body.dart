@@ -1,9 +1,7 @@
 import 'package:designsprit/constants.dart';
 import 'package:designsprit/core/utils/app_router.dart';
 import 'package:designsprit/core/utils/assets.dart';
-import 'package:designsprit/core/utils/cache_helper.dart';
 import 'package:designsprit/core/utils/enum.dart';
-import 'package:designsprit/core/utils/function/custom_snack_bar.dart';
 import 'package:designsprit/core/utils/strings.dart';
 import 'package:designsprit/core/utils/styles.dart';
 import 'package:designsprit/core/utils/validator.dart';
@@ -14,9 +12,7 @@ import 'package:designsprit/features/auth/login/presentation/cubit/login_cubit.d
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 
-import 'login_form.dart';
 
 class LoginViewBody extends StatelessWidget {
   final _formKey = GlobalKey<FormState>();

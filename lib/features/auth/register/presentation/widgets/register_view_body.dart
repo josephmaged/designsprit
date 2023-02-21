@@ -1,4 +1,3 @@
-import 'package:country_code_picker/country_code_picker.dart';
 import 'package:designsprit/core/utils/app_router.dart';
 import 'package:designsprit/core/utils/assets.dart';
 import 'package:designsprit/core/utils/enum.dart';
@@ -69,7 +68,7 @@ class RegisterViewBody extends StatelessWidget {
                             const SizedBox(
                               height: 12,
                             ),
-                            CustomTextFormField(
+                            /*CustomTextFormField(
                               validator: (value) => Validator.validateNumber(value),
                               prefixWidget: CountryCodePicker(
                                 initialSelection: initialCountry,
@@ -84,7 +83,7 @@ class RegisterViewBody extends StatelessWidget {
                               errorMessage: "Enter your phone number",
                               label: "Phone Number",
                               textInputType: TextInputType.phone,
-                            ),
+                            ),*/
                             const SizedBox(
                               height: 12,
                             ),

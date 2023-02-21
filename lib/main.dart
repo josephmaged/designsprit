@@ -3,7 +3,7 @@ import 'package:designsprit/core/utils/app_router.dart';
 import 'package:designsprit/core/utils/bloc_observer.dart';
 import 'package:designsprit/core/utils/cache_helper.dart';
 import 'package:designsprit/core/utils/service_locator.dart';
-import 'package:designsprit/features/auth/register/presentation/cubit/register_cubit.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:designsprit/features/home/presentation/cubit/home_cubit.dart';
 import 'package:designsprit/features/main_screen/cubit/main_screen_cubit.dart';
 import 'package:designsprit/firebase_options.dart';
@@ -47,7 +47,7 @@ class MyApp extends StatelessWidget {
           elevatedButtonTheme: ElevatedButtonThemeData(
             style: ButtonStyle(
               backgroundColor: MaterialStateProperty.all<Color>(kPrimaryColor),
-            )
+            ),
           ),
           floatingActionButtonTheme: const FloatingActionButtonThemeData(
             backgroundColor: Colors.black,

@@ -54,4 +54,5 @@ class AppStrings{
   static const String logout = 'Logout';
   static const String projectStatus = 'Project Status';
   static const String updateProfile = 'Update';
+  static const String addAppointment = 'Add a new Appointment';
 }

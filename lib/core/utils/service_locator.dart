@@ -1,3 +1,4 @@
+import 'package:designsprit/features/add_appointment/presentation/cubit/add_appointment_cubit.dart';
 import 'package:designsprit/features/auth/login/data/data_sources/login_remote_data_source.dart';
 import 'package:designsprit/features/auth/login/data/repositories/login_repo.dart';
 import 'package:designsprit/features/auth/login/domain/repositories/base_login_repo.dart';
@@ -36,6 +37,7 @@ class SetupServiceLocator {
     sl.registerFactory(() => RegisterCubit(sl(), sl()));
     sl.registerFactory(() => MainScreenCubit());
     sl.registerFactory(() => HomeCubit(sl(), sl()));
+    sl.registerFactory(() => AddAppointmentCubit());
 
     /// Register
     /// USE CASES
