@@ -11,6 +11,8 @@ import 'package:designsprit/features/auth/register/presentation/cubit/register_c
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_social_button/flutter_social_button.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../../../../constants.dart';
@@ -39,7 +41,7 @@ class RegisterViewBody extends StatelessWidget {
           onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
           child: Scaffold(
             body: Padding(
-              padding: const EdgeInsets.only(left: 20.0, right: 20.0, top: 50),
+              padding: EdgeInsets.only(left: 20.w, right: 20.w, top: 50.h),
               child: SingleChildScrollView(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -52,99 +54,118 @@ class RegisterViewBody extends StatelessWidget {
                       AppStrings.welcome,
                       style: Styles.textStyle16,
                     ),
-                    Padding(
-                      padding: const EdgeInsets.only(top: 20),
-                      child: Form(
-                        key: _formKey,
-                        child: Column(
-                          children: [
-                            CustomTextFormField(
-                              controller: cubit.emailController,
-                              validator: (value) => Validator.validateEmail(value),
-                              label: AppStrings.emailHint,
-                              errorMessage: "Please enter a valid email",
-                              textInputType: TextInputType.emailAddress,
+                    SizedBox(
+                      height: 20.h,
+                    ),
+                    Form(
+                      key: _formKey,
+                      child: Column(
+                        children: [
+                          CustomTextFormField(
+                            controller: cubit.emailController,
+                            validator: (value) => Validator.validateEmail(value),
+                            label: AppStrings.emailHint,
+                            errorMessage: "Please enter a valid email",
+                            textInputType: TextInputType.emailAddress,
+                          ),
+                          SizedBox(
+                            height: 12.h,
+                          ),
+                          /*CustomTextFormField(
+                            validator: (value) => Validator.validateNumber(value),
+                            prefixWidget: CountryCodePicker(
+                              initialSelection: initialCountry,
+                              favorite: const ['EG'],
+                              showFlag: true,
+                              showCountryOnly: false,
+                              onChanged: (CountryCode? code) {
+                                code = code;
+                              },
                             ),
-                            const SizedBox(
-                              height: 12,
+                            controller: cubit.phoneController,
+                            errorMessage: "Enter your phone number",
+                            label: "Phone Number",
+                            textInputType: TextInputType.phone,
+                          ),*/
+                          SizedBox(
+                            height: 12.h,
+                          ),
+                          CustomTextFormField(
+                            controller: cubit.passwordController,
+                            validator: (value) => Validator.validatePassword(value),
+                            secure: cubit.isPassword,
+                            label: 'Password',
+                            errorMessage: "Please enter your password",
+                            textInputType: TextInputType.visiblePassword,
+                            suffixWidget: IconButton(
+                              icon: RegisterCubit.get(context).isPassword == true
+                                  ? const Icon(Icons.visibility_off_outlined)
+                                  : const Icon(Icons.visibility_outlined),
+                              onPressed: () {
+                                cubit.changePasswordVisibility();
+                              },
                             ),
-                            /*CustomTextFormField(
-                              validator: (value) => Validator.validateNumber(value),
-                              prefixWidget: CountryCodePicker(
-                                initialSelection: initialCountry,
-                                favorite: const ['EG'],
-                                showFlag: true,
-                                showCountryOnly: false,
-                                onChanged: (CountryCode? code) {
-                                  code = code;
-                                },
+                          ),
+                          SizedBox(height: 25.h),
+                          state.requestState == RequestState.loading
+                              ? const CircularProgressIndicator()
+                              : FlutterSocialButton(
+                                  onTap: () {
+                                    GoRouter.of(context).push(AppRouter.kMainScreenView);
+                                    /*if (_formKey.currentState!.validate()) {
+                            cubit.register();
+                          }*/
+                                  },
+                                  title: AppStrings.register,
+                                ),
+                          SizedBox(height: 10.h),
+                          Row(
+                            children: <Widget>[
+                              const Expanded(
+                                child: Divider(
+                                  color: kLightGrey,
+                                ),
                               ),
-                              controller: cubit.phoneController,
-                              errorMessage: "Enter your phone number",
-                              label: "Phone Number",
-                              textInputType: TextInputType.phone,
-                            ),*/
-                            const SizedBox(
-                              height: 12,
-                            ),
-                            CustomTextFormField(
-                              controller: cubit.passwordController,
-                              validator: (value) => Validator.validatePassword(value),
-                              secure: cubit.isPassword,
-                              label: 'Password',
-                              errorMessage: "Please enter your password",
-                              textInputType: TextInputType.visiblePassword,
-                              suffixWidget: IconButton(
-                                icon: RegisterCubit.get(context).isPassword == true
-                                    ? const Icon(Icons.visibility_off_outlined)
-                                    : const Icon(Icons.visibility_outlined),
-                                onPressed: () {
-                                  cubit.changePasswordVisibility();
-                                },
+                              SizedBox(width: 5.w),
+                              const Text("OR"),
+                              SizedBox(width: 5.w),
+                              const Expanded(
+                                child: Divider(
+                                  color: kLightGrey,
+                                ),
                               ),
-                            ),
-                            const SizedBox(height: 25),
-                            state.requestState == RequestState.loading
-                                ? const CircularProgressIndicator()
-                                : CustomPrimaryButton(
-                                    text: AppStrings.register,
-                                    press: () {
-                                      GoRouter.of(context).push(AppRouter.kMainScreenView);
-                                      /*if (_formKey.currentState!.validate()) {
-                              cubit.register();
-                            }*/
-                                    },
-                                  ),
-                            const SizedBox(height: 10),
-                            Row(children: const <Widget>[
-                              Expanded(child: Divider()),
-                              SizedBox(width: 5),
-                              Text("OR"),
-                              SizedBox(width: 5),
-                              Expanded(child: Divider()),
-                            ]),
-                            const SizedBox(height: 10),
-                            Row(
-                              children: [
-                                SocialButton(MediaQuery.of(context).size, AssetsData.google, 'Google', () {
+                            ],
+                          ),
+                          SizedBox(height: 10.h),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              FlutterSocialButton(
+                                mini: true,
+                                onTap: () {
                                   cubit.registerWithGoogle();
-                                }),
-                                const SizedBox(
-                                  width: 5,
-                                ),
-                                SocialButton(MediaQuery.of(context).size, AssetsData.facebook, 'Facebook', () {
-                                  // RegisterCubit.get(context).loginWithFacebook();
-                                }),
-                                const SizedBox(
-                                  width: 5,
-                                ),
-                                SocialButton(MediaQuery.of(context).size, AssetsData.apple, 'Apple', () {
-                                  // RegisterCubit.get(context).loginWithApple();
-                                }),
-                              ],
-                            ),
-                          ],
-                        ),
+                                },
+                                buttonType: ButtonType.google,
+                              ),
+                              SizedBox(width: 10.w),
+                              FlutterSocialButton(
+                                mini: true,
+                                onTap: () {
+                                  //cubit.registerWithFacebook();
+                                },
+                                buttonType: ButtonType.facebook,
+                              ),
+                              SizedBox(width: 10.w),
+                              FlutterSocialButton(
+                                mini: true,
+                                onTap: () {
+                                  //cubit.registerWithApple();
+                                },
+                                buttonType: ButtonType.apple,
+                              ),
+                            ],
+                          ),
+                        ],
                       ),
                     ),
                     Row(
@@ -167,9 +188,9 @@ class RegisterViewBody extends StatelessWidget {
             ),
             bottomNavigationBar: BottomAppBar(
               color: kPrimaryColor,
-              height: MediaQuery.of(context).size.height * 0.1,
+              height: 70.h,
               child: Padding(
-                padding: const EdgeInsets.all(10.0),
+                padding: EdgeInsets.all(10.h),
                 child: privacyPolicyLinkAndTermsOfService(context),
               ),
             ),
@@ -191,8 +212,8 @@ class RegisterViewBody extends StatelessWidget {
             children: <TextSpan>[
               TextSpan(
                 text: 'Terms of Service \n',
-                style: const TextStyle(
-                  fontSize: 14,
+                style: TextStyle(
+                  fontSize: 14.sp,
                   decoration: TextDecoration.underline,
                 ),
                 recognizer: TapGestureRecognizer()
