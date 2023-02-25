@@ -1,5 +1,6 @@
 import 'package:designsprit/core/widgets/custom_form_field.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class StepTwo extends StatelessWidget {
   TextEditingController country = TextEditingController();
@@ -18,8 +19,8 @@ class StepTwo extends StatelessWidget {
           label: 'Country',
           errorMessage: 'Please enter a country',
         ),
-        const SizedBox(
-          height: 10,
+        SizedBox(
+          height: 10.h,
         ),
         CustomTextFormField(
           controller: country,
@@ -28,8 +29,8 @@ class StepTwo extends StatelessWidget {
           label: 'Government',
           errorMessage: 'Please enter a government',
         ),
-        const SizedBox(
-          height: 10,
+        SizedBox(
+          height: 10.h,
         ),
         CustomTextFormField(
           controller: country,
@@ -38,8 +39,8 @@ class StepTwo extends StatelessWidget {
           label: 'Region',
           errorMessage: 'Please enter a region',
         ),
-        const SizedBox(
-          height: 10,
+        SizedBox(
+          height: 10.h,
         ),
         CustomTextFormField(
           controller: country,
@@ -47,9 +48,6 @@ class StepTwo extends StatelessWidget {
           validator: (value) {},
           label: 'Address',
           errorMessage: 'Please enter address',
-        ),
-        const SizedBox(
-          height: 10,
         ),
       ],
     );

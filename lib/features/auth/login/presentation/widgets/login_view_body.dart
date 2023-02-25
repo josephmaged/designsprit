@@ -1,18 +1,15 @@
 import 'package:designsprit/constants.dart';
 import 'package:designsprit/core/utils/app_router.dart';
-import 'package:designsprit/core/utils/assets.dart';
 import 'package:designsprit/core/utils/enum.dart';
 import 'package:designsprit/core/utils/strings.dart';
 import 'package:designsprit/core/utils/styles.dart';
 import 'package:designsprit/core/utils/validator.dart';
 import 'package:designsprit/core/widgets/custom_form_field.dart';
-import 'package:designsprit/core/widgets/custom_primary_button.dart';
-import 'package:designsprit/core/widgets/social_button.dart';
+import 'package:designsprit/core/widgets/flutter_social_button/src/social_button.dart';
 import 'package:designsprit/features/auth/login/presentation/cubit/login_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_social_button/flutter_social_button.dart';
 import 'package:go_router/go_router.dart';
 
 class LoginViewBody extends StatelessWidget {
@@ -111,25 +108,27 @@ class LoginViewBody extends StatelessWidget {
                         ],
                       ),
                     ),
-                    SizedBox(height: 10.h),
+                    SizedBox(height: 20.h),
                     Row(
                       children: <Widget>[
                         const Expanded(
                           child: Divider(
                             color: kLightGrey,
+                            thickness: 1,
                           ),
                         ),
-                        SizedBox(width: 5.w),
+                        SizedBox(width: 10.w),
                         const Text("OR"),
-                        SizedBox(width: 5.w),
+                        SizedBox(width: 10.w),
                         const Expanded(
                           child: Divider(
                             color: kLightGrey,
+                            thickness: 1,
                           ),
                         ),
                       ],
                     ),
-                    SizedBox(height: 10.h),
+                    SizedBox(height: 20.h),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
