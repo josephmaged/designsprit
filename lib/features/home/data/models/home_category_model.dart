@@ -10,9 +10,7 @@ class HomeCategoryModel extends HomeCategoryResponse {
   factory HomeCategoryModel.fromJson(dynamic json) => HomeCategoryModel(
         status: json['status'],
         message: json['message'],
-        data: List<dynamic>.from(
-          json['data'].map((e) => e)
-        ),
+        data: List<dynamic>.from(json['data'].map((e) => e)),
       );
 
   Map<String, dynamic> toJson() {

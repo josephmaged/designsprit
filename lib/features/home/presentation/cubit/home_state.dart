@@ -5,27 +5,37 @@ class HomeState extends Equatable {
   final RequestState randomCategoryState;
   final String randomCategoryMessage;
 
+  final List<HomePopularsResponseData> mostPopular;
+  final RequestState mostPopularState;
+  final String mostPopularMessage;
+
   const HomeState(
       {this.randomCategory = const [],
       this.randomCategoryState = RequestState.loading,
-      this.randomCategoryMessage = ''});
+      this.randomCategoryMessage = '',
+      this.mostPopular = const [],
+      this.mostPopularState = RequestState.loading,
+      this.mostPopularMessage = ''});
 
   HomeState copyWith({
-     List<HomeCategoryResponseData>? randomCategory,
-     RequestState? randomCategoryState,
-     String? randomCategoryMessage,
-}) {
+    List<HomeCategoryResponseData>? randomCategory,
+    RequestState? randomCategoryState,
+    String? randomCategoryMessage,
+    List<HomePopularsResponseData>? mostPopular,
+    RequestState? mostPopularState,
+    String? mostPopularMessage,
+  }) {
     return HomeState(
-      randomCategory: randomCategory ?? this.randomCategory,
-      randomCategoryState: randomCategoryState ?? this.randomCategoryState,
-      randomCategoryMessage: randomCategoryMessage ?? this.randomCategoryMessage
-    );
+        randomCategory: randomCategory ?? this.randomCategory,
+        randomCategoryState: randomCategoryState ?? this.randomCategoryState,
+        randomCategoryMessage:
+            randomCategoryMessage ?? this.randomCategoryMessage,
+        mostPopular: mostPopular ?? this.mostPopular,
+        mostPopularState: mostPopularState ?? this.mostPopularState,
+        mostPopularMessage: mostPopularMessage ?? this.mostPopularMessage);
   }
 
   @override
-  List<Object?> get props => [
-    randomCategory,
-    randomCategoryState,
-    randomCategoryMessage
-  ];
+  List<Object?> get props =>
+      [randomCategory, randomCategoryState, randomCategoryMessage];
 }
