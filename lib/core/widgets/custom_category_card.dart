@@ -1,3 +1,4 @@
+import 'package:designsprit/core/utils/styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
@@ -33,6 +34,9 @@ class CustomCategoryCard extends StatelessWidget {
               width: 100.h,
               child: Text(
                 text!,
+                style: Styles.textStyle18.copyWith(
+                    color: Colors.white
+                ),
                 textAlign: TextAlign.center,
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,

@@ -1,3 +1,4 @@
+import 'package:designsprit/core/utils/styles.dart';
 import 'package:flutter/material.dart';
 
 class BannerItem extends StatelessWidget {
@@ -38,7 +39,9 @@ class BannerItem extends StatelessWidget {
                 child: ListTile(
                   title: Text(
                     name,
-                    style: const TextStyle(fontWeight: FontWeight.w500),
+                    style: Styles.textStyle20.copyWith(
+                      color: Colors.white
+                    ),
                   ),
                 ),
               ),

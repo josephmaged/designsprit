@@ -1,26 +1,18 @@
 import 'package:designsprit/features/home/domain/entities/home_populars_response_data.dart';
 
-/// itemImages : ["img1"]
-/// id : 1
-/// name : "item1"
-/// description : "item of pr 1"
-/// categoryId : 1
-/// type : null
-/// category : null
-
-class HomePopularsData extends HomePopularsResponseData {
-  const HomePopularsData(
+class HomePopularsDataModel extends HomePopularsResponseData {
+  const HomePopularsDataModel(
       {required super.id,
-      required super.name,
+      required super.itemName,
       required super.description,
       required super.itemImages,
       required super.categoryId});
 
-  factory HomePopularsData.fromJson(dynamic json) => HomePopularsData(
+  factory HomePopularsDataModel.fromJson(dynamic json) => HomePopularsDataModel(
         itemImages:
             json['itemImages'] != null ? json['itemImages'].cast<String>() : [],
         id: json['id'],
-        name: json['name'],
+        itemName: json['itemName'],
         description: json['description'],
         categoryId: json['categoryId'],
       );
@@ -29,7 +21,7 @@ class HomePopularsData extends HomePopularsResponseData {
     final map = <String, dynamic>{};
     map['itemImages'] = itemImages;
     map['id'] = id;
-    map['name'] = name;
+    map['name'] = itemName;
     map['description'] = description;
     map['categoryId'] = categoryId;
     return map;

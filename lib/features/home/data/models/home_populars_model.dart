@@ -9,7 +9,10 @@ class HomePopularsModel extends HomePopularsResponse {
       {required super.status, required super.message, required super.data});
 
   factory HomePopularsModel.fromJson(dynamic json) => HomePopularsModel(
-      status: json['status'], message: json['message'], data: json['data']);
+        status: json['status'],
+        message: json['message'],
+        data: List<dynamic>.from(json['data'].map((e) => e)),
+      );
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};

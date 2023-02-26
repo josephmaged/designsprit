@@ -1,16 +1,14 @@
-import 'package:designsprit/constants.dart';
 import 'package:designsprit/core/utils/app_router.dart';
 import 'package:designsprit/core/utils/bloc_observer.dart';
 import 'package:designsprit/core/utils/cache_helper.dart';
 import 'package:designsprit/core/utils/service_locator.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:designsprit/core/utils/theme.dart';
 import 'package:designsprit/features/home/presentation/cubit/home_cubit.dart';
 import 'package:designsprit/features/main_screen/cubit/main_screen_cubit.dart';
 import 'package:designsprit/firebase_options.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -36,34 +34,14 @@ class MyApp extends StatelessWidget {
           create: (context) => sl<MainScreenCubit>(),
         ),
         BlocProvider(
-          create: (context) => sl<HomeCubit>()..getCategories(),
+          create: (context) => sl<HomeCubit>()..getCategories()..getIPopulars(),
         ),
       ],
       child: MaterialApp.router(
         routerConfig: AppRouter.router,
         debugShowCheckedModeBanner: false,
         themeMode: ThemeMode.light,
-        theme: ThemeData.light().copyWith(
-          elevatedButtonTheme: ElevatedButtonThemeData(
-            style: ButtonStyle(
-              backgroundColor: MaterialStateProperty.all<Color>(kPrimaryColor),
-            ),
-          ),
-          floatingActionButtonTheme: const FloatingActionButtonThemeData(
-            backgroundColor: Colors.black,
-          ),
-          appBarTheme: const AppBarTheme(
-            backgroundColor: kPrimaryColor,
-          ),
-          bottomNavigationBarTheme: const BottomNavigationBarThemeData(
-            backgroundColor: kPrimaryColor,
-            unselectedItemColor: kLightGrey,
-            selectedIconTheme: IconThemeData(color: Colors.white),
-            selectedItemColor: Colors.white,
-            type: BottomNavigationBarType.fixed,
-          ),
-          textTheme: GoogleFonts.montserratTextTheme(ThemeData.light().textTheme),
-        ),
+        theme: lightTheme,
       ),
     );
   }
