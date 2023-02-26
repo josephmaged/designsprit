@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 
 class CustomCategoryCard extends StatelessWidget {
   const CustomCategoryCard({
     Key? key,
-    required this.icon,
+    required this.image,
     required this.text,
     required this.press,
   }) : super(key: key);
 
-  final String? icon, text;
+  final String? image, text;
   final GestureTapCallback press;
 
   @override
@@ -17,28 +18,29 @@ class CustomCategoryCard extends StatelessWidget {
     return GestureDetector(
       onTap: press,
       child: SizedBox(
-          child: Stack(
-        alignment: AlignmentDirectional.bottomCenter,
-        children: [
-          SvgPicture.asset(
-            icon!,
-            width: 85,
-            height: 85,
-          ),
-          Container(
-            color: Colors.black.withOpacity(
-              .8,
+        child: Stack(
+          alignment: AlignmentDirectional.bottomCenter,
+          children: [
+            SvgPicture.asset(
+              image!,
+              width: 85.w,
+              height: 85.h,
             ),
-            width: 100.0,
-            child: Text(
-              text!,
-              textAlign: TextAlign.center,
-              maxLines: 1,
-              overflow: TextOverflow.ellipsis,
+            Container(
+              color: Colors.black.withOpacity(
+                .8,
+              ),
+              width: 100.h,
+              child: Text(
+                text!,
+                textAlign: TextAlign.center,
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+              ),
             ),
-          ),
-        ],
-      )),
+          ],
+        ),
+      ),
     );
   }
 }

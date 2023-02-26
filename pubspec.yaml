@@ -30,6 +30,7 @@ dependencies:
   fl_country_code_picker: ^0.1.2
   flutter_svg: ^2.0.0+1
   carousel_slider: ^4.2.1
+  animate_do: ^3.0.2
 
   # Utils
   google_fonts: ^4.0.3

@@ -4,7 +4,7 @@ import 'package:equatable/equatable.dart';
 class HomeCategoryResponse extends Equatable {
   final bool? status;
   final String? message;
-  final List<HomeCategoryResponseData?>? data;
+  final List<dynamic> data;
 
   const HomeCategoryResponse(
       {required this.status, required this.message, required this.data});

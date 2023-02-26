@@ -1,6 +1,7 @@
 import 'package:designsprit/core/utils/styles.dart';
 import 'package:designsprit/features/home/presentation/widgets/category_list_view.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'best_seller_list_view.dart';
 
@@ -15,29 +16,32 @@ class HomeViewBody extends StatelessWidget {
         SliverToBoxAdapter(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
-            children: const [
-              SizedBox(height: 30),
-              CategoryListView(),
+            children: [
+              SizedBox(height: 10.h),
               SizedBox(
-                height: 50,
+                height: 100.h,
+                child: const CategoryListView(),
               ),
-              Padding(
+              SizedBox(
+                height: 30.h,
+              ),
+              const Padding(
                 padding: EdgeInsets.symmetric(horizontal: 30),
                 child: Text(
                   'Most Popular',
                   style: Styles.textStyle18,
                 ),
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
             ],
           ),
         ),
-        const SliverFillRemaining(
+        /*const SliverFillRemaining(
           child: Padding(
             padding: EdgeInsets.symmetric(horizontal: 30),
             child: BestSellerListView(),
           ),
-        ),
+        ),*/
       ],
     );
   }

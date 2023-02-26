@@ -13,7 +13,7 @@ class BestSellerListView extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<HomeCubit, HomeState>(
       builder: (context, state) {
-        if (state is HomePopularSuccess) {
+        /*if (state is HomePopularSuccess) {
           return CarouselSlider(
             options: CarouselOptions(
               height: 250.0,
@@ -48,7 +48,8 @@ class BestSellerListView extends StatelessWidget {
           return CustomErrorWidget(errMessage: state.message);
         } else {
           return const CustomLoadingIndicator();
-        }
+        }*/
+        return const CircularProgressIndicator();
       },
     );
   }

@@ -1,34 +1,31 @@
 part of 'home_cubit.dart';
 
-@immutable
-abstract class HomeState {}
+class HomeState extends Equatable {
+  final List<HomeCategoryResponseData> randomCategory;
+  final RequestState randomCategoryState;
+  final String randomCategoryMessage;
 
-class HomeInitial extends HomeState {}
+  const HomeState(
+      {this.randomCategory = const [],
+      this.randomCategoryState = RequestState.loading,
+      this.randomCategoryMessage = ''});
 
-class HomeCategoryLoading extends HomeState {}
+  HomeState copyWith({
+     List<HomeCategoryResponseData>? randomCategory,
+     RequestState? randomCategoryState,
+     String? randomCategoryMessage,
+}) {
+    return HomeState(
+      randomCategory: randomCategory ?? this.randomCategory,
+      randomCategoryState: randomCategoryState ?? this.randomCategoryState,
+      randomCategoryMessage: randomCategoryMessage ?? this.randomCategoryMessage
+    );
+  }
 
-class HomeCategorySuccess extends HomeState {
-  final HomeCategoryResponse categoryModel;
-
-  HomeCategorySuccess(this.categoryModel);
-}
-
-class HomeCategoryFailure extends HomeState {
-  final String message;
-
-  HomeCategoryFailure(this.message);
-}
-
-
-class HomePopularLoading extends HomeState{
-
-}
-
-class HomePopularFailure extends HomeState{
-  final String errMessage;
-  HomePopularFailure(this.errMessage);
-}
-class HomePopularSuccess extends HomeState{
-  final HomePopularsResponse homePopularsResponse;
-  HomePopularSuccess(this.homePopularsResponse);
+  @override
+  List<Object?> get props => [
+    randomCategory,
+    randomCategoryState,
+    randomCategoryMessage
+  ];
 }
