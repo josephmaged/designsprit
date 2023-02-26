@@ -22,4 +22,14 @@ ThemeData lightTheme = ThemeData.light().copyWith(
     type: BottomNavigationBarType.fixed,
   ),
   textTheme: GoogleFonts.montserratTextTheme(ThemeData.light().textTheme),
+  cardColor: Colors.white,
+  bottomSheetTheme: const BottomSheetThemeData(
+    backgroundColor: kLightGrey,
+  ),
+  textButtonTheme: TextButtonThemeData(
+    style: ButtonStyle(
+      backgroundColor: MaterialStateProperty.all(kLightGrey),
+      textStyle: MaterialStateProperty.all(const TextStyle(color: kPrimaryColor)),
+    ),
+  ),
 );
