@@ -44,7 +44,7 @@ class BestSellerListView extends StatelessWidget {
                           borderRadius: BorderRadius.circular(10),
                         ),
                         child: BannerItem(
-                          name: i.name ?? "",
+                          name: i.itemName ?? "",
                         ));
                   },
                 );

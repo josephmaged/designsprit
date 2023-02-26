@@ -3,7 +3,7 @@ import 'package:designsprit/features/home/domain/entities/home_populars_response
 class HomePopularsDataModel extends HomePopularsResponseData {
   const HomePopularsDataModel(
       {required super.id,
-      required super.name,
+      required super.itemName,
       required super.description,
       required super.itemImages,
       required super.categoryId});
@@ -12,7 +12,7 @@ class HomePopularsDataModel extends HomePopularsResponseData {
         itemImages:
             json['itemImages'] != null ? json['itemImages'].cast<String>() : [],
         id: json['id'],
-        name: json['name'],
+        itemName: json['itemName'],
         description: json['description'],
         categoryId: json['categoryId'],
       );
@@ -21,7 +21,7 @@ class HomePopularsDataModel extends HomePopularsResponseData {
     final map = <String, dynamic>{};
     map['itemImages'] = itemImages;
     map['id'] = id;
-    map['name'] = name;
+    map['name'] = itemName;
     map['description'] = description;
     map['categoryId'] = categoryId;
     return map;
