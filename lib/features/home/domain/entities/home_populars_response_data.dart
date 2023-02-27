@@ -18,7 +18,7 @@ class HomePopularsResponseData extends Equatable {
   @override
   List<Object?> get props => [
         id,
-    itemName,
+        itemName,
         description,
         itemImages,
         categoryId,

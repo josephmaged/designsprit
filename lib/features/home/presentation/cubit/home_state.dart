@@ -28,14 +28,19 @@ class HomeState extends Equatable {
     return HomeState(
         randomCategory: randomCategory ?? this.randomCategory,
         randomCategoryState: randomCategoryState ?? this.randomCategoryState,
-        randomCategoryMessage:
-            randomCategoryMessage ?? this.randomCategoryMessage,
+        randomCategoryMessage: randomCategoryMessage ?? this.randomCategoryMessage,
         mostPopular: mostPopular ?? this.mostPopular,
         mostPopularState: mostPopularState ?? this.mostPopularState,
         mostPopularMessage: mostPopularMessage ?? this.mostPopularMessage);
   }
 
   @override
-  List<Object?> get props =>
-      [randomCategory, randomCategoryState, randomCategoryMessage];
+  List<Object?> get props => [
+        randomCategory,
+        randomCategoryState,
+        randomCategoryMessage,
+        mostPopular,
+        mostPopularState,
+        mostPopularMessage,
+      ];
 }

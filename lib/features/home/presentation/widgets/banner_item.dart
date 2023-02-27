@@ -1,3 +1,4 @@
+import 'package:designsprit/constants.dart';
 import 'package:designsprit/core/utils/styles.dart';
 import 'package:flutter/material.dart';
 
@@ -40,8 +41,9 @@ class BannerItem extends StatelessWidget {
                   title: Text(
                     name,
                     style: Styles.textStyle20.copyWith(
-                      color: Colors.white
+                      color: kPrimaryColor
                     ),
+                    textAlign: TextAlign.center,
                   ),
                 ),
               ),
