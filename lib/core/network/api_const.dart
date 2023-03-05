@@ -7,4 +7,5 @@ class ApiConst {
   static String loginPath(String parameters) => '$baseUrl/Auth/login?$parameters';
   static const String getRandomCategories = '$baseUrl/Home/GetRandomCategory';
   static const String GetRandomItems = '$baseUrl/Home/GetRandomItems';
- }
+  static String getItemById(int parameters) => '$baseUrl/Item/getItembyid/$parameters';
+}

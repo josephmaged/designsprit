@@ -37,15 +37,18 @@ class BestSellerListView extends StatelessWidget {
               items: state.mostPopular.map((i) {
                 return Builder(
                   builder: (BuildContext context) {
-                    return Container(
-                      width: MediaQuery.of(context).size.width,
-                      margin: const EdgeInsets.symmetric(horizontal: 5.0),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      child: BannerItem(
-                        name: i.itemName ?? "",
-
+                    return GestureDetector(
+                      onTap: (){},
+                      child: Container(
+                        width: MediaQuery.of(context).size.width,
+                        margin: const EdgeInsets.symmetric(horizontal: 5.0),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        child: BannerItem(
+                          name: i.itemName ?? "",
+                          image: i.itemImages,
+                        ),
                       ),
                     );
                   },

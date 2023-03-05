@@ -3,7 +3,7 @@ import 'package:designsprit/core/utils/styles.dart';
 import 'package:flutter/material.dart';
 
 class BannerItem extends StatelessWidget {
-  BannerItem({required this.name, super.key});
+  BannerItem({required this.name, super.key, required image});
 
   String? image;
   String name;
