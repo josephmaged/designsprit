@@ -3,7 +3,7 @@ import 'package:designsprit/core/utils/enum.dart';
 import 'package:designsprit/core/widgets/custom_error_widget.dart';
 import 'package:designsprit/core/widgets/custom_loading_indicator.dart';
 import 'package:designsprit/features/home/presentation/cubit/home_cubit.dart';
-import 'package:designsprit/features/home/presentation/widgets/banner_item.dart';
+import 'package:designsprit/core/widgets/banner_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

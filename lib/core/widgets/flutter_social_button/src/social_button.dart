@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import './constants.dart';
 
@@ -354,6 +355,7 @@ class FlutterSocialButton extends StatelessWidget {
               )
             : SizedBox(
                 width: double.infinity,
+                height: 55.h,
                 child: ElevatedButton.icon(
                   onPressed: onTap,
                   icon: Icon(
@@ -362,7 +364,7 @@ class FlutterSocialButton extends StatelessWidget {
                   ),
                   label: Text(title != null ? '$title' : 'Login With Email'),
                   style: ElevatedButton.styleFrom(
-                    padding: const EdgeInsets.all(20),
+                    padding:  EdgeInsets.all(15.h),
                     backgroundColor: emailColor,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(12), // <-- Radius

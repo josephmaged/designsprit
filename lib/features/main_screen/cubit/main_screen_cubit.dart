@@ -20,29 +20,18 @@ class MainScreenCubit extends Cubit<MainScreenState> {
     const MorePage(),
   ];
 
-  List<BottomNavigationBarItem> bottomItems = [
-    const BottomNavigationBarItem(
-      icon: Icon(
-        Icons.home,
-      ),
-      label: 'Home',
-    ),
-    const BottomNavigationBarItem(
-      icon: Icon(
-        Icons.search,
-      ),
-      label: 'Search',
-    ),
-    const BottomNavigationBarItem(
-      icon: Icon(
-        Icons.bookmark_border_rounded,
-      ),
-      label: 'Favorites',
-    ),
-    const BottomNavigationBarItem(
-      icon: Icon(Icons.more_vert),
-      label: 'More',
-    ),
+  List<String> screenNames = [
+    "Home",
+    "Chat",
+    "Favorite",
+    "More"
+  ];
+
+  List<IconData> bottomItems = [
+    Icons.home,
+    Icons.message,
+    Icons.bookmark_border_rounded,
+    Icons.more_vert,
   ];
 
   void changeIndex(int index) {

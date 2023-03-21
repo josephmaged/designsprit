@@ -41,7 +41,7 @@ class CustomAppBar extends AppBar {
   @override
   ShapeBorder? get shape => const RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(
-          bottom: Radius.circular(10),
+          bottom: Radius.circular(15),
         ),
       );
 }

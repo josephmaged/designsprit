@@ -1,9 +1,9 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:designsprit/core/utils/strings.dart';
-import 'package:designsprit/core/widgets/custom_app_bar.dart';
 import 'package:designsprit/core/widgets/custom_form_field.dart';
 import 'package:designsprit/core/widgets/custom_primary_button.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class ProfileView extends StatelessWidget {
   const ProfileView({Key? key}) : super(key: key);
@@ -22,10 +22,15 @@ class ProfileView extends StatelessWidget {
             child: Column(
               children: [
                 Container(
-                  width: MediaQuery.of(context).size.width * .3,
+                  width: 120.w,
+                  height: 120.h,
                   clipBehavior: Clip.hardEdge,
                   decoration: BoxDecoration(
-                    borderRadius: BorderRadius.all(Radius.circular(MediaQuery.of(context).size.width * .5)),
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(
+                        60.r
+                      ),
+                    ),
                   ),
                   child: CachedNetworkImage(
                     placeholder: (context, url) => const CircularProgressIndicator(),
@@ -47,7 +52,7 @@ class ProfileView extends StatelessWidget {
                             Icons.drive_file_rename_outline,
                           ),
                           controller: controller,
-                          errorMessage: 'Name',
+                          errorMessage: 'Please enter a valid Name',
                         ),
                         const SizedBox(height: 10),
                         CustomTextFormField(
@@ -56,7 +61,7 @@ class ProfileView extends StatelessWidget {
                           label: 'Email',
                           prefixWidget: const Icon(Icons.email),
                           controller: controller,
-                          errorMessage: 'Email',
+                          errorMessage: 'Please enter a valid email',
                         ),
                         const SizedBox(height: 10),
                         CustomTextFormField(
@@ -65,7 +70,7 @@ class ProfileView extends StatelessWidget {
                           label: 'phone number',
                           prefixWidget: const Icon(Icons.phone),
                           controller: controller,
-                          errorMessage: 'Phone',
+                          errorMessage: 'Please enter a valid Phone Number',
                         ),
                         const SizedBox(height: 10),
                         CustomTextFormField(
@@ -74,7 +79,7 @@ class ProfileView extends StatelessWidget {
                           label: 'Mobile',
                           prefixWidget: const Icon(Icons.phone_android),
                           controller: controller,
-                          errorMessage: 'Mobile',
+                          errorMessage: 'Please enter a valid Mobile',
                         ),
                         const SizedBox(height: 10),
                         CustomTextFormField(
@@ -83,16 +88,16 @@ class ProfileView extends StatelessWidget {
                           label: 'Source',
                           prefixWidget: const Icon(Icons.source),
                           controller: controller,
-                          errorMessage: 'Email',
+                          errorMessage: 'Please enter how you know us',
                         ),
                         const SizedBox(height: 10),
                         CustomTextFormField(
                           textInputType: TextInputType.text,
                           validator: (value) {},
-                          label: 'Company name',
-                          prefixWidget: const Icon(Icons.backpack),
+                          label: 'User Name',
+                          prefixWidget: const Icon(Icons.person),
                           controller: controller,
-                          errorMessage: 'Email',
+                          errorMessage: 'Please enter a valid User Name',
                         ),
                         const SizedBox(height: 20),
                         CustomPrimaryButton(

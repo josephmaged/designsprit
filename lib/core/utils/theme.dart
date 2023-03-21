@@ -26,10 +26,10 @@ ThemeData lightTheme = ThemeData.light().copyWith(
   bottomSheetTheme: const BottomSheetThemeData(
     backgroundColor: kLightGrey,
   ),
-  textButtonTheme: TextButtonThemeData(
+  /*textButtonTheme: TextButtonThemeData(
     style: ButtonStyle(
       backgroundColor: MaterialStateProperty.all(kLightGrey),
       textStyle: MaterialStateProperty.all(const TextStyle(color: kPrimaryColor)),
     ),
-  ),
+  ),*/
 );

@@ -12,60 +12,60 @@ class AddAppointment extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var cubit = AddAppointmentCubit.get(context);
-    return BlocConsumer<AddAppointmentCubit, AddAppointmentState>(
-      listener: (context, state) {},
-      builder: (context, state) {
-        return Scaffold(
-          appBar: AppBar(
-            title: const Text(AppStrings.addAppointment),
-          ),
-          body: Stepper(
-              steps: cubit.getSteps(),
-              currentStep: cubit.currentStep,
-              type: StepperType.horizontal,
-              elevation: 1,
-              onStepContinue: () {
-                final isLastStep = cubit.currentStep == cubit.getSteps().length - 1;
-                if (isLastStep) {
-                } else {
-                  cubit.addStep();
-                }
-              },
-              onStepCancel: () => cubit.currentStep == 0 ? null : cubit.minusStep(),
-              controlsBuilder: (context, details) {
-                return Column(
-                  children: [
-                    SizedBox(
-                      height: 20.h,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        if (cubit.currentStep != 0)
+    return BlocProvider(
+      create: (context) => sl<AddAppointmentCubit>(),
+      child: BlocConsumer<AddAppointmentCubit, AddAppointmentState>(
+        listener: (context, state) {},
+        builder: (context, state) {
+          return Scaffold(
+            body: Stepper(
+                steps: cubit.getSteps(),
+                currentStep: cubit.currentStep,
+                type: StepperType.horizontal,
+                elevation: 1,
+                onStepContinue: () {
+                  final isLastStep = cubit.currentStep == cubit.getSteps().length - 1;
+                  if (isLastStep) {
+                  } else {
+                    cubit.addStep();
+                  }
+                },
+                onStepCancel: () => cubit.currentStep == 0 ? null : cubit.minusStep(),
+                controlsBuilder: (context, details) {
+                  return Column(
+                    children: [
+                      SizedBox(
+                        height: 20.h,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          if (cubit.currentStep != 0)
+                            Expanded(
+                              child: CustomPrimaryButton(
+                                text: "Previous",
+                                press: details.onStepCancel,
+                              ),
+                            ),
+                          if (cubit.currentStep != 0)
+                            SizedBox(
+                              width: 20.w,
+                            ),
                           Expanded(
                             child: CustomPrimaryButton(
-                              text: "Previous",
-                              press: details.onStepCancel,
+                              press: details.onStepContinue,
+                              text: "Next",
                             ),
                           ),
-                        if (cubit.currentStep != 0)
-                          SizedBox(
-                            width: 20.w,
-                          ),
-                        Expanded(
-                          child: CustomPrimaryButton(
-                            press: details.onStepContinue,
-                            text: "Next",
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
-                );
-              },
-              onStepTapped: (value) => cubit.currentStep = value),
-        );
-      },
+                        ],
+                      ),
+                    ],
+                  );
+                },
+                onStepTapped: (value) => cubit.currentStep = value),
+          );
+        },
+      ),
     );
   }
 }

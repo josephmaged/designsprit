@@ -1,3 +1,4 @@
+import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.dart';
 import 'package:designsprit/constants.dart';
 import 'package:designsprit/core/utils/app_router.dart';
 import 'package:designsprit/core/widgets/custom_app_bar.dart';
@@ -17,28 +18,31 @@ class MainScreenView extends StatelessWidget {
       builder: (context, state) {
         return Scaffold(
           appBar: CustomAppBar(
-            tittle: 'Home',
+            tittle: cubit.screenNames[cubit.currentIndex],
           ),
           body: cubit.screens[cubit.currentIndex],
-          bottomNavigationBar: BottomNavigationBar(
+          bottomNavigationBar: AnimatedBottomNavigationBar(
             onTap: (index) {
               cubit.changeIndex(index);
             },
-            currentIndex: cubit.currentIndex,
-            items: cubit.bottomItems,
+            activeIndex: cubit.currentIndex,
+            icons: cubit.bottomItems,
+            gapLocation: GapLocation.center,
+            backgroundColor: kPrimaryColor,
+            activeColor: kSecondaryColor,
+            inactiveColor: Colors.white,
+            leftCornerRadius: 15,
+            rightCornerRadius: 15,
           ),
           floatingActionButton: FloatingActionButton(
-            backgroundColor: Colors.black,
-            shape: const StadiumBorder(
-              side: BorderSide(
-                color: Colors.white,
-                width: 4,
-              ),
-            ),
+            backgroundColor: kSecondaryColor,
             onPressed: () {
               GoRouter.of(context).push(AppRouter.kAppointmentView);
             },
-            child: const Icon(Icons.add),
+            child: const Icon(
+              Icons.add,
+              color: kPrimaryColor,
+            ),
           ),
           floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
         );

@@ -1,10 +1,9 @@
 import 'package:designsprit/core/utils/app_router.dart';
 import 'package:designsprit/core/utils/strings.dart';
-import 'package:designsprit/generated/assets.dart';
-import 'package:easy_localization/easy_localization.dart';
+import 'package:designsprit/core/widgets/custom_list_tile.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
+import 'package:share_plus/share_plus.dart';
 
 class MorePage extends StatelessWidget {
   const MorePage({Key? key}) : super(key: key);
@@ -13,75 +12,48 @@ class MorePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListView(
       children: [
-        ListTile(
-          title: const Text(
-            AppStrings.myProfile,
-          ),
-          leading: const Icon(Icons.person),
-          trailing: SvgPicture.asset(
-            Assets.imagesSettingsRightArrowIc,
-          ),
+        CustomListTile(
+          text: AppStrings.myProfile,
+          leadingIcon: const Icon(Icons.person),
+          trailingIcon: Icons.arrow_forward_ios,
           onTap: () {
             GoRouter.of(context).push(AppRouter.kProfileView);
           },
         ),
-        ListTile(
-          title: const Text(AppStrings.projectStatus),
-          leading: const Icon(Icons.preview),
-          trailing: SvgPicture.asset(
-            Assets.imagesSettingsRightArrowIc,
-          ),
+        CustomListTile(
+          text: AppStrings.projectStatus,
+          leadingIcon: const Icon(Icons.preview),
+          trailingIcon: Icons.arrow_forward_ios,
           onTap: () {
-            //Navigator.pushNamed(context, AppRouter.timelineRoute);
+            //GoRouter.of(context).push(AppRouter.kTimeLine);
           },
         ),
-        ListTile(
-          title: const Text(
-            AppStrings.changeLanguage,
-          ),
-          leading: const Icon(Icons.person),
-          trailing: SvgPicture.asset(
-            Assets.imagesSettingsRightArrowIc,
-          ),
-          onTap: () {},
-        ),
-        ListTile(
-          title: const Text(
-            AppStrings.contactUs,
-          ),
-          leading: const Icon(Icons.contact_page),
-          trailing: SvgPicture.asset(
-            Assets.imagesSettingsRightArrowIc,
-          ),
+        CustomListTile(
+          text: AppStrings.contactUs,
+          leadingIcon: const Icon(Icons.contact_page),
+          trailingIcon: Icons.arrow_forward_ios,
           onTap: () {
-            // Navigator.pushNamed(context, AppRouter.chatRoute);
+            //GoRouter.of(context).push(AppRouter.kContactUs);
           },
         ),
-        ListTile(
-          title: const Text(
-            AppStrings.inviteYourFriends,
-          ).tr(),
-          leading: const Icon(Icons.share),
-          trailing: SvgPicture.asset(
-            Assets.imagesSettingsRightArrowIc,
-          ),
+        CustomListTile(
+          text: AppStrings.inviteYourFriends,
+          leadingIcon: const Icon(Icons.share),
+          trailingIcon: Icons.arrow_forward_ios,
           onTap: () {
-            // _inviteFriends();
+            Share.share("test");
           },
         ),
-        ListTile(
-          title: const Text(
-            AppStrings.logout,
-          ).tr(),
-          leading: const Icon(Icons.logout),
-          trailing: SvgPicture.asset(
-            Assets.imagesSettingsRightArrowIc,
-          ),
+        CustomListTile(
+          text: AppStrings.logout,
+          leadingIcon: const Icon(Icons.logout),
+          trailingIcon: Icons.arrow_forward_ios,
           onTap: () {
-            // _logout();
+            //GoRouter.of(context).push(AppRouter.kContactUs);
           },
-        )
+        ),
       ],
     );
   }
 }
+
