@@ -1,5 +1,6 @@
 import 'package:designsprit/core/utils/service_locator.dart';
 import 'package:designsprit/core/utils/strings.dart';
+import 'package:designsprit/core/widgets/custom_app_bar.dart';
 import 'package:designsprit/core/widgets/custom_primary_button.dart';
 import 'package:designsprit/features/add_appointment/presentation/cubit/add_appointment_cubit.dart';
 import 'package:flutter/material.dart';
@@ -18,6 +19,9 @@ class AddAppointment extends StatelessWidget {
         listener: (context, state) {},
         builder: (context, state) {
           return Scaffold(
+            appBar: CustomAppBar(
+              titleName: AppStrings.addAppointment,
+            ),
             body: Stepper(
                 steps: cubit.getSteps(),
                 currentStep: cubit.currentStep,

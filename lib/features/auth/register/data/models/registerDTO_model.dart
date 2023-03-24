@@ -18,22 +18,22 @@ class RegisterDtoModel extends RegisterDTO {
   });
 
   factory RegisterDtoModel.fromJson(dynamic json) => RegisterDtoModel(
-        fuid: json['Fuid'],
-        name: json['Name'],
-        email: json['Email'],
-        phone: json['Phone'],
-        mobile: json['Mobile'],
-        image: json['Image'],
+        fuid: json['fuid'],
+        name: json['name'],
+        email: json['email'],
+        phone: json['phone'],
+        mobile: json['mobile'],
+        image: json['image'],
       );
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
-    map['Fuid'] = fuid;
-    map['Name'] = name;
-    map['Email'] = email;
-    map['Phone'] = phone;
-    map['Mobile'] = mobile;
-    map['Image'] = image;
+    map['fuid'] = fuid;
+    map['name'] = name;
+    map['email'] = email;
+    map['phone'] = phone;
+    map['mobile'] = mobile;
+    map['image'] = image;
     return map;
   }
 }

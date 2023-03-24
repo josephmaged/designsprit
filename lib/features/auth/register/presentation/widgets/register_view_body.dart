@@ -1,11 +1,16 @@
+import 'dart:io';
+
+import 'package:country_code_picker/country_code_picker.dart';
 import 'package:designsprit/core/utils/app_router.dart';
 import 'package:designsprit/core/utils/enum.dart';
 import 'package:designsprit/core/utils/function/launch_url.dart';
 import 'package:designsprit/core/utils/styles.dart';
 import 'package:designsprit/core/utils/validator.dart';
 import 'package:designsprit/core/widgets/custom_form_field.dart';
-import 'package:designsprit/core/widgets/flutter_social_button/src/social_button.dart';
+import 'package:designsprit/core/widgets/flutter_social_button/social_button.dart';
 import 'package:designsprit/features/auth/register/presentation/cubit/register_cubit.dart';
+import 'package:designsprit/features/auth/register/presentation/widgets/apple_button.dart';
+import 'package:designsprit/features/auth/register/presentation/widgets/privacy_policy.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -31,7 +36,15 @@ class RegisterViewBody extends StatelessWidget {
         } else {
           isLoading = false;
         }*/
-        if (state.requestState == RequestState.loading) {}
+        if (state.requestState == RequestState.loaded) {
+          GoRouter.of(context).push(AppRouter.kMainScreenView);
+        } else if (state.requestState == RequestState.error) {
+          SnackBar snackBar = SnackBar(
+            content: Text("${state.registerMessage}"),
+          );
+
+          ScaffoldMessenger.of(context).showSnackBar(snackBar);
+        }
       },
       builder: (context, state) {
         return GestureDetector(
@@ -59,6 +72,16 @@ class RegisterViewBody extends StatelessWidget {
                       child: Column(
                         children: [
                           CustomTextFormField(
+                            controller: cubit.nameController,
+                            validator: (value) => Validator.validateName(value),
+                            label: AppStrings.name,
+                            errorMessage: "Please enter a valid name",
+                            textInputType: TextInputType.name,
+                          ),
+                          SizedBox(
+                            height: 12.h,
+                          ),
+                          CustomTextFormField(
                             controller: cubit.emailController,
                             validator: (value) => Validator.validateEmail(value),
                             label: AppStrings.emailHint,
@@ -68,7 +91,7 @@ class RegisterViewBody extends StatelessWidget {
                           SizedBox(
                             height: 12.h,
                           ),
-                          /*CustomTextFormField(
+                          CustomTextFormField(
                             validator: (value) => Validator.validateNumber(value),
                             prefixWidget: CountryCodePicker(
                               initialSelection: initialCountry,
@@ -76,14 +99,14 @@ class RegisterViewBody extends StatelessWidget {
                               showFlag: true,
                               showCountryOnly: false,
                               onChanged: (CountryCode? code) {
-                                code = code;
+                                cubit.code = code;
                               },
                             ),
                             controller: cubit.phoneController,
                             errorMessage: "Enter your phone number",
                             label: "Phone Number",
                             textInputType: TextInputType.phone,
-                          ),*/
+                          ),
                           SizedBox(
                             height: 12.h,
                           ),
@@ -108,10 +131,9 @@ class RegisterViewBody extends StatelessWidget {
                               ? const CircularProgressIndicator()
                               : FlutterSocialButton(
                                   onTap: () {
-                                    GoRouter.of(context).push(AppRouter.kMainScreenView);
-                                    /*if (_formKey.currentState!.validate()) {
-                            cubit.register();
-                          }*/
+                                    if (_formKey.currentState!.validate()) {
+                                      cubit.registerWithEmail().then((value) => cubit.register());
+                                    }
                                   },
                                   title: AppStrings.register,
                                 ),
@@ -142,7 +164,7 @@ class RegisterViewBody extends StatelessWidget {
                               FlutterSocialButton(
                                 mini: true,
                                 onTap: () {
-                                  cubit.registerWithGoogle();
+                                  cubit.registerWithGoogle().then((value) => cubit.register());
                                 },
                                 buttonType: ButtonType.google,
                               ),
@@ -154,14 +176,8 @@ class RegisterViewBody extends StatelessWidget {
                                 },
                                 buttonType: ButtonType.facebook,
                               ),
-                              SizedBox(width: 10.w),
-                              FlutterSocialButton(
-                                mini: true,
-                                onTap: () {
-                                  //cubit.registerWithApple();
-                                },
-                                buttonType: ButtonType.apple,
-                              ),
+                              //if (Platform.isIOS)
+                                const AppleButton(),
                             ],
                           ),
                         ],
@@ -190,7 +206,7 @@ class RegisterViewBody extends StatelessWidget {
               height: 70.h,
               child: Padding(
                 padding: EdgeInsets.all(10.h),
-                child: privacyPolicyLinkAndTermsOfService(context),
+                child: const PrivacyPolicy(),
               ),
             ),
           ),
@@ -199,44 +215,5 @@ class RegisterViewBody extends StatelessWidget {
     );
   }
 
-  Widget privacyPolicyLinkAndTermsOfService(context) {
-    return Container(
-      alignment: Alignment.center,
-      child: Center(
-        child: Text.rich(
-          style: const TextStyle(color: Colors.white),
-          textAlign: TextAlign.center,
-          TextSpan(
-            text: 'By continuing, you agree to our ',
-            children: <TextSpan>[
-              TextSpan(
-                text: 'Terms of Service \n',
-                style: TextStyle(
-                  fontSize: 14.sp,
-                  decoration: TextDecoration.underline,
-                ),
-                recognizer: TapGestureRecognizer()
-                  ..onTap = () {
-                    // code to open / launch terms of service link here
-                  },
-              ),
-              TextSpan(
-                text: 'and ',
-                children: <TextSpan>[
-                  TextSpan(
-                    text: 'Privacy Policy',
-                    style: const TextStyle(decoration: TextDecoration.underline),
-                    recognizer: TapGestureRecognizer()
-                      ..onTap = () {
-                        launchCustomUr(context, 'https://policies.google.com/terms?hl=en-EG&fg=1');
-                      },
-                  ),
-                ],
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
 }
+

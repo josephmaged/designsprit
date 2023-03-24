@@ -10,11 +10,7 @@ const kTranstionDuration = Duration(milliseconds: 250);
 const kGtSectraFine = 'GT Sectra Fine';
 
 
-String? token;
-
-String? uId;
-
 class Constants {
-  static const uuid = "uuid";
+  static const userID = "userID";
   static const isFirstTime = 'isFirstTime';
 }

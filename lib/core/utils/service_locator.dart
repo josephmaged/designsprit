@@ -12,6 +12,7 @@ import 'package:designsprit/features/auth/register/data/repositories/register_re
 import 'package:designsprit/features/auth/register/domain/repositories/base_register_repo.dart';
 import 'package:designsprit/features/auth/register/domain/use_cases/register_API.dart';
 import 'package:designsprit/features/auth/register/domain/use_cases/register_with_apple.dart';
+import 'package:designsprit/features/auth/register/domain/use_cases/register_with_email.dart';
 import 'package:designsprit/features/auth/register/domain/use_cases/register_with_facebook.dart';
 import 'package:designsprit/features/auth/register/domain/use_cases/register_with_google.dart';
 import 'package:designsprit/features/auth/register/presentation/cubit/register_cubit.dart';
@@ -22,6 +23,7 @@ import 'package:designsprit/features/home/domain/use_cases/home_categories_use_c
 import 'package:designsprit/features/home/domain/use_cases/home_populars_use_case.dart';
 import 'package:designsprit/features/home/presentation/cubit/home_cubit.dart';
 import 'package:designsprit/features/main_screen/cubit/main_screen_cubit.dart';
+import 'package:designsprit/features/project_status/presentation/cubit/status_cubit.dart';
 import 'package:get_it/get_it.dart';
 
 import 'api_service.dart';
@@ -34,10 +36,11 @@ class SetupServiceLocator {
 
     /// BLOC
     sl.registerFactory(() => LoginCubit(sl(), sl()));
-    sl.registerFactory(() => RegisterCubit(sl(), sl()));
+    sl.registerFactory(() => RegisterCubit(sl(), sl(), sl()));
     sl.registerFactory(() => MainScreenCubit());
     sl.registerFactory(() => HomeCubit(sl(), sl()));
     sl.registerFactory(() => AddAppointmentCubit());
+    sl.registerFactory(() => StatusCubit());
 
     /// Register
     /// USE CASES
@@ -45,6 +48,7 @@ class SetupServiceLocator {
     sl.registerLazySingleton(() => RegisterWithAppleUsecase(sl()));
     sl.registerLazySingleton(() => RegisterWithGoogleUsecase(sl()));
     sl.registerLazySingleton(() => RegisterWithFacebookUsecase(sl()));
+    sl.registerLazySingleton(() => RegisterWithEmailUsecase(sl()));
 
     /// Repository
     sl.registerLazySingleton<BaseRegisterRepo>(() => RegisterRepo(sl()));

@@ -8,6 +8,8 @@ import 'package:designsprit/features/main_screen/page/main_screen_view.dart';
 import 'package:designsprit/features/more/presentation/pages/more_page.dart';
 import 'package:designsprit/features/onboarding/presentation/pages/onboarding_view.dart';
 import 'package:designsprit/features/profile/presentation/pages/profile_view.dart';
+import 'package:designsprit/features/project_status/presentation/cubit/status_cubit.dart';
+import 'package:designsprit/features/project_status/presentation/pages/timeline_status_view.dart';
 import 'package:designsprit/features/splash/presentation/pages/splash_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -25,6 +27,7 @@ abstract class AppRouter {
   static const kAppointmentView = '/addAppointment';
   static const kMoreView = '/moreView';
   static const kProfileView = '/profileView';
+  static const kTimelineView = '/timelineView';
 
   static final router = GoRouter(
     routes: [
@@ -67,6 +70,13 @@ abstract class AppRouter {
       GoRoute(
         path: kProfileView,
         builder: (context, state) => const ProfileView(),
+      ),
+      GoRoute(
+        path: kTimelineView,
+        builder: (context, state) => BlocProvider(
+          create: (context) => sl<StatusCubit>(),
+          child: TimelineView(),
+        ),
       ),
       GoRoute(
         path: kAppointmentView,

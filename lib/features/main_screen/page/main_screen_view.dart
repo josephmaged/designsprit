@@ -18,7 +18,7 @@ class MainScreenView extends StatelessWidget {
       builder: (context, state) {
         return Scaffold(
           appBar: CustomAppBar(
-            tittle: cubit.screenNames[cubit.currentIndex],
+            titleName: cubit.screenNames[cubit.currentIndex],
           ),
           body: cubit.screens[cubit.currentIndex],
           bottomNavigationBar: AnimatedBottomNavigationBar(

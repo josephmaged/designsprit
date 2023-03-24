@@ -6,6 +6,7 @@ import 'package:designsprit/features/auth/register/domain/use_cases/register_API
 import 'package:designsprit/features/auth/register/domain/use_cases/register_with_email.dart';
 import 'package:dio/dio.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/services.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 abstract class BaseRegisterRemoteDataSource {
@@ -25,7 +26,22 @@ class RegisterRemoteDataSource extends BaseRegisterRemoteDataSource {
 
   @override
   Future<RegisterResponseModel> registerAPI(RegisterApiParameters parameters) async {
-    final response = await Dio().post(ApiConst.registerPath, data: {parameters});
+    final response = await Dio().post(
+      ApiConst.registerPath,
+      data: {
+        "fuid": parameters.fuid,
+        "name": parameters.name,
+        "email": parameters.email,
+        "phone": parameters.phone,
+      },
+      options: Options(
+        headers: {
+          "Content-Type": 'application/json',
+          'Accept': '*/*',
+        },
+      ),
+    );
+
     if (response.statusCode == 200) {
       return (response.data['data']).map((e) => RegisterResponseModel.fromJson(e));
     } else {
@@ -49,15 +65,25 @@ class RegisterRemoteDataSource extends BaseRegisterRemoteDataSource {
 
   @override
   Future<UserCredential> registerWithGoogle() async {
-    final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+    FirebaseAuth auth = FirebaseAuth.instance;
 
-    final GoogleSignInAuthentication? googleAuth = await googleUser?.authentication;
-    final credential = GoogleAuthProvider.credential(
-      accessToken: googleAuth?.accessToken,
-      idToken: googleAuth?.idToken,
-    );
-    var user = await auth.signInWithCredential(credential);
-    return user;
+    final GoogleSignIn googleSignIn = GoogleSignIn();
+
+    final GoogleSignInAccount? googleSignInAccount = await googleSignIn.signIn();
+
+    late UserCredential userCredential;
+
+    if (googleSignInAccount != null) {
+      final GoogleSignInAuthentication googleSignInAuthentication = await googleSignInAccount.authentication;
+      final AuthCredential credential = GoogleAuthProvider.credential(
+        accessToken: googleSignInAuthentication.accessToken,
+        idToken: googleSignInAuthentication.idToken,
+      );
+
+      userCredential = await auth.signInWithCredential(credential);
+    }
+
+    return userCredential;
   }
 
   @override

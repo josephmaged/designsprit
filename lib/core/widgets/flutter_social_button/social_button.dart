@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import './constants.dart';
+import 'constants.dart';
 
 //This is for define ButtonType of buttons List
 enum ButtonType { facebook, google, twitter, linkedin, whatsapp, apple, github, yahoo, phone, email }

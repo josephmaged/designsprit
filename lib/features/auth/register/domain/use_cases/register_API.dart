@@ -17,18 +17,18 @@ class RegisterApiUsecase extends BaseUseCase<RegisterResponse, RegisterApiParame
 }
 
 class RegisterApiParameters extends Equatable {
-  final String name;
-  final String email;
-  final String password;
-  final String phone;
+  final String fuid;
+  final String? name;
+  final String? email;
+  final String? phone;
 
   const RegisterApiParameters({
-    required this.name,
-    required this.email,
-    required this.password,
-    required this.phone,
+    required this.fuid,
+     this.name,
+     this.email,
+    this.phone,
   });
 
   @override
-  List<Object?> get props => [name, email, password, phone];
+  List<Object?> get props => [fuid, name, email, phone];
 }

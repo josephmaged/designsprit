@@ -30,7 +30,7 @@ class Validator {
   }
 
   static String? validateNumber(String value) {
-    String pattern = r'^\D?(\d{3})\D?\D?(\d{3})\D?(\d{4})$';
+    String pattern = r'^0\D?(\d{3})\D?\D?(\d{3})\D?(\d{4})$';
     RegExp regex = RegExp(pattern);
     if (!regex.hasMatch(value)) {
       return 'Please enter a number.';

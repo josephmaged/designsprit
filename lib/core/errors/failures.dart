@@ -21,8 +21,7 @@ class ServerFailure extends Failure {
         return ServerFailure('Receive timeout with ApiServer');
 
       case DioErrorType.response:
-        return ServerFailure.fromResponse(
-            dioError.response!.statusCode, dioError.response!.data);
+        return ServerFailure.fromResponse(dioError.response!.statusCode, dioError.response!.data);
       case DioErrorType.cancel:
         return ServerFailure('Request to ApiServer was canceled');
 
@@ -47,4 +46,8 @@ class ServerFailure extends Failure {
       return ServerFailure('Opps There was an Error, Please try again');
     }
   }
+}
+
+class FirebaseFailure extends Failure {
+  FirebaseFailure(super.errMessage);
 }

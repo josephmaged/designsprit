@@ -5,7 +5,7 @@ import 'package:designsprit/core/utils/strings.dart';
 import 'package:designsprit/core/utils/styles.dart';
 import 'package:designsprit/core/utils/validator.dart';
 import 'package:designsprit/core/widgets/custom_form_field.dart';
-import 'package:designsprit/core/widgets/flutter_social_button/src/social_button.dart';
+import 'package:designsprit/core/widgets/flutter_social_button/social_button.dart';
 import 'package:designsprit/features/auth/login/presentation/cubit/login_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

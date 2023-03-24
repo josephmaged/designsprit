@@ -3,13 +3,13 @@ import 'package:designsprit/core/utils/styles.dart';
 import 'package:flutter/material.dart';
 
 class CustomAppBar extends AppBar {
-  final String tittle;
+  final String titleName;
   final VoidCallback? notificationIconClickedCallBack;
   final List<Widget>? listOfActions;
   Color? color = kPrimaryColor;
 
   CustomAppBar(
-      {required this.tittle,
+      {required this.titleName,
       this.listOfActions,
       this.notificationIconClickedCallBack,
       this.color,
@@ -17,7 +17,7 @@ class CustomAppBar extends AppBar {
 
   @override
   Widget? get title => Text(
-        tittle,
+        titleName,
         style: Styles.textStyle16.copyWith(color: Colors.white),
       );
 

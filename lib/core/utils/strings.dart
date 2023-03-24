@@ -55,4 +55,6 @@ class AppStrings{
   static const String projectStatus = 'Project Status';
   static const String updateProfile = 'Update';
   static const String addAppointment = 'Add a new Appointment';
+
+  static const String projectTimeline = 'Project Timeline';
 }

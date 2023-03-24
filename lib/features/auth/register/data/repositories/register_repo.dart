@@ -7,6 +7,7 @@ import 'package:designsprit/features/auth/register/domain/repositories/base_regi
 import 'package:designsprit/features/auth/register/domain/use_cases/register_API.dart';
 import 'package:designsprit/features/auth/register/domain/use_cases/register_with_email.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/services.dart';
 
 class RegisterRepo extends BaseRegisterRepo {
   final BaseRegisterRemoteDataSource baseRegisterDataSource;
@@ -15,9 +16,8 @@ class RegisterRepo extends BaseRegisterRepo {
 
   @override
   Future<Either<Failure, RegisterResponse>> registerAPI(RegisterApiParameters parameters) async {
-    final result = await baseRegisterDataSource.registerAPI(parameters);
-
     try {
+      final result = await baseRegisterDataSource.registerAPI(parameters);
       return Right(result);
     } on ServerException catch (failure) {
       return Left(ServerFailure(failure.errorMessageModel.statusMessage));
@@ -34,22 +34,21 @@ class RegisterRepo extends BaseRegisterRepo {
       return Left(ServerFailure(failure.errorMessageModel.statusMessage));
     }
   }
+
   @override
   Future<Either<Failure, UserCredential>> registerWithEmail(RegisterEmailParameters parameters) async {
-    final result = await baseRegisterDataSource.registerWithEmail(parameters);
-
     try {
+      final result = await baseRegisterDataSource.registerWithEmail(parameters);
       return Right(result);
-    } on ServerException catch (failure) {
-      return Left(ServerFailure(failure.errorMessageModel.statusMessage));
+    } on FirebaseAuthException catch (failure) {
+      return Left(FirebaseFailure(failure.message!));
     }
   }
 
   @override
   Future<Either<Failure, RegisterResponse>> registerWithFacebook() async {
-    final result = await baseRegisterDataSource.registerWithFacebook();
-
     try {
+      final result = await baseRegisterDataSource.registerWithFacebook();
       return Right(result);
     } on ServerException catch (failure) {
       return Left(ServerFailure(failure.errorMessageModel.statusMessage));
@@ -58,12 +57,11 @@ class RegisterRepo extends BaseRegisterRepo {
 
   @override
   Future<Either<Failure, UserCredential>> registerWithGoogle() async {
-    final result = await baseRegisterDataSource.registerWithGoogle();
-
     try {
+      final result = await baseRegisterDataSource.registerWithGoogle();
       return Right(result);
-    } on ServerException catch (failure) {
-      return Left(ServerFailure(failure.errorMessageModel.statusMessage));
+    } on PlatformException catch (failure) {
+      return Left(FirebaseFailure(failure.message!));
     }
   }
 }

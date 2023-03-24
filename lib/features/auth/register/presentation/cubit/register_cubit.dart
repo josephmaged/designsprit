@@ -1,8 +1,12 @@
 import 'package:bloc/bloc.dart';
+import 'package:country_code_picker/country_code_picker.dart';
+import 'package:designsprit/constants.dart';
 import 'package:designsprit/core/usecase/base_usecase.dart';
+import 'package:designsprit/core/utils/cache_helper.dart';
 import 'package:designsprit/core/utils/enum.dart';
 import 'package:designsprit/features/auth/register/domain/entities/register_response.dart';
 import 'package:designsprit/features/auth/register/domain/use_cases/register_API.dart';
+import 'package:designsprit/features/auth/register/domain/use_cases/register_with_email.dart';
 import 'package:designsprit/features/auth/register/domain/use_cases/register_with_google.dart';
 import 'package:equatable/equatable.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -14,23 +18,29 @@ part 'register_state.dart';
 class RegisterCubit extends Cubit<RegisterState> {
   final RegisterApiUsecase registerApi;
   final RegisterWithGoogleUsecase registerWithGoogleUsecase;
-
+  final RegisterWithEmailUsecase registerWithEmailUsecase;
 
   final nameController = TextEditingController();
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
   final phoneController = TextEditingController();
 
-  RegisterCubit(this.registerApi, this.registerWithGoogleUsecase) : super(const RegisterState());
+  RegisterCubit(
+    this.registerApi,
+    this.registerWithGoogleUsecase,
+    this.registerWithEmailUsecase,
+  ) : super(const RegisterState());
 
   static RegisterCubit get(context) => BlocProvider.of(context);
 
+  CountryCode? code;
+
   Future<void> register() async {
     final result = await registerApi(RegisterApiParameters(
+      fuid: state.userCredential!.user!.uid,
       name: nameController.text,
-      email: emailController.text,
-      password: passwordController.text,
-      phone: phoneController.text,
+      email: state.userCredential?.user?.email,
+      phone: phoneController.text == "" ? '' : "$code${phoneController.text.substring(1)}",
     ));
 
     result.fold((l) {
@@ -43,6 +53,29 @@ class RegisterCubit extends Cubit<RegisterState> {
         registerResponse: r,
         requestState: RequestState.loaded,
       ));
+
+      CacheHelper.saveData(key: Constants.userID, value: r.fuid);
+    });
+  }
+
+  Future<void> registerWithEmail() async {
+    emit(state.copyWith(requestState: RequestState.loading));
+
+    final result = await registerWithEmailUsecase(
+      RegisterEmailParameters(
+        email: emailController.text,
+        password: passwordController.text,
+      ),
+    );
+    result.fold((l) {
+      emit(state.copyWith(
+        requestState: RequestState.error,
+        registerMessage: l.errMessage,
+      ));
+    }, (r) {
+      emit(state.copyWith(
+        userCredential: r,
+      ));
     });
   }
 
@@ -51,32 +84,26 @@ class RegisterCubit extends Cubit<RegisterState> {
     result.fold((l) {
       emit(state.copyWith(
         requestState: RequestState.error,
-        registerMessage: l.errMessage
+        registerMessage: l.errMessage,
       ));
     }, (r) {
       emit(state.copyWith(
         userCredential: r,
-        requestState: RequestState.loaded
       ));
     });
   }
 
   bool isPassword = true;
+
   void changePasswordVisibility() {
     isPassword = !isPassword;
-    emit(state.copyWith(
-        isPassword : isPassword
-    ));
+    emit(state.copyWith(isPassword: isPassword));
   }
 
   bool checked = false;
 
   void changeCheckState() {
     checked = !checked;
-    emit(
-      state.copyWith(
-        checkState: checked
-      )
-    );
+    emit(state.copyWith(checkState: checked));
   }
 }

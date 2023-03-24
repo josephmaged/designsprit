@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:designsprit/core/utils/strings.dart';
+import 'package:designsprit/core/widgets/custom_app_bar.dart';
 import 'package:designsprit/core/widgets/custom_form_field.dart';
 import 'package:designsprit/core/widgets/custom_primary_button.dart';
 import 'package:flutter/material.dart';
@@ -13,8 +14,8 @@ class ProfileView extends StatelessWidget {
     final controller = TextEditingController();
     return SafeArea(
       child: Scaffold(
-        appBar: AppBar(
-          title: const Text(AppStrings.myProfile),
+        appBar: CustomAppBar(
+          titleName: AppStrings.myProfile,
         ),
         body: Padding(
           padding: const EdgeInsets.all(8.0),
