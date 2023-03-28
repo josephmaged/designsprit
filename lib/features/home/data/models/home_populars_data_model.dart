@@ -5,12 +5,11 @@ class HomePopularsDataModel extends HomePopularsResponseData {
       {required super.id,
       required super.itemName,
       required super.description,
-      required super.itemImages,
+      super.itemImages,
       required super.categoryId});
 
   factory HomePopularsDataModel.fromJson(dynamic json) => HomePopularsDataModel(
-        itemImages:
-            json['itemImages'] != null ? json['itemImages'].cast<String>() : [],
+        itemImages: List<String>.from(json['itemImages'].map((image) => image)),
         id: json['id'],
         itemName: json['itemName'],
         description: json['description'],

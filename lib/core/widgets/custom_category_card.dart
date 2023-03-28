@@ -1,3 +1,5 @@
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:designsprit/core/network/api_const.dart';
 import 'package:designsprit/core/utils/styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -22,8 +24,8 @@ class CustomCategoryCard extends StatelessWidget {
         child: Stack(
           alignment: AlignmentDirectional.bottomCenter,
           children: [
-            SvgPicture.asset(
-              image!,
+            CachedNetworkImage(
+              imageUrl: ApiConst.getImages(image!),
               width: 85.w,
               height: 85.h,
             ),

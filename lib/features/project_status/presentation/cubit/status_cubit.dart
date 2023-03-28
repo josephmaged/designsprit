@@ -20,7 +20,6 @@ class StatusCubit extends Cubit<StatusState> {
   String fuid = CacheHelper.getData(key: Constants.userID);
 
   Future<void> getProjectTracker() async {
-
     emit(state.copyWith(
       requestState: RequestState.loading,
     ));
@@ -41,14 +40,6 @@ class StatusCubit extends Cubit<StatusState> {
   }
 
   StepperType stepType = StepperType.vertical;
-
-/*  List<Tuple4<String, IconData, StepState, String>> steps = [
-    const Tuple4("Design Stage", Icons.directions_bike, StepState.error, "1//2023 - 1/10/2023"),
-    const Tuple4("License Design Stage", Icons.directions_bus, StepState.editing, "1//2023 - 1/10/2023"),
-    const Tuple4("Operational Graphic Stage", Icons.directions_railway, StepState.indexed, "1//2023 - 1/10/2023"),
-    const Tuple4("Follow-up Stage", Icons.directions_boat, StepState.complete, "1//2023 - 1/10/2023"),
-    const Tuple4("Stage 5", Icons.directions_boat, StepState.disabled, "1//2023 - 1/10/2023"),
-  ];*/
 
   int stepIndex = 0;
 

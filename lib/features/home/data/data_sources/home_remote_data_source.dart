@@ -29,7 +29,7 @@ class HomeRemoteDataSource extends BaseHomeRemoteDataSource {
 
   @override
   Future<List<HomePopularsDataModel>> getPopularItems() async {
-    final response = await Dio().get(ApiConst.GetRandomItems);
+    final response = await Dio().get(ApiConst.getRandomItems);
     if (response.statusCode == 200) {
       return List<HomePopularsDataModel>.from(
           (response.data['data'] ?? []).map(

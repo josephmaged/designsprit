@@ -1,12 +1,14 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:designsprit/constants.dart';
+import 'package:designsprit/core/network/api_const.dart';
 import 'package:designsprit/core/utils/styles.dart';
 import 'package:flutter/material.dart';
 
 class BannerItem extends StatelessWidget {
-  BannerItem({required this.name, super.key, required image});
+  const BannerItem({required this.name, super.key, this.image});
 
-  String? image;
-  String name;
+  final List<String>? image;
+  final String name;
 
   @override
   Widget build(BuildContext context) {
@@ -21,9 +23,10 @@ class BannerItem extends StatelessWidget {
                 borderRadius: BorderRadius.all(Radius.circular(10.0)),
               ),
               height: 200,
-              child: Image.network(
-                image ??
-                    "https://storage.googleapis.com/proudcity/mebanenc/uploads/2021/03/placeholder-image.png",
+              child: CachedNetworkImage(
+                imageUrl: image!.isEmpty
+                    ? "https://storage.googleapis.com/proudcity/mebanenc/uploads/2021/03/placeholder-image.png"
+                    : ApiConst.getImages(image!.first),
                 fit: BoxFit.fill,
                 width: double.infinity,
               ),
@@ -40,9 +43,7 @@ class BannerItem extends StatelessWidget {
                 child: ListTile(
                   title: Text(
                     name,
-                    style: Styles.textStyle20.copyWith(
-                      color: kPrimaryColor
-                    ),
+                    style: Styles.textStyle20.copyWith(color: kPrimaryColor),
                     textAlign: TextAlign.center,
                   ),
                 ),

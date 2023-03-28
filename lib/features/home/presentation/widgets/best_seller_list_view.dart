@@ -38,7 +38,7 @@ class BestSellerListView extends StatelessWidget {
                 return Builder(
                   builder: (BuildContext context) {
                     return GestureDetector(
-                      onTap: (){},
+                      onTap: () {},
                       child: Container(
                         width: MediaQuery.of(context).size.width,
                         margin: const EdgeInsets.symmetric(horizontal: 5.0),
@@ -46,8 +46,8 @@ class BestSellerListView extends StatelessWidget {
                           borderRadius: BorderRadius.circular(10),
                         ),
                         child: BannerItem(
-                          name: i.itemName ?? "",
-                          image: i.itemImages,
+                          name: i.itemName!,
+                          image: i.itemImages!,
                         ),
                       ),
                     );

@@ -11,7 +11,7 @@ class HomePopularsResponseData extends Equatable {
     required this.id,
     required this.itemName,
     required this.description,
-    required this.itemImages,
+     this.itemImages,
     required this.categoryId,
   });
 
