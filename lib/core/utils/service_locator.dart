@@ -23,6 +23,10 @@ import 'package:designsprit/features/home/domain/use_cases/home_categories_use_c
 import 'package:designsprit/features/home/domain/use_cases/home_populars_use_case.dart';
 import 'package:designsprit/features/home/presentation/cubit/home_cubit.dart';
 import 'package:designsprit/features/main_screen/cubit/main_screen_cubit.dart';
+import 'package:designsprit/features/project_status/data/data_sources/project_tracker_data_source.dart';
+import 'package:designsprit/features/project_status/data/repositories/project_repo.dart';
+import 'package:designsprit/features/project_status/domain/repositories/base_project_steps_repo.dart';
+import 'package:designsprit/features/project_status/domain/use_cases/get_project_steps.dart';
 import 'package:designsprit/features/project_status/presentation/cubit/status_cubit.dart';
 import 'package:get_it/get_it.dart';
 
@@ -40,7 +44,7 @@ class SetupServiceLocator {
     sl.registerFactory(() => MainScreenCubit());
     sl.registerFactory(() => HomeCubit(sl(), sl()));
     sl.registerFactory(() => AddAppointmentCubit());
-    sl.registerFactory(() => StatusCubit());
+    sl.registerFactory(() => StatusCubit(sl()));
 
     /// Register
     /// USE CASES
@@ -79,5 +83,15 @@ class SetupServiceLocator {
 
     /// DATA SOURCE
     sl.registerLazySingleton<BaseHomeRemoteDataSource>(() => HomeRemoteDataSource());
+
+    /// Project Tracker
+    /// USE CASE
+    sl.registerLazySingleton(() => GetProjectStepsUseCase(sl()));
+
+    /// Repository
+    sl.registerLazySingleton<BaseProjectStepsRepo>(() => ProjectStepsRepo(sl()));
+
+    /// DATA SOURCE
+    sl.registerLazySingleton<BaseProjectStepsDataSource>(() => ProjectStepsRemoteDataSource());
   }
 }

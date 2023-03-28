@@ -79,7 +79,7 @@ class _SplashViewBodyState extends State<SplashViewBody> with SingleTickerProvid
         });
       } else {
         Future.delayed(const Duration(seconds: 2), () {
-          GoRouter.of(context).pushReplacement(AppRouter.kHomeView);
+          GoRouter.of(context).pushReplacement(AppRouter.kMainScreenView);
         });
       }
     }

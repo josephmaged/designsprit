@@ -18,38 +18,23 @@ class RegisterResponseModel extends RegisterResponse {
     required super.name,
     required super.email,
     required super.phone,
-    required super.mobile,
-    required super.description,
-    required super.image,
-    required super.status,
-    required super.rule,
   });
 
-  factory RegisterResponseModel.fromJson(dynamic json) => RegisterResponseModel(
+  factory RegisterResponseModel.fromJson(Map<String, dynamic> json) => RegisterResponseModel(
         id: json['id'],
         fuid: json['fuid'],
-        name: json['name'],
-        email: json['email'],
+        name: json['userName'],
+        email: json['userEmail'],
         phone: json['phone'],
-        mobile: json['mobile'],
-        description: json['description'],
-        image: json['image'],
-        status: json['status'],
-        rule: json['rule'],
       );
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
     map['id'] = id;
     map['fuid'] = fuid;
-    map['name'] = name;
-    map['email'] = email;
+    map['userName'] = name;
+    map['userEmail'] = email;
     map['phone'] = phone;
-    map['mobile'] = mobile;
-    map['description'] = description;
-    map['image'] = image;
-    map['status'] = status;
-    map['rule'] = rule;
     return map;
   }
 }

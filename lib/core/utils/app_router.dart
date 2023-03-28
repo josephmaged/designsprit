@@ -74,8 +74,8 @@ abstract class AppRouter {
       GoRoute(
         path: kTimelineView,
         builder: (context, state) => BlocProvider(
-          create: (context) => sl<StatusCubit>(),
-          child: TimelineView(),
+          create: (context) => sl<StatusCubit>()..getProjectTracker(),
+          child: const TimelineView(),
         ),
       ),
       GoRoute(

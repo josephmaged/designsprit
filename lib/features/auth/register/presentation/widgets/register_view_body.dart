@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:country_code_picker/country_code_picker.dart';
 import 'package:designsprit/core/utils/app_router.dart';
+import 'package:designsprit/core/utils/cache_helper.dart';
 import 'package:designsprit/core/utils/enum.dart';
 import 'package:designsprit/core/utils/function/launch_url.dart';
 import 'package:designsprit/core/utils/styles.dart';
@@ -40,7 +41,7 @@ class RegisterViewBody extends StatelessWidget {
           GoRouter.of(context).push(AppRouter.kMainScreenView);
         } else if (state.requestState == RequestState.error) {
           SnackBar snackBar = SnackBar(
-            content: Text("${state.registerMessage}"),
+            content: Text("${state.responseMessage}"),
           );
 
           ScaffoldMessenger.of(context).showSnackBar(snackBar);
@@ -99,6 +100,9 @@ class RegisterViewBody extends StatelessWidget {
                               showFlag: true,
                               showCountryOnly: false,
                               onChanged: (CountryCode? code) {
+                                cubit.code = code;
+                              },
+                              onInit: (CountryCode? code) {
                                 cubit.code = code;
                               },
                             ),

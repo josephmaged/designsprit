@@ -46,7 +46,7 @@ class RegisterCubit extends Cubit<RegisterState> {
     result.fold((l) {
       emit(state.copyWith(
         requestState: RequestState.error,
-        registerMessage: l.errMessage,
+        responseMessage: l.errMessage,
       ));
     }, (r) {
       emit(state.copyWith(
@@ -54,7 +54,7 @@ class RegisterCubit extends Cubit<RegisterState> {
         requestState: RequestState.loaded,
       ));
 
-      CacheHelper.saveData(key: Constants.userID, value: r.fuid);
+      CacheHelper.saveData(key: Constants.userID, value: r[0].fuid);
     });
   }
 
@@ -70,7 +70,7 @@ class RegisterCubit extends Cubit<RegisterState> {
     result.fold((l) {
       emit(state.copyWith(
         requestState: RequestState.error,
-        registerMessage: l.errMessage,
+        responseMessage: l.errMessage,
       ));
     }, (r) {
       emit(state.copyWith(
@@ -84,7 +84,7 @@ class RegisterCubit extends Cubit<RegisterState> {
     result.fold((l) {
       emit(state.copyWith(
         requestState: RequestState.error,
-        registerMessage: l.errMessage,
+        responseMessage: l.errMessage,
       ));
     }, (r) {
       emit(state.copyWith(

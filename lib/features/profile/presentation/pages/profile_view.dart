@@ -37,8 +37,8 @@ class ProfileView extends StatelessWidget {
                     placeholder: (context, url) => const CircularProgressIndicator(),
                     errorWidget: (context, url, error) => const Icon(Icons.error),
                     imageUrl:
-                        'https://media.licdn.com/dms/image/C4D03AQG-oGUJCV5Enw/profile-displayphoto-shrink_800_800/0/1578167754622?e=1677110400&v=beta&t=0fDtdbVqUCpnUIre_Lf2Kvh72_2F4J8RPPzjFR84Kms',
-                  ),
+                      "https://lh3.googleusercontent.com/a/AGNmyxav7RcuwpdMP7pW5D_FRscwntHNmrL-FClRKgg8hw=s288"
+                          ),
                 ),
                 Form(
                   child: Padding(

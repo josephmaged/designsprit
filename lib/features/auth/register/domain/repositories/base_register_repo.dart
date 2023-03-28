@@ -14,5 +14,5 @@ abstract class BaseRegisterRepo {
 
   Future<Either<Failure, UserCredential>> registerWithEmail(RegisterEmailParameters parameters);
 
-  Future<Either<Failure, RegisterResponse>> registerAPI(RegisterApiParameters parameters);
+  Future<Either<Failure, List<RegisterResponse>>> registerAPI(RegisterApiParameters parameters);
 }

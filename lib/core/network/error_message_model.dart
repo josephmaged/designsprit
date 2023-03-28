@@ -1,20 +1,20 @@
 import 'package:equatable/equatable.dart';
 
 class ErrorMessageModel extends Equatable {
-  final int statusCode;
+  final int? statusCode;
   final String statusMessage;
-  final bool success;
+  final bool? success;
 
   const ErrorMessageModel({
-    required this.statusCode,
-    required this.statusMessage,
-    required this.success,
+     this.statusCode,
+     required this.statusMessage,
+      this.success,
   });
 
   factory ErrorMessageModel.fromJson(Map<String, dynamic> json) {
     return ErrorMessageModel(
       statusCode: json['status_code'],
-      statusMessage: json['status_message'],
+      statusMessage: json['message'],
       success: json['success'],
     );
   }

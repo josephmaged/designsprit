@@ -15,7 +15,7 @@ class RegisterRepo extends BaseRegisterRepo {
   RegisterRepo(this.baseRegisterDataSource);
 
   @override
-  Future<Either<Failure, RegisterResponse>> registerAPI(RegisterApiParameters parameters) async {
+  Future<Either<Failure, List<RegisterResponse>>> registerAPI(RegisterApiParameters parameters) async {
     try {
       final result = await baseRegisterDataSource.registerAPI(parameters);
       return Right(result);

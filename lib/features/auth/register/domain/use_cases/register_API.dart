@@ -5,13 +5,13 @@ import 'package:designsprit/features/auth/register/domain/entities/register_resp
 import 'package:designsprit/features/auth/register/domain/repositories/base_register_repo.dart';
 import 'package:equatable/equatable.dart';
 
-class RegisterApiUsecase extends BaseUseCase<RegisterResponse, RegisterApiParameters> {
+class RegisterApiUsecase extends BaseUseCase<List<RegisterResponse>, RegisterApiParameters> {
   final BaseRegisterRepo baseRegisterRepo;
 
   RegisterApiUsecase(this.baseRegisterRepo);
 
   @override
-  Future<Either<Failure, RegisterResponse>> call(RegisterApiParameters parameters) async {
+  Future<Either<Failure, List<RegisterResponse>>> call(RegisterApiParameters parameters) async {
     return await baseRegisterRepo.registerAPI(parameters);
   }
 }
