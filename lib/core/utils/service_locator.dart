@@ -22,6 +22,12 @@ import 'package:designsprit/features/home/domain/repositories/base_home_repo.dar
 import 'package:designsprit/features/home/domain/use_cases/home_categories_use_case.dart';
 import 'package:designsprit/features/home/domain/use_cases/home_populars_use_case.dart';
 import 'package:designsprit/features/home/presentation/cubit/home_cubit.dart';
+import 'package:designsprit/features/item_details/presentation/cubit/item_cubit.dart';
+import 'package:designsprit/features/items_list/data/data_sources/items_list_remote_data_source.dart';
+import 'package:designsprit/features/items_list/data/repositories/items_list_repo.dart';
+import 'package:designsprit/features/items_list/domain/repositories/items_list_repo.dart';
+import 'package:designsprit/features/items_list/domain/use_cases/get_items_list_usecase.dart';
+import 'package:designsprit/features/items_list/presentation/cubit/items_list_cubit.dart';
 import 'package:designsprit/features/main_screen/cubit/main_screen_cubit.dart';
 import 'package:designsprit/features/project_status/data/data_sources/project_tracker_data_source.dart';
 import 'package:designsprit/features/project_status/data/repositories/project_repo.dart';
@@ -45,6 +51,8 @@ class SetupServiceLocator {
     sl.registerFactory(() => HomeCubit(sl(), sl()));
     sl.registerFactory(() => AddAppointmentCubit());
     sl.registerFactory(() => StatusCubit(sl()));
+    sl.registerFactory(() => ItemCubit());
+    sl.registerFactory(() => ItemsListCubit(sl()));
 
     /// Register
     /// USE CASES
@@ -93,5 +101,15 @@ class SetupServiceLocator {
 
     /// DATA SOURCE
     sl.registerLazySingleton<BaseProjectStepsDataSource>(() => ProjectStepsRemoteDataSource());
+
+    /// Items List
+    /// USE CASE
+    sl.registerLazySingleton(() => GetItemsListUseCase(sl()));
+
+    /// Repository
+    sl.registerLazySingleton<BaseItemsListRepo>(() => ItemsListRepo(sl()));
+
+    /// DATA SOURCE
+    sl.registerLazySingleton<BaseItemsListRemoteDataSource>(() => ItemsListRemoteDataSource());
   }
 }

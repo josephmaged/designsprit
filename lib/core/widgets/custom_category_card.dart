@@ -18,7 +18,7 @@ class CustomCategoryCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
+    return InkWell(
       onTap: press,
       child: SizedBox(
         child: Stack(
@@ -28,6 +28,7 @@ class CustomCategoryCard extends StatelessWidget {
               imageUrl: ApiConst.getImages(image!),
               width: 85.w,
               height: 85.h,
+              fit: BoxFit.cover,
             ),
             Container(
               color: Colors.black.withOpacity(

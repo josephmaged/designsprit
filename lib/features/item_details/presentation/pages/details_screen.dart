@@ -7,6 +7,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class DetailsScreen extends StatelessWidget {
 
+
+
   const DetailsScreen({super.key});
 
   @override

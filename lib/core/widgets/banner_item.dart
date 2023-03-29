@@ -1,8 +1,12 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:designsprit/constants.dart';
 import 'package:designsprit/core/network/api_const.dart';
+import 'package:designsprit/core/utils/app_router.dart';
+import 'package:designsprit/core/utils/assets.dart';
 import 'package:designsprit/core/utils/styles.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 
 class BannerItem extends StatelessWidget {
   const BannerItem({required this.name, super.key, this.image});
@@ -13,7 +17,9 @@ class BannerItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () {},
+      onTap: () {
+        GoRouter.of(context).push(AppRouter.kItemDetailsView);
+      },
       child: Stack(
         children: <Widget>[
           Align(
@@ -24,9 +30,8 @@ class BannerItem extends StatelessWidget {
               ),
               height: 200,
               child: CachedNetworkImage(
-                imageUrl: image!.isEmpty
-                    ? "https://storage.googleapis.com/proudcity/mebanenc/uploads/2021/03/placeholder-image.png"
-                    : ApiConst.getImages(image!.first),
+                imageUrl: ApiConst.getImages(image!.first),
+                errorWidget: (context, url, error) => Image.asset(AssetsData.notFound),
                 fit: BoxFit.fill,
                 width: double.infinity,
               ),

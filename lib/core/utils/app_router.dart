@@ -4,6 +4,10 @@ import 'package:designsprit/features/add_appointment/presentation/pages/add_appo
 import 'package:designsprit/features/auth/login/presentation/pages/login_view.dart';
 import 'package:designsprit/features/auth/register/presentation/pages/register_view.dart';
 import 'package:designsprit/features/home/presentation/pages/home_view.dart';
+import 'package:designsprit/features/item_details/presentation/cubit/item_cubit.dart';
+import 'package:designsprit/features/item_details/presentation/pages/details_screen.dart';
+import 'package:designsprit/features/items_list/presentation/cubit/items_list_cubit.dart';
+import 'package:designsprit/features/items_list/presentation/pages/items_list.dart';
 import 'package:designsprit/features/main_screen/page/main_screen_view.dart';
 import 'package:designsprit/features/more/presentation/pages/more_page.dart';
 import 'package:designsprit/features/onboarding/presentation/pages/onboarding_view.dart';
@@ -28,6 +32,8 @@ abstract class AppRouter {
   static const kMoreView = '/moreView';
   static const kProfileView = '/profileView';
   static const kTimelineView = '/timelineView';
+  static const kItemDetailsView = '/itemDetailsView';
+  static const kItemsListView = '/itemsListView';
 
   static final router = GoRouter(
     routes: [
@@ -83,6 +89,22 @@ abstract class AppRouter {
         builder: (context, state) => BlocProvider(
           create: (context) => sl<AddAppointmentCubit>(),
           child: const AddAppointment(),
+        ),
+      ),
+      GoRoute(
+        path: kItemDetailsView,
+        builder: (context, state) => BlocProvider(
+          create: (context) => sl<ItemCubit>(),
+          child: const DetailsScreen(),
+        ),
+      ),
+      GoRoute(
+        path: "$kItemsListView/:id",
+        builder: (context, state) => BlocProvider(
+          create: (context) => sl<ItemsListCubit>(
+          )..getItemsList(
+            categoryId: state.params['id']!,),
+          child: ItemsList(categoryId: state.params['id']!),
         ),
       ),
     ],

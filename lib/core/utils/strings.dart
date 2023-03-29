@@ -57,4 +57,5 @@ class AppStrings{
   static const String addAppointment = 'Add a new Appointment';
 
   static const String projectTimeline = 'Project Timeline';
+  static const String itemsList = 'Items List';
 }

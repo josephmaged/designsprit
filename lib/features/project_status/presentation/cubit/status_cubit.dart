@@ -6,7 +6,6 @@ import 'package:designsprit/features/project_status/domain/use_cases/get_project
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:tuple/tuple.dart';
 
 part 'status_state.dart';
 
@@ -24,7 +23,7 @@ class StatusCubit extends Cubit<StatusState> {
       requestState: RequestState.loading,
     ));
 
-    final result = await getProjectTrackerUseCase(ProjectStepsParameters(fuid: "nTOSY7INS4V49tteR5BNu3wcLGY2"));
+    final result = await getProjectTrackerUseCase(ProjectStepsParameters(fuid: fuid));
 
     result.fold((l) {
       emit(state.copyWith(

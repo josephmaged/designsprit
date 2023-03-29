@@ -11,4 +11,5 @@ class ApiConst {
   static String getItemById(int parameters) => '$baseUrlApi/Item/getItembyid/$parameters';
   static String getProjectSteps(String parameters) => '$baseUrlApi/ProjectTrack/GetProjectTracks/$parameters';
   static String getImages(String parameters) => '$baseUrl/imges/$parameters';
+  static String getItemsByCategoryId(String parameters) => '$baseUrlApi/Item/getItembyCategoryid?Categoryid=$parameters';
 }

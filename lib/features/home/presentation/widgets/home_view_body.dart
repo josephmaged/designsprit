@@ -14,33 +14,32 @@ class HomeViewBody extends StatelessWidget {
       physics: const BouncingScrollPhysics(),
       slivers: [
         SliverToBoxAdapter(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              SizedBox(height: 10.h),
-              SizedBox(
-                height: 100.h,
-                child: const CategoryListView(),
-              ),
-              SizedBox(
-                height: 30.h,
-              ),
-              const Padding(
-                padding: EdgeInsets.symmetric(horizontal: 30),
-                child: Text(
+          child: Padding(
+            padding: EdgeInsets.all(15.r),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Text(
+                  'Categories',
+                  style: Styles.textStyle18,
+                ),
+                SizedBox(
+                  height: 100.h,
+                  child: const CategoryListView(),
+                ),
+                SizedBox(
+                  height: 30.h,
+                ),
+                const Text(
                   'Most Popular',
                   style: Styles.textStyle18,
                 ),
-              ),
-              const SizedBox(height: 20),
-            ],
+              ],
+            ),
           ),
         ),
         const SliverFillRemaining(
-          child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 30),
-            child: BestSellerListView(),
-          ),
+          child: BestSellerListView(),
         ),
       ],
     );

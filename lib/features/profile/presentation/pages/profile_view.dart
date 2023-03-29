@@ -28,17 +28,14 @@ class ProfileView extends StatelessWidget {
                   clipBehavior: Clip.hardEdge,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.all(
-                      Radius.circular(
-                        60.r
-                      ),
+                      Radius.circular(60.r),
                     ),
                   ),
                   child: CachedNetworkImage(
-                    placeholder: (context, url) => const CircularProgressIndicator(),
-                    errorWidget: (context, url, error) => const Icon(Icons.error),
-                    imageUrl:
-                      "https://lh3.googleusercontent.com/a/AGNmyxav7RcuwpdMP7pW5D_FRscwntHNmrL-FClRKgg8hw=s288"
-                          ),
+                      placeholder: (context, url) => const CircularProgressIndicator(),
+                      errorWidget: (context, url, error) => const Icon(Icons.error),
+                      imageUrl:
+                          "https://lh3.googleusercontent.com/a/AGNmyxav7RcuwpdMP7pW5D_FRscwntHNmrL-FClRKgg8hw=s288"),
                 ),
                 Form(
                   child: Padding(
