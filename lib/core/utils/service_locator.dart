@@ -22,6 +22,11 @@ import 'package:designsprit/features/home/domain/repositories/base_home_repo.dar
 import 'package:designsprit/features/home/domain/use_cases/home_categories_use_case.dart';
 import 'package:designsprit/features/home/domain/use_cases/home_populars_use_case.dart';
 import 'package:designsprit/features/home/presentation/cubit/home_cubit.dart';
+import 'package:designsprit/features/item_details/data/data_sources/ItemDetailsRemoteDataSource.dart';
+import 'package:designsprit/features/item_details/data/repositories/item_details_repo.dart';
+import 'package:designsprit/features/item_details/domain/repositories/base_item_details_repo.dart';
+import 'package:designsprit/features/item_details/domain/use_cases/item_details_usecase.dart';
+import 'package:designsprit/features/item_details/domain/use_cases/item_images_usecase.dart';
 import 'package:designsprit/features/item_details/presentation/cubit/item_cubit.dart';
 import 'package:designsprit/features/items_list/data/data_sources/items_list_remote_data_source.dart';
 import 'package:designsprit/features/items_list/data/repositories/items_list_repo.dart';
@@ -36,8 +41,6 @@ import 'package:designsprit/features/project_status/domain/use_cases/get_project
 import 'package:designsprit/features/project_status/presentation/cubit/status_cubit.dart';
 import 'package:get_it/get_it.dart';
 
-import 'api_service.dart';
-
 final sl = GetIt.instance;
 
 class SetupServiceLocator {
@@ -51,7 +54,7 @@ class SetupServiceLocator {
     sl.registerFactory(() => HomeCubit(sl(), sl()));
     sl.registerFactory(() => AddAppointmentCubit());
     sl.registerFactory(() => StatusCubit(sl()));
-    sl.registerFactory(() => ItemCubit());
+    sl.registerFactory(() => ItemCubit(sl(), sl()));
     sl.registerFactory(() => ItemsListCubit(sl()));
 
     /// Register
@@ -111,5 +114,16 @@ class SetupServiceLocator {
 
     /// DATA SOURCE
     sl.registerLazySingleton<BaseItemsListRemoteDataSource>(() => ItemsListRemoteDataSource());
+
+    /// Items Details
+    /// USE CASE
+    sl.registerLazySingleton(() => GetItemDetailsUseCase(sl()));
+    sl.registerLazySingleton(() => GetItemImagesUseCase(sl()));
+
+    /// Repository
+    sl.registerLazySingleton<BaseItemDetailsRepo>(() => ItemDetailsRepo(sl()));
+
+    /// DATA SOURCE
+    sl.registerLazySingleton<BaseItemDetailsRemoteDataSource>(() => ItemDetailsRemoteDataSource());
   }
 }

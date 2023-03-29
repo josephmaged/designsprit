@@ -20,41 +20,61 @@ class ItemsListView extends StatelessWidget {
           case RequestState.loading:
             return const CustomLoadingIndicator();
           case RequestState.loaded:
-            return ListView.builder(
-              physics: const BouncingScrollPhysics(),
-              itemCount: state.itemsList!.length,
-              itemBuilder: (context, index) {
-                return Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 25.w),
-                  child: Row(
-                    children: [
-                       CachedNetworkImage(
+            return state.itemsList.isEmpty
+                ? Center(
+                    child: Image.asset(
+                      AssetsData.notFound,
+                      height: 250.h,
+                    ),
+                  )
+                : ListView.builder(
+                    physics: const BouncingScrollPhysics(),
+                    itemCount: state.itemsList.length,
+                    padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 12.h),
+                    itemBuilder: (context, index) {
+                      return Padding(
+                        padding: EdgeInsets.symmetric(vertical: 8.h),
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            CachedNetworkImage(
                               placeholder: (context, url) => const CircularProgressIndicator(),
-                              errorWidget: (context, url, error) =>  Image(
+                              errorWidget: (context, url, error) => Image(
                                 height: 50.h,
                                 width: 50.w,
                                 image: const AssetImage(AssetsData.imageNotFound),
                               ),
-                              imageUrl: ApiConst.getImages(state.itemsList![index].image!),
-                         height: 100.h,
-                         width: 100.w,
-                         fit: BoxFit.cover,
+                              imageUrl: ApiConst.getImages(state.itemsList[index].image!),
+                              height: 100.h,
+                              width: 100.w,
+                              fit: BoxFit.cover,
                             ),
-                      Column(
-                        children: [
-                          Text(state.itemsList![index].name),
-                          Text(state.itemsList![index].description),
-                        ],
-                      ),
-                    ],
-                  ),
-                );
-              },
-            );
+                            SizedBox(
+                              width: 20.w,
+                            ),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  state.itemsList[index].name,
+                                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20.sp),
+                                ),
+                                SizedBox(
+                                  height: 15.h,
+                                ),
+                                Text(
+                                  state.itemsList[index].description,
+                                  style: TextStyle(fontSize: 16.sp),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                      );
+                    },
+                  );
           case RequestState.error:
-            return CustomErrorWidget(errMessage: state.responseMessage!);
-          default:
-            return const SizedBox();
+            return CustomErrorWidget(errMessage: state.responseMessage);
         }
       },
     );

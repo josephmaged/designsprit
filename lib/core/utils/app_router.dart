@@ -92,18 +92,25 @@ abstract class AppRouter {
         ),
       ),
       GoRoute(
-        path: kItemDetailsView,
+        path: "$kItemDetailsView/:id",
         builder: (context, state) => BlocProvider(
-          create: (context) => sl<ItemCubit>(),
-          child: const DetailsScreen(),
+          create: (context) => sl<ItemCubit>()
+            ..getItemDetails(
+              id: state.params['id']!,
+            )
+            ..getItemImages(
+              id: state.params['id']!,
+            ),
+          child:  DetailsScreen(itemId: state.params['id']!),
         ),
       ),
       GoRoute(
         path: "$kItemsListView/:id",
         builder: (context, state) => BlocProvider(
-          create: (context) => sl<ItemsListCubit>(
-          )..getItemsList(
-            categoryId: state.params['id']!,),
+          create: (context) => sl<ItemsListCubit>()
+            ..getItemsList(
+              categoryId: state.params['id']!,
+            ),
           child: ItemsList(categoryId: state.params['id']!),
         ),
       ),

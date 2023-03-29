@@ -58,4 +58,6 @@ class AppStrings{
 
   static const String projectTimeline = 'Project Timeline';
   static const String itemsList = 'Items List';
+  static const String itemsDetails = 'Items Details';
+  static const String itemDescription = 'Items Description: ';
 }

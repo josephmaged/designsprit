@@ -1,10 +1,37 @@
 part of 'item_cubit.dart';
 
-abstract class ItemState extends Equatable {
-  const ItemState();
-}
+class ItemState extends Equatable {
+  final List<ItemDetails>? itemDetailsResponse;
+  final List<ItemImages>? itemImagesResponse;
+  final RequestState requestState;
+  final String? responseMessage;
 
-class ItemInitial extends ItemState {
+  const ItemState({
+    this.itemDetailsResponse,
+    this.itemImagesResponse,
+    this.requestState = RequestState.loading,
+    this.responseMessage,
+  });
+
+  ItemState copyWith({
+    List<ItemDetails>? itemDetailsResponse,
+    List<ItemImages>? itemImagesResponse,
+    RequestState? requestState,
+    String? responseMessage,
+  }) {
+    return ItemState(
+      itemDetailsResponse: itemDetailsResponse ?? this.itemDetailsResponse,
+      itemImagesResponse: itemImagesResponse ?? this.itemImagesResponse,
+      requestState: requestState ?? this.requestState,
+      responseMessage: responseMessage ?? this.responseMessage,
+    );
+  }
+
   @override
-  List<Object> get props => [];
+  List<Object?> get props => [
+        itemDetailsResponse,
+        itemImagesResponse,
+        requestState,
+        responseMessage,
+      ];
 }

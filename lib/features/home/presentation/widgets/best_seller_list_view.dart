@@ -37,7 +37,7 @@ class BestSellerListView extends StatelessWidget {
                 enlargeFactor: 0.2,
                 scrollDirection: Axis.horizontal,
               ),
-              items: state.mostPopular.map((i) {
+              items: state.mostPopular.map((index) {
                 return Builder(
                   builder: (BuildContext context) {
                     return Container(
@@ -46,9 +46,15 @@ class BestSellerListView extends StatelessWidget {
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(10),
                       ),
-                      child: BannerItem(
-                        name: i.itemName!,
-                        image: i.itemImages!,
+                      child: InkWell(
+                        onTap: () {
+                          int itemId = index.id;
+                          context.push("${AppRouter.kItemDetailsView}/$itemId");
+                        },
+                        child: BannerItem(
+                          name: index.itemName,
+                          image: index.itemImages!,
+                        ),
                       ),
                     );
                   },

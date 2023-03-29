@@ -30,10 +30,9 @@ class CategoryListView extends StatelessWidget {
                   child: CustomCategoryCard(
                     image: state.randomCategory[index].image,
                     text: state.randomCategory[index].name,
-                    press: () {/*
-                      GoRouter.of(context).go("${AppRouter.kItemsListView}/${state.randomCategory[index].id}");*/
+                    press: () {
                       int categoryId = state.randomCategory[index].id;
-                       context.push("${AppRouter.kItemsListView}/$categoryId");
+                      context.push("${AppRouter.kItemsListView}/$categoryId");
                     },
                   ),
                 );

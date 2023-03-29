@@ -3,7 +3,6 @@ import 'package:designsprit/core/network/api_const.dart';
 import 'package:designsprit/core/network/error_message_model.dart';
 import 'package:designsprit/features/home/data/models/home_category_data_model.dart';
 import 'package:designsprit/features/home/data/models/home_populars_data_model.dart';
-import 'package:designsprit/features/home/data/models/home_populars_model.dart';
 import 'package:dio/dio.dart';
 
 abstract class BaseHomeRemoteDataSource {
