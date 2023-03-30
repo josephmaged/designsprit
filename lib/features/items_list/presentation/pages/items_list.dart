@@ -6,6 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ItemsList extends StatelessWidget {
   final String categoryId;
+
   const ItemsList({Key? key, required this.categoryId}) : super(key: key);
 
   @override
@@ -17,11 +18,13 @@ class ItemsList extends StatelessWidget {
       builder: (context, state) {
         return Scaffold(
           appBar: AppBar(
-            title: const Text(
-                AppStrings.itemsList
-            ),
+            title: const Text(AppStrings.itemsList),
           ),
-          body: const ItemsListView(),
+          body: BlocBuilder<ItemsListCubit, ItemsListState>(
+            builder: (context, state) {
+              return const ItemsListView();
+            },
+          ),
         );
       },
     );

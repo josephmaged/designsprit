@@ -1,8 +1,12 @@
 import 'package:bloc/bloc.dart';
+import 'package:designsprit/constants.dart';
 import 'package:designsprit/core/usecase/base_usecase.dart';
+import 'package:designsprit/core/utils/cache_helper.dart';
 import 'package:designsprit/core/utils/enum.dart';
+import 'package:designsprit/features/auth/login/data/models/login_response_model.dart';
 import 'package:designsprit/features/auth/login/domain/entities/login_response.dart';
 import 'package:designsprit/features/auth/login/domain/use_cases/login_API.dart';
+import 'package:designsprit/features/auth/login/domain/use_cases/login_with_email.dart';
 import 'package:designsprit/features/auth/login/domain/use_cases/login_with_google.dart';
 import 'package:equatable/equatable.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -15,18 +19,18 @@ part 'login_state.dart';
 class LoginCubit extends Cubit<LoginState> {
   final LoginApiUsecase loginApi;
   final LoginWithGoogleUsecase loginWithGoogleUsecase;
+  final LoginWithEmailUsecase loginWithEmailUsecase;
 
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
 
-  LoginCubit(this.loginApi, this.loginWithGoogleUsecase) : super(const LoginState());
+  LoginCubit(this.loginApi, this.loginWithGoogleUsecase, this.loginWithEmailUsecase) : super(const LoginState());
 
   static LoginCubit get(context) => BlocProvider.of(context);
 
-  Future<void> login({
-    required String uid,
-  }) async {
-    final result = await loginApi(LoginApiParameters(uid: uid));
+  Future<void> login() async {
+    print(state.userCredential!.user!.uid);
+    final result = await loginApi(LoginApiParameters(fuid: state.userCredential!.user!.uid));
 
     result.fold(
       (l) {
@@ -44,11 +48,16 @@ class LoginCubit extends Cubit<LoginState> {
             requestState: RequestState.loaded,
           ),
         );
+        CacheHelper.saveData(key: Constants.fID, value: r[0].fuid);
+        CacheHelper.saveData(key: Constants.userID, value: r[0].id);
+        //CacheHelper.saveData(key: Constants.userData, value: r[0]);
       },
     );
   }
 
   Future<void> loginWithGoogle() async {
+    emit(state.copyWith(requestState: RequestState.loading));
+
     final result = await loginWithGoogleUsecase(const NoParameters());
     result.fold(
       (l) {
@@ -63,7 +72,30 @@ class LoginCubit extends Cubit<LoginState> {
         emit(
           state.copyWith(
             userCredential: r,
-            requestState: RequestState.loaded,
+          ),
+        );
+
+        login();
+      },
+    );
+  }
+
+  Future<void> loginWithEmail() async {
+    emit(state.copyWith(requestState: RequestState.loading));
+    final result = await loginWithGoogleUsecase(const NoParameters());
+    result.fold(
+      (l) {
+        emit(
+          state.copyWith(
+            requestState: RequestState.error,
+            loginMessage: l.errMessage,
+          ),
+        );
+      },
+      (r) {
+        emit(
+          state.copyWith(
+            userCredential: r,
           ),
         );
       },

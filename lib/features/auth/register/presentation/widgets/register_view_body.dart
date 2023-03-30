@@ -1,18 +1,15 @@
-import 'dart:io';
-
 import 'package:country_code_picker/country_code_picker.dart';
 import 'package:designsprit/core/utils/app_router.dart';
 import 'package:designsprit/core/utils/cache_helper.dart';
 import 'package:designsprit/core/utils/enum.dart';
-import 'package:designsprit/core/utils/function/launch_url.dart';
 import 'package:designsprit/core/utils/styles.dart';
 import 'package:designsprit/core/utils/validator.dart';
 import 'package:designsprit/core/widgets/custom_form_field.dart';
 import 'package:designsprit/core/widgets/flutter_social_button/social_button.dart';
+import 'package:designsprit/features/auth/register/data/models/register_response_model.dart';
 import 'package:designsprit/features/auth/register/presentation/cubit/register_cubit.dart';
-import 'package:designsprit/features/auth/register/presentation/widgets/apple_button.dart';
+import 'package:designsprit/core/widgets/apple_button.dart';
 import 'package:designsprit/features/auth/register/presentation/widgets/privacy_policy.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -32,13 +29,8 @@ class RegisterViewBody extends StatelessWidget {
     var cubit = RegisterCubit.get(context);
     return BlocConsumer<RegisterCubit, RegisterState>(
       listener: (context, state) {
-        /* if (state is RegisterLoading) {
-          isLoading = true;
-        } else {
-          isLoading = false;
-        }*/
         if (state.requestState == RequestState.loaded) {
-          GoRouter.of(context).push(AppRouter.kMainScreenView);
+          GoRouter.of(context).pushReplacement(AppRouter.kMainScreenView);
         } else if (state.requestState == RequestState.error) {
           SnackBar snackBar = SnackBar(
             content: Text("${state.responseMessage}"),
@@ -136,7 +128,7 @@ class RegisterViewBody extends StatelessWidget {
                               : FlutterSocialButton(
                                   onTap: () {
                                     if (_formKey.currentState!.validate()) {
-                                      cubit.registerWithEmail().then((value) => cubit.register());
+                                      cubit.registerWithEmail();
                                     }
                                   },
                                   title: AppStrings.register,
@@ -168,11 +160,11 @@ class RegisterViewBody extends StatelessWidget {
                               FlutterSocialButton(
                                 mini: true,
                                 onTap: () {
-                                  cubit.registerWithGoogle().then((value) => cubit.register());
+                                  cubit.registerWithGoogle();
                                 },
                                 buttonType: ButtonType.google,
                               ),
-                              SizedBox(width: 10.w),
+                              /* SizedBox(width: 10.w),
                               FlutterSocialButton(
                                 mini: true,
                                 onTap: () {
@@ -181,7 +173,7 @@ class RegisterViewBody extends StatelessWidget {
                                 buttonType: ButtonType.facebook,
                               ),
                               //if (Platform.isIOS)
-                                const AppleButton(),
+                                const AppleButton(),*/
                             ],
                           ),
                         ],
@@ -195,7 +187,7 @@ class RegisterViewBody extends StatelessWidget {
                         ),
                         TextButton(
                           onPressed: () {
-                            GoRouter.of(context).push(AppRouter.kLoginView);
+                            GoRouter.of(context).pushReplacement(AppRouter.kLoginView);
                           },
                           child: const Text(AppStrings.login),
                         )
@@ -218,6 +210,4 @@ class RegisterViewBody extends StatelessWidget {
       },
     );
   }
-
 }
-

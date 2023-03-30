@@ -2,6 +2,7 @@ import 'package:dartz/dartz.dart';
 import 'package:designsprit/core/errors/exceptions.dart';
 import 'package:designsprit/core/errors/failures.dart';
 import 'package:designsprit/features/auth/login/data/data_sources/login_remote_data_source.dart';
+import 'package:designsprit/features/auth/login/data/models/login_response_model.dart';
 import 'package:designsprit/features/auth/login/domain/entities/login_response.dart';
 import 'package:designsprit/features/auth/login/domain/repositories/base_login_repo.dart';
 import 'package:designsprit/features/auth/login/domain/use_cases/login_API.dart';
@@ -14,7 +15,7 @@ class LoginRepo extends BaseLoginRepo {
   LoginRepo(this.baseLoginDataSource);
 
   @override
-  Future<Either<Failure, LoginResponse>> loginAPI(LoginApiParameters parameters) async {
+  Future<Either<Failure, List<LoginResponseModel>>> loginAPI(LoginApiParameters parameters) async {
     final result = await baseLoginDataSource.loginAPI(parameters);
 
     try {

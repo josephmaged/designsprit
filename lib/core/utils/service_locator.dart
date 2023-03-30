@@ -4,6 +4,7 @@ import 'package:designsprit/features/auth/login/data/repositories/login_repo.dar
 import 'package:designsprit/features/auth/login/domain/repositories/base_login_repo.dart';
 import 'package:designsprit/features/auth/login/domain/use_cases/login_API.dart';
 import 'package:designsprit/features/auth/login/domain/use_cases/login_with_apple.dart';
+import 'package:designsprit/features/auth/login/domain/use_cases/login_with_email.dart';
 import 'package:designsprit/features/auth/login/domain/use_cases/login_with_facebook.dart';
 import 'package:designsprit/features/auth/login/domain/use_cases/login_with_google.dart';
 import 'package:designsprit/features/auth/login/presentation/cubit/login_cubit.dart';
@@ -16,6 +17,12 @@ import 'package:designsprit/features/auth/register/domain/use_cases/register_wit
 import 'package:designsprit/features/auth/register/domain/use_cases/register_with_facebook.dart';
 import 'package:designsprit/features/auth/register/domain/use_cases/register_with_google.dart';
 import 'package:designsprit/features/auth/register/presentation/cubit/register_cubit.dart';
+import 'package:designsprit/features/change_password/cubit/change_password_cubit.dart';
+import 'package:designsprit/features/favorites/data/data_sources/favorites_remote_data_source.dart';
+import 'package:designsprit/features/favorites/data/repositories/favorites_repo.dart';
+import 'package:designsprit/features/favorites/domain/repositories/base_favorites_repo.dart';
+import 'package:designsprit/features/favorites/domain/use_cases/get_favorites_usecase.dart';
+import 'package:designsprit/features/favorites/presentation/cubit/favorites_cubit.dart';
 import 'package:designsprit/features/home/data/data_sources/home_remote_data_source.dart';
 import 'package:designsprit/features/home/data/repositories/HomeRepo.dart';
 import 'package:designsprit/features/home/domain/repositories/base_home_repo.dart';
@@ -27,6 +34,7 @@ import 'package:designsprit/features/item_details/data/repositories/item_details
 import 'package:designsprit/features/item_details/domain/repositories/base_item_details_repo.dart';
 import 'package:designsprit/features/item_details/domain/use_cases/item_details_usecase.dart';
 import 'package:designsprit/features/item_details/domain/use_cases/item_images_usecase.dart';
+import 'package:designsprit/features/item_details/domain/use_cases/update_item_usecase.dart';
 import 'package:designsprit/features/item_details/presentation/cubit/item_cubit.dart';
 import 'package:designsprit/features/items_list/data/data_sources/items_list_remote_data_source.dart';
 import 'package:designsprit/features/items_list/data/repositories/items_list_repo.dart';
@@ -38,6 +46,7 @@ import 'package:designsprit/features/project_status/data/data_sources/project_tr
 import 'package:designsprit/features/project_status/data/repositories/project_repo.dart';
 import 'package:designsprit/features/project_status/domain/repositories/base_project_steps_repo.dart';
 import 'package:designsprit/features/project_status/domain/use_cases/get_project_steps.dart';
+import 'package:designsprit/features/project_status/domain/use_cases/update_project_steps.dart';
 import 'package:designsprit/features/project_status/presentation/cubit/status_cubit.dart';
 import 'package:get_it/get_it.dart';
 
@@ -48,14 +57,16 @@ class SetupServiceLocator {
     //getIt.registerSingleton<ApiService>(ApiService(Dio()));
 
     /// BLOC
-    sl.registerFactory(() => LoginCubit(sl(), sl()));
+    sl.registerFactory(() => LoginCubit(sl(), sl(),sl()));
     sl.registerFactory(() => RegisterCubit(sl(), sl(), sl()));
     sl.registerFactory(() => MainScreenCubit());
     sl.registerFactory(() => HomeCubit(sl(), sl()));
     sl.registerFactory(() => AddAppointmentCubit());
-    sl.registerFactory(() => StatusCubit(sl()));
-    sl.registerFactory(() => ItemCubit(sl(), sl()));
+    sl.registerFactory(() => StatusCubit(sl(),sl()));
+    sl.registerFactory(() => ItemCubit(sl(), sl(), sl()));
     sl.registerFactory(() => ItemsListCubit(sl()));
+    sl.registerFactory(() => ChangePasswordCubit());
+    sl.registerFactory(() => FavoritesCubit(sl()));
 
     /// Register
     /// USE CASES
@@ -77,6 +88,7 @@ class SetupServiceLocator {
     sl.registerLazySingleton(() => LoginWithAppleUsecase(sl()));
     sl.registerLazySingleton(() => LoginWithGoogleUsecase(sl()));
     sl.registerLazySingleton(() => LoginWithFacebookUsecase(sl()));
+    sl.registerLazySingleton(() => LoginWithEmailUsecase(sl()));
 
     /// Repository
     sl.registerLazySingleton<BaseLoginRepo>(() => LoginRepo(sl()));
@@ -98,6 +110,7 @@ class SetupServiceLocator {
     /// Project Tracker
     /// USE CASE
     sl.registerLazySingleton(() => GetProjectStepsUseCase(sl()));
+    sl.registerLazySingleton(() => UpdateProjectStepsUseCase(sl()));
 
     /// Repository
     sl.registerLazySingleton<BaseProjectStepsRepo>(() => ProjectStepsRepo(sl()));
@@ -119,11 +132,22 @@ class SetupServiceLocator {
     /// USE CASE
     sl.registerLazySingleton(() => GetItemDetailsUseCase(sl()));
     sl.registerLazySingleton(() => GetItemImagesUseCase(sl()));
+    sl.registerLazySingleton(() => UpdateItemUseCase(sl()));
 
     /// Repository
     sl.registerLazySingleton<BaseItemDetailsRepo>(() => ItemDetailsRepo(sl()));
 
     /// DATA SOURCE
     sl.registerLazySingleton<BaseItemDetailsRemoteDataSource>(() => ItemDetailsRemoteDataSource());
+
+    /// Favorites
+    /// USE CASE
+    sl.registerLazySingleton(() => GetFavoritesUseCase(sl()));
+
+    /// Repository
+    sl.registerLazySingleton<BaseFavoritesRepo>(() => FavoritesRepo(sl()));
+
+    /// DATA SOURCE
+    sl.registerLazySingleton<BaseFavoritesRemoteDataSource>(() => FavoritesRemoteDataSource());
   }
 }

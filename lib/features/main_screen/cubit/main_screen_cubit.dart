@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:designsprit/features/favorites/presentation/pages/favorites_view.dart';
 import 'package:designsprit/features/home/presentation/pages/home_view.dart';
 import 'package:designsprit/features/more/presentation/pages/more_page.dart';
 import 'package:equatable/equatable.dart';
@@ -16,7 +17,7 @@ class MainScreenCubit extends Cubit<MainScreenState> {
   List<Widget> screens = [
     const HomeView(),
     const HomeView(),
-    const HomeView(),
+    const FavoritesView(),
     const MorePage(),
   ];
 

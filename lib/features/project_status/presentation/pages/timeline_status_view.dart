@@ -18,27 +18,26 @@ class TimelineView extends StatelessWidget {
       },
       builder: (context, state) {
         return Scaffold(
-          appBar: CustomAppBar(
-            titleName: AppStrings.projectTimeline,
-          ),
-          body: state.requestState == RequestState.loading
-              ? const Center(
-                  child: CircularProgressIndicator(),
-                )
-              : state.responseMessage == "Not Found"
-                  ? Center(
-                      child: Image.asset(AssetsData.notFound),
-                    )
-                  : ListView.builder(
-                      physics: const BouncingScrollPhysics(),
-                      itemCount: state.projectSteps!.length,
-                      itemBuilder: (BuildContext context, int index) {
-                        return ExpansionTile(
-                          title: Text(state.projectSteps![index].projectName),
-                          children: [CustomStepper(projectSteps: state.projectSteps![index])],
-                        );
-                      },
-                    ),
+            appBar: CustomAppBar(
+              titleName: AppStrings.projectTimeline,
+            ),
+            body: state.requestState == RequestState.loading
+                ? const Center(
+              child: CircularProgressIndicator(),
+            ) : state.requestState == RequestState.loading ?
+            ListView.builder(
+              physics: const BouncingScrollPhysics(),
+              itemCount: state.projectSteps!.length,
+              itemBuilder: (BuildContext context, int index) {
+                return ExpansionTile(
+                  title: Text(state.projectSteps![index].projectName),
+                  children: [CustomStepper(projectSteps: state.projectSteps![index])],
+                );
+              },
+            ) :
+            Center(
+              child: Image.asset(AssetsData.notFound),
+            )
         );
       },
     );

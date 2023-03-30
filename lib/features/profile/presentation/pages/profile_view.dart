@@ -1,16 +1,22 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:designsprit/core/utils/app_router.dart';
 import 'package:designsprit/core/utils/strings.dart';
 import 'package:designsprit/core/widgets/custom_app_bar.dart';
 import 'package:designsprit/core/widgets/custom_form_field.dart';
 import 'package:designsprit/core/widgets/custom_primary_button.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 
 class ProfileView extends StatelessWidget {
   const ProfileView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final user = FirebaseAuth.instance.currentUser!;
+
+    /// @todo delete this variable
     final controller = TextEditingController();
     return SafeArea(
       child: Scaffold(
@@ -18,7 +24,7 @@ class ProfileView extends StatelessWidget {
           titleName: AppStrings.myProfile,
         ),
         body: Padding(
-          padding: const EdgeInsets.all(8.0),
+          padding: EdgeInsets.all(8.r),
           child: SingleChildScrollView(
             child: Column(
               children: [
@@ -39,7 +45,7 @@ class ProfileView extends StatelessWidget {
                 ),
                 Form(
                   child: Padding(
-                    padding: const EdgeInsets.all(8.0),
+                    padding: EdgeInsets.all(8.r),
                     child: Column(
                       children: [
                         CustomTextFormField(
@@ -52,7 +58,7 @@ class ProfileView extends StatelessWidget {
                           controller: controller,
                           errorMessage: 'Please enter a valid Name',
                         ),
-                        const SizedBox(height: 10),
+                        SizedBox(height: 10.h),
                         CustomTextFormField(
                           textInputType: TextInputType.text,
                           validator: (value) {},
@@ -61,7 +67,7 @@ class ProfileView extends StatelessWidget {
                           controller: controller,
                           errorMessage: 'Please enter a valid email',
                         ),
-                        const SizedBox(height: 10),
+                        SizedBox(height: 10.h),
                         CustomTextFormField(
                           textInputType: TextInputType.text,
                           validator: (value) {},
@@ -70,7 +76,7 @@ class ProfileView extends StatelessWidget {
                           controller: controller,
                           errorMessage: 'Please enter a valid Phone Number',
                         ),
-                        const SizedBox(height: 10),
+                        SizedBox(height: 10.h),
                         CustomTextFormField(
                           textInputType: TextInputType.text,
                           validator: (value) {},
@@ -79,7 +85,7 @@ class ProfileView extends StatelessWidget {
                           controller: controller,
                           errorMessage: 'Please enter a valid Mobile',
                         ),
-                        const SizedBox(height: 10),
+                        SizedBox(height: 10.h),
                         CustomTextFormField(
                           textInputType: TextInputType.text,
                           validator: (value) {},
@@ -88,7 +94,7 @@ class ProfileView extends StatelessWidget {
                           controller: controller,
                           errorMessage: 'Please enter how you know us',
                         ),
-                        const SizedBox(height: 10),
+                        SizedBox(height: 10.h),
                         CustomTextFormField(
                           textInputType: TextInputType.text,
                           validator: (value) {},
@@ -97,7 +103,7 @@ class ProfileView extends StatelessWidget {
                           controller: controller,
                           errorMessage: 'Please enter a valid User Name',
                         ),
-                        const SizedBox(height: 20),
+                        SizedBox(height: 20.h),
                         CustomPrimaryButton(
                           text: AppStrings.updateProfile,
                           press: () {},
@@ -106,7 +112,11 @@ class ProfileView extends StatelessWidget {
                     ),
                   ),
                 ),
-                TextButton(onPressed: () {}, child: const Text('Change Password'))
+                user.providerData.first.providerId == "google.com" ? const SizedBox() : TextButton(
+                    onPressed: () {
+                      GoRouter.of(context).push(AppRouter.kChangePasswordView);
+                    },
+                    child: const Text('Change Password'))
               ],
             ),
           ),

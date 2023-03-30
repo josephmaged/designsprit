@@ -1,7 +1,8 @@
+import 'package:designsprit/features/item_details/domain/entities/list_images.dart';
 import 'package:equatable/equatable.dart';
 
 class ItemImages extends Equatable {
-  final List<String> images;
+  final List<ListImages> images;
 
   const ItemImages({
     required this.images,

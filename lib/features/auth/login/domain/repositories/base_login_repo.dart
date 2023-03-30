@@ -1,5 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:designsprit/core/errors/failures.dart';
+import 'package:designsprit/features/auth/login/data/models/login_response_model.dart';
 import 'package:designsprit/features/auth/login/domain/entities/login_response.dart';
 import 'package:designsprit/features/auth/login/domain/use_cases/login_API.dart';
 import 'package:designsprit/features/auth/login/domain/use_cases/login_with_email.dart';
@@ -14,5 +15,5 @@ abstract class BaseLoginRepo {
 
   Future<Either<Failure, LoginResponse>> loginWithApple();
 
-  Future<Either<Failure, LoginResponse>> loginAPI(LoginApiParameters parameters);
+  Future<Either<Failure, List<LoginResponseModel>>> loginAPI(LoginApiParameters parameters);
 }

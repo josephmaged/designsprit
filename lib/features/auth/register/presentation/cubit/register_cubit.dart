@@ -1,4 +1,3 @@
-import 'package:bloc/bloc.dart';
 import 'package:country_code_picker/country_code_picker.dart';
 import 'package:designsprit/constants.dart';
 import 'package:designsprit/core/usecase/base_usecase.dart';
@@ -48,13 +47,20 @@ class RegisterCubit extends Cubit<RegisterState> {
         requestState: RequestState.error,
         responseMessage: l.errMessage,
       ));
+
+      CacheHelper.removeData(key: Constants.fID);
+      CacheHelper.removeData(key: Constants.userID);
+      CacheHelper.removeData(key: Constants.userData);
+      FirebaseAuth.instance.signOut();
     }, (r) {
       emit(state.copyWith(
         registerResponse: r,
         requestState: RequestState.loaded,
       ));
 
-      CacheHelper.saveData(key: Constants.userID, value: r[0].fuid);
+      CacheHelper.saveData(key: Constants.fID, value: r[0].fuid);
+      CacheHelper.saveData(key: Constants.userID, value: r[0].id);
+      CacheHelper.saveData(key: Constants.userData, value: r[0]);
     });
   }
 
@@ -76,6 +82,7 @@ class RegisterCubit extends Cubit<RegisterState> {
       emit(state.copyWith(
         userCredential: r,
       ));
+      register();
     });
   }
 
@@ -90,6 +97,7 @@ class RegisterCubit extends Cubit<RegisterState> {
       emit(state.copyWith(
         userCredential: r,
       ));
+      register();
     });
   }
 

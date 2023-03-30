@@ -1,8 +1,13 @@
 import 'package:designsprit/core/utils/service_locator.dart';
 import 'package:designsprit/features/add_appointment/presentation/cubit/add_appointment_cubit.dart';
 import 'package:designsprit/features/add_appointment/presentation/pages/add_appointment.dart';
+import 'package:designsprit/features/auth/login/presentation/cubit/login_cubit.dart';
 import 'package:designsprit/features/auth/login/presentation/pages/login_view.dart';
 import 'package:designsprit/features/auth/register/presentation/pages/register_view.dart';
+import 'package:designsprit/features/change_password/cubit/change_password_cubit.dart';
+import 'package:designsprit/features/change_password/pages/change_password.dart';
+import 'package:designsprit/features/favorites/presentation/cubit/favorites_cubit.dart';
+import 'package:designsprit/features/favorites/presentation/pages/favorites_view.dart';
 import 'package:designsprit/features/home/presentation/pages/home_view.dart';
 import 'package:designsprit/features/item_details/presentation/cubit/item_cubit.dart';
 import 'package:designsprit/features/item_details/presentation/pages/details_screen.dart';
@@ -34,6 +39,8 @@ abstract class AppRouter {
   static const kTimelineView = '/timelineView';
   static const kItemDetailsView = '/itemDetailsView';
   static const kItemsListView = '/itemsListView';
+  static const kChangePasswordView = '/changePasswordView';
+  static const kFavoritesView = '/favoritesView';
 
   static final router = GoRouter(
     routes: [
@@ -55,7 +62,10 @@ abstract class AppRouter {
       ),
       GoRoute(
         path: kLoginView,
-        builder: (context, state) => const LoginView(),
+        builder: (context, state) => BlocProvider(
+          create: (context) => sl<LoginCubit>(),
+          child: const LoginView(),
+        ),
       ),
       GoRoute(
         path: kMainScreenView,
@@ -101,7 +111,7 @@ abstract class AppRouter {
             ..getItemImages(
               id: state.params['id']!,
             ),
-          child:  DetailsScreen(itemId: state.params['id']!),
+          child: DetailsScreen(itemId: state.params['id']!),
         ),
       ),
       GoRoute(
@@ -112,6 +122,20 @@ abstract class AppRouter {
               categoryId: state.params['id']!,
             ),
           child: ItemsList(categoryId: state.params['id']!),
+        ),
+      ),
+      GoRoute(
+        path: kChangePasswordView,
+        builder: (context, state) => BlocProvider(
+          create: (context) => sl<ChangePasswordCubit>(),
+          child: ChangePassword(),
+        ),
+      ),
+      GoRoute(
+        path: kFavoritesView,
+        builder: (context, state) => BlocProvider(
+          create: (context) => sl<FavoritesCubit>(),
+          child: const FavoritesView(),
         ),
       ),
     ],

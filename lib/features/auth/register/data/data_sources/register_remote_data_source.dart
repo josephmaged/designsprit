@@ -53,9 +53,7 @@ class RegisterRemoteDataSource extends BaseRegisterRemoteDataSource {
         }
       }
       throw ServerException(
-        errorMessageModel: const ErrorMessageModel(
-          statusMessage: 'Invalid server response',
-        ),
+        errorMessageModel: ErrorMessageModel.fromJson(response.data),
       );
     } else {
       throw ServerException(

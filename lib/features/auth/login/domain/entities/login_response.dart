@@ -6,23 +6,20 @@ class LoginResponse extends Equatable {
   final String name;
   final String email;
   final String phone;
-  final String mobile;
-  final dynamic description;
-  final String image;
-  final bool status;
-  final dynamic rule;
+  final String? mobile;
+  final String? description;
+  final String? image;
 
-  const LoginResponse(
-      {required this.id,
-      required this.fuid,
-      required this.name,
-      required this.email,
-      required this.phone,
-      required this.mobile,
-      required this.description,
-      required this.image,
-      required this.status,
-      required this.rule});
+  const LoginResponse({
+    required this.id,
+    required this.fuid,
+    required this.name,
+    required this.email,
+    required this.phone,
+    this.mobile,
+    this.description,
+    this.image,
+  });
 
   @override
   List<Object?> get props => [
@@ -34,7 +31,5 @@ class LoginResponse extends Equatable {
         mobile,
         description,
         image,
-        status,
-        rule,
       ];
 }

@@ -1,7 +1,9 @@
 import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.dart';
 import 'package:designsprit/constants.dart';
 import 'package:designsprit/core/utils/app_router.dart';
+import 'package:designsprit/core/utils/cache_helper.dart';
 import 'package:designsprit/core/widgets/custom_app_bar.dart';
+import 'package:designsprit/features/auth/register/data/models/register_response_model.dart';
 import 'package:designsprit/features/main_screen/cubit/main_screen_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

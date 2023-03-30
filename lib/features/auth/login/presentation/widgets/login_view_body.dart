@@ -4,6 +4,7 @@ import 'package:designsprit/core/utils/enum.dart';
 import 'package:designsprit/core/utils/strings.dart';
 import 'package:designsprit/core/utils/styles.dart';
 import 'package:designsprit/core/utils/validator.dart';
+import 'package:designsprit/core/widgets/apple_button.dart';
 import 'package:designsprit/core/widgets/custom_form_field.dart';
 import 'package:designsprit/core/widgets/flutter_social_button/social_button.dart';
 import 'package:designsprit/features/auth/login/presentation/cubit/login_cubit.dart';
@@ -20,16 +21,15 @@ class LoginViewBody extends StatelessWidget {
     var cubit = LoginCubit.get(context);
     return BlocConsumer<LoginCubit, LoginState>(
       listener: (context, state) {
-        /* if (state is LoginLoading) {
-          isLoading = true;
-        } else if (state is LoginSuccess) {
-          CacheHelper.saveData(key: Constants.uuid, value: state.user?.uid);
-          GoRouter.of(context).pushReplacement(AppRouter.kHomeView);
-          isLoading = false;
-        } else if (state is LoginFailure) {
-          isLoading = false;
-          customSnackBar(context, state.error);
-        }*/
+        if (state.requestState == RequestState.loaded) {
+          GoRouter.of(context).pushReplacement(AppRouter.kMainScreenView);
+        } else if (state.requestState == RequestState.error) {
+          SnackBar snackBar = SnackBar(
+            content: Text("${state.responseMessage}"),
+          );
+
+          ScaffoldMessenger.of(context).showSnackBar(snackBar);
+        }
       },
       builder: (context, state) {
         return GestureDetector(
@@ -98,10 +98,9 @@ class LoginViewBody extends StatelessWidget {
                               ? const CircularProgressIndicator()
                               : FlutterSocialButton(
                                   onTap: () {
-                                    GoRouter.of(context).push(AppRouter.kMainScreenView);
-                                    /*if (_formKey.currentState!.validate()) {
-                            cubit.login(uid: '');
-                          }*/
+                                    if (_formKey.currentState!.validate()) {
+                                      cubit.loginWithEmail().then((value) => cubit.login());
+                                    }
                                   },
                                   title: AppStrings.login,
                                 ),
@@ -139,7 +138,7 @@ class LoginViewBody extends StatelessWidget {
                           },
                           buttonType: ButtonType.google,
                         ),
-                        SizedBox(width: 10.w),
+                        /*  SizedBox(width: 10.w),
                         FlutterSocialButton(
                           mini: true,
                           onTap: () {
@@ -147,14 +146,8 @@ class LoginViewBody extends StatelessWidget {
                           },
                           buttonType: ButtonType.facebook,
                         ),
-                        SizedBox(width: 10.w),
-                        FlutterSocialButton(
-                          mini: true,
-                          onTap: () {
-                            //cubit.loginWithApple();
-                          },
-                          buttonType: ButtonType.apple,
-                        ),
+                        //if (Platform.isIOS)
+                        const AppleButton(),*/
                       ],
                     ),
                   ],
@@ -163,54 +156,24 @@ class LoginViewBody extends StatelessWidget {
             ),
             bottomNavigationBar: BottomAppBar(
               color: kPrimaryColor,
-              height: 120.h,
+              height: 80.h,
               child: Padding(
                 padding: EdgeInsets.all(10.h),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    InkWell(
-                      onTap: () {
-                        LoginCubit.get(context).changeCheckState();
-                      },
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Checkbox(
-                            value: LoginCubit.get(context).checked,
-                            onChanged: (value) {
-                              LoginCubit.get(context).changeCheckState();
-                            },
-                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.r)),
-                            side: BorderSide(
-                              width: 1.w,
-                            ),
-                          ),
-                          Text(
-                            AppStrings.rememberMe,
-                            style: Styles.textStyle14.copyWith(color: Colors.white),
-                          ),
-                        ],
-                      ),
+                    Text(
+                      AppStrings.registerText,
+                      style: Styles.textStyle14.copyWith(color: Colors.white),
                     ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          AppStrings.registerText,
-                          style: Styles.textStyle14.copyWith(color: Colors.white),
-                        ),
-                        TextButton(
-                          onPressed: () {
-                            GoRouter.of(context).push(AppRouter.kRegisterView);
-                          },
-                          child: Text(
-                            AppStrings.signUp,
-                            style:
-                                Styles.textStyle16.copyWith(color: Colors.lightBlueAccent, fontWeight: FontWeight.bold),
-                          ),
-                        )
-                      ],
+                    TextButton(
+                      onPressed: () {
+                        GoRouter.of(context).pushReplacement(AppRouter.kRegisterView);
+                      },
+                      child: Text(
+                        AppStrings.signUp,
+                        style: Styles.textStyle16.copyWith(color: Colors.lightBlueAccent, fontWeight: FontWeight.bold),
+                      ),
                     )
                   ],
                 ),

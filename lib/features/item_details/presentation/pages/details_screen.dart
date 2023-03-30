@@ -3,6 +3,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:designsprit/constants.dart';
 import 'package:designsprit/core/network/api_const.dart';
 import 'package:designsprit/core/utils/assets.dart';
+import 'package:designsprit/core/utils/cache_helper.dart';
 import 'package:designsprit/core/utils/enum.dart';
 import 'package:designsprit/core/utils/strings.dart';
 import 'package:designsprit/core/widgets/banner_item.dart';
@@ -17,11 +18,12 @@ class DetailsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var cubit = ItemCubit.get(context);
     return BlocBuilder<ItemCubit, ItemState>(
       builder: (context, state) {
         return Scaffold(
           appBar: AppBar(
-            title: Text(AppStrings.itemsDetails),
+            title: const Text(AppStrings.itemsDetails),
           ),
           body: state.requestState == RequestState.loading
               ? const CustomLoadingIndicator()
@@ -61,11 +63,37 @@ class DetailsScreen extends StatelessWidget {
                               items: state.itemImagesResponse!.map((index) {
                                 return Builder(
                                   builder: (BuildContext context) {
-                                    return CachedNetworkImage(
-                                      imageUrl: ApiConst.getImages(index.images.first),
-                                      errorWidget: (context, url, error) => Image.asset(AssetsData.notFound),
-                                      fit: BoxFit.fill,
-                                      width: double.infinity,
+                                    return Stack(
+                                      children: [
+                                        CachedNetworkImage(
+                                          imageUrl: ApiConst.getImages(index.imagePath),
+                                          errorWidget: (context, url, error) => Image.asset(AssetsData.notFound),
+                                          fit: BoxFit.cover,
+                                          width: double.infinity,
+                                        ),
+                                        Positioned(
+                                          bottom: 10.h,
+                                          right: 10.h,
+                                          child: InkWell(
+                                            onTap: () {
+                                              cubit.updateItemFun(imageId: index.imgId);
+                                            },
+                                            child: Container(
+                                              decoration: BoxDecoration(
+                                                borderRadius: BorderRadius.circular(50),
+                                                color: kPrimaryColor.withOpacity(0.8),
+                                              ),
+                                              child: Padding(
+                                                padding: EdgeInsets.all(10.r),
+                                                child: const Icon(
+                                                  Icons.favorite_border,
+                                                  color: Colors.white,
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ],
                                     );
                                   },
                                 );

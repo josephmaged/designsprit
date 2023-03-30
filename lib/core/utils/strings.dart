@@ -60,4 +60,7 @@ class AppStrings{
   static const String itemsList = 'Items List';
   static const String itemsDetails = 'Items Details';
   static const String itemDescription = 'Items Description: ';
+  static const String changePassword = 'Change Password';
+
+  static const String favorites = 'Favorites';
 }

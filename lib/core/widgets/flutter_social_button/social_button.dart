@@ -1,10 +1,11 @@
+import 'package:designsprit/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'constants.dart';
 
 //This is for define ButtonType of buttons List
-enum ButtonType { facebook, google, twitter, linkedin, whatsapp, apple, github, yahoo, phone, email }
+enum ButtonType { customButton, facebook, google, twitter, linkedin, whatsapp, apple, github, yahoo, phone, email }
 
 class FlutterSocialButton extends StatelessWidget {
   final VoidCallback onTap;
@@ -12,6 +13,7 @@ class FlutterSocialButton extends StatelessWidget {
   final Color iconColor;
   final bool mini;
   final String? title;
+  final IconData? iconData;
 
   const FlutterSocialButton({
     Key? key,
@@ -19,7 +21,7 @@ class FlutterSocialButton extends StatelessWidget {
     this.buttonType = ButtonType.email,
     this.iconColor = Colors.white,
     this.mini = false,
-    this.title,
+    this.title, this.iconData,
   }) : super(key: key);
 
   // If we pass mini true its change button to small Circular button
@@ -27,6 +29,36 @@ class FlutterSocialButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     switch (buttonType) {
+      //Custom Button implementation
+      case ButtonType.customButton:
+        return mini
+            ? ElevatedButton(
+                onPressed: onTap,
+                style: ElevatedButton.styleFrom(
+                  shape: const CircleBorder(),
+                  backgroundColor: kPrimaryColor,
+                  padding: const EdgeInsets.all(20),
+                ),
+                child: Icon(
+                  iconData,
+                  color: iconColor,
+                ),
+              )
+            : SizedBox(
+                width: double.infinity,
+                child: ElevatedButton(
+                  onPressed: onTap,
+                  style: ElevatedButton.styleFrom(
+                    padding: const EdgeInsets.all(20),
+                    backgroundColor: kPrimaryColor,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12), // <-- Radius
+                    ),
+                  ),
+                  child: Text(title!),
+                ),
+              );
+
       //Apple Button implementation
       case ButtonType.apple:
         return mini
@@ -364,7 +396,7 @@ class FlutterSocialButton extends StatelessWidget {
                   ),
                   label: Text(title != null ? '$title' : 'Login With Email'),
                   style: ElevatedButton.styleFrom(
-                    padding:  EdgeInsets.all(15.h),
+                    padding: EdgeInsets.all(15.h),
                     backgroundColor: emailColor,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(12), // <-- Radius

@@ -1,9 +1,9 @@
 part of 'login_cubit.dart';
 
 class LoginState extends Equatable {
-  final LoginResponse? loginResponse;
+  final List<LoginResponseModel>? loginResponse;
   final RequestState? requestState;
-  final String? loginMessage;
+  final String? responseMessage;
   final UserCredential? userCredential;
   final bool? isPassword;
   final bool? checkState;
@@ -11,14 +11,14 @@ class LoginState extends Equatable {
   const LoginState({
     this.loginResponse,
     this.requestState,
-    this.loginMessage,
+    this.responseMessage,
     this.userCredential,
     this.isPassword,
     this.checkState
   });
 
   LoginState copyWith({
-    LoginResponse? loginResponse,
+    List<LoginResponseModel>? loginResponse,
     RequestState? requestState,
     String? loginMessage,
     UserCredential? userCredential,
@@ -28,7 +28,7 @@ class LoginState extends Equatable {
     return LoginState(
       loginResponse: loginResponse ?? this.loginResponse,
       requestState: requestState ?? this.requestState,
-      loginMessage: loginMessage ?? this.loginMessage,
+      responseMessage: loginMessage ?? this.responseMessage,
       userCredential: userCredential ?? this.userCredential,
       isPassword: isPassword ?? this.isPassword,
       checkState: checkState ?? this.checkState,
@@ -39,7 +39,7 @@ class LoginState extends Equatable {
   List<Object?> get props => [
     loginResponse,
     requestState,
-    loginMessage,
+    responseMessage,
     userCredential,
     isPassword,
     checkState,

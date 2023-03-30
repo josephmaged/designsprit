@@ -19,24 +19,20 @@ class LoginResponseModel extends LoginResponse {
     required super.name,
     required super.email,
     required super.phone,
-    required super.mobile,
-    required super.description,
-    required super.image,
-    required super.status,
-    required super.rule,
+     super.mobile,
+     super.description,
+     super.image,
   });
 
-  factory LoginResponseModel.fromJson(dynamic json) => LoginResponseModel(
+  factory LoginResponseModel.fromJson(Map<String, dynamic> json) => LoginResponseModel(
         id: json['id'],
         fuid: json['fuid'],
-        name: json['name'],
-        email: json['email'],
+        name: json['userName'],
+        email: json['userEmail'],
         phone: json['phone'],
         mobile: json['mobile'],
         description: json['description'],
         image: json['image'],
-        status: json['status'],
-        rule: json['rule'],
       );
 
   Map<String, dynamic> toJson() {
@@ -49,8 +45,6 @@ class LoginResponseModel extends LoginResponse {
     map['mobile'] = mobile;
     map['description'] = description;
     map['image'] = image;
-    map['status'] = status;
-    map['rule'] = rule;
     return map;
   }
 }

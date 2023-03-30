@@ -9,7 +9,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 abstract class BaseLoginRemoteDataSource {
-  Future<LoginResponseModel> loginAPI(LoginApiParameters parameters);
+  Future<List<LoginResponseModel>> loginAPI(LoginApiParameters parameters);
 
   Future<LoginResponseModel> loginWithApple();
 
@@ -20,15 +20,24 @@ abstract class BaseLoginRemoteDataSource {
   Future<LoginResponseModel> loginWithFacebook();
 }
 
-
 class LoginRemoteDataSource extends BaseLoginRemoteDataSource {
-  late FirebaseAuth auth;
+  late FirebaseAuth auth = FirebaseAuth.instance;
 
   @override
-  Future<LoginResponseModel> loginAPI(LoginApiParameters parameters) async {
-    final response = await Dio().get(ApiConst.loginPath(parameters.uid));
+  Future<List<LoginResponseModel>> loginAPI(LoginApiParameters parameters) async {
+    final response = await Dio().get(ApiConst.loginPath(parameters.fuid));
     if (response.statusCode == 200) {
-      return (response.data['data']).map((e) => LoginResponseModel.fromJson(e));
+      if (response.data.containsKey('data')) {
+        final data = response.data['data'];
+        if (data is List) {
+          return data.map((e) => LoginResponseModel.fromJson(e)).toList();
+        } else if (data is Map<String, dynamic>) {
+          return [LoginResponseModel.fromJson(data)];
+        }
+      }
+      throw ServerException(
+        errorMessageModel: ErrorMessageModel.fromJson(response.data),
+      );
     } else {
       throw ServerException(
         errorMessageModel: ErrorMessageModel.fromJson(response.data),
@@ -52,21 +61,27 @@ class LoginRemoteDataSource extends BaseLoginRemoteDataSource {
   Future<UserCredential> loginWithGoogle() async {
     final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
 
-    final GoogleSignInAuthentication? googleAuth = await googleUser?.authentication;
-    final credential = GoogleAuthProvider.credential(
-      accessToken: googleAuth?.accessToken,
-      idToken: googleAuth?.idToken,
-    );
-    var user = await auth.signInWithCredential(credential);
-    return user;
+    if (googleUser != null) {
+      final GoogleSignInAuthentication googleAuth = await googleUser.authentication;
+      final credential = GoogleAuthProvider.credential(
+        accessToken: googleAuth.accessToken,
+        idToken: googleAuth.idToken,
+      );
+
+      final UserCredential userCredential = await auth.signInWithCredential(credential);
+      return userCredential;
+    } else {
+      throw FirebaseAuthException(
+        code: 'ERROR_MISSING_GOOGLE_AUTH_TOKEN',
+        message: 'Missing Google Auth Token',
+      );
+    }
   }
 
   @override
   Future<UserCredential> loginWithEmail(LoginEmailParameters parameters) async {
-   final user = await FirebaseAuth.instance.signInWithEmailAndPassword(
-     email: parameters.email,
-     password: parameters.password
-   );
-   return user;
+    final user =
+        await auth.signInWithEmailAndPassword(email: parameters.email, password: parameters.password);
+    return user;
   }
 }

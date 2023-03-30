@@ -11,6 +11,8 @@ const kGtSectraFine = 'GT Sectra Fine';
 
 
 class Constants {
+  static const fID = "fID";
   static const userID = "userID";
+  static const userData = "userData";
   static const isFirstTime = 'isFirstTime';
 }

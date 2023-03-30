@@ -61,7 +61,7 @@ class _SplashViewBodyState extends State<SplashViewBody> with SingleTickerProvid
 
   void navigateToHome() {
     bool? isFirstTime = CacheHelper.getData(key: Constants.isFirstTime);
-    String? uuid = CacheHelper.getData(key: Constants.userID);
+    String? uuid = CacheHelper.getData(key: Constants.fID);
 
     print(isFirstTime);
 
