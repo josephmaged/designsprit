@@ -6,15 +6,11 @@ import 'package:designsprit/features/auth/login/presentation/pages/login_view.da
 import 'package:designsprit/features/auth/register/presentation/pages/register_view.dart';
 import 'package:designsprit/features/change_password/cubit/change_password_cubit.dart';
 import 'package:designsprit/features/change_password/pages/change_password.dart';
-import 'package:designsprit/features/favorites/presentation/cubit/favorites_cubit.dart';
-import 'package:designsprit/features/favorites/presentation/pages/favorites_view.dart';
-import 'package:designsprit/features/home/presentation/pages/home_view.dart';
 import 'package:designsprit/features/item_details/presentation/cubit/item_cubit.dart';
 import 'package:designsprit/features/item_details/presentation/pages/details_screen.dart';
 import 'package:designsprit/features/items_list/presentation/cubit/items_list_cubit.dart';
 import 'package:designsprit/features/items_list/presentation/pages/items_list.dart';
 import 'package:designsprit/features/main_screen/page/main_screen_view.dart';
-import 'package:designsprit/features/more/presentation/pages/more_page.dart';
 import 'package:designsprit/features/onboarding/presentation/pages/onboarding_view.dart';
 import 'package:designsprit/features/profile/presentation/pages/profile_view.dart';
 import 'package:designsprit/features/project_status/presentation/cubit/status_cubit.dart';
@@ -27,14 +23,11 @@ import 'package:go_router/go_router.dart';
 
 abstract class AppRouter {
   static const kMainScreenView = '/mainScreenView';
-  static const kHomeView = '/homeView';
   static const kLoginView = '/loginView';
   static const konBoardingView = '/onBoarding';
-  static const kBookDetailsView = '/bookDetailsView';
   static const kSearchView = '/searchView';
   static const kRegisterView = '/registerView';
   static const kAppointmentView = '/addAppointment';
-  static const kMoreView = '/moreView';
   static const kProfileView = '/profileView';
   static const kTimelineView = '/timelineView';
   static const kItemDetailsView = '/itemDetailsView';
@@ -72,16 +65,8 @@ abstract class AppRouter {
         builder: (context, state) => const MainScreenView(),
       ),
       GoRoute(
-        path: kHomeView,
-        builder: (context, state) => const HomeView(),
-      ),
-      GoRoute(
         path: kRegisterView,
         builder: (context, state) => const RegisterView(),
-      ),
-      GoRoute(
-        path: kMoreView,
-        builder: (context, state) => const MorePage(),
       ),
       GoRoute(
         path: kProfileView,
@@ -97,7 +82,12 @@ abstract class AppRouter {
       GoRoute(
         path: kAppointmentView,
         builder: (context, state) => BlocProvider(
-          create: (context) => sl<AddAppointmentCubit>(),
+          create: (context) => sl<AddAppointmentCubit>()
+            ..getCategories()
+            ..getCountries()
+            ..getGovernments()
+            ..getRegions()
+            ..getTimeSheet(),
           child: const AddAppointment(),
         ),
       ),
@@ -129,13 +119,6 @@ abstract class AppRouter {
         builder: (context, state) => BlocProvider(
           create: (context) => sl<ChangePasswordCubit>(),
           child: ChangePassword(),
-        ),
-      ),
-      GoRoute(
-        path: kFavoritesView,
-        builder: (context, state) => BlocProvider(
-          create: (context) => sl<FavoritesCubit>(),
-          child: const FavoritesView(),
         ),
       ),
     ],

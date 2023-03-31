@@ -13,8 +13,7 @@ class AddAppointment extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var cubit = AddAppointmentCubit.get(context);
-    return BlocConsumer<AddAppointmentCubit, AddAppointmentState>(
-      listener: (context, state) {},
+    return BlocBuilder<AddAppointmentCubit, AddAppointmentState>(
       builder: (context, state) {
         return Scaffold(
           appBar: CustomAppBar(

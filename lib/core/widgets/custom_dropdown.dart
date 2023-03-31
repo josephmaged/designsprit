@@ -30,25 +30,39 @@ class _CustomDropdownState extends State<CustomDropdown> {
           color: kPrimaryColor,
         ),
       ),
-      child: Padding(
-        padding: EdgeInsets.symmetric(vertical: 5.h, horizontal: 10.w),
-        child: DropdownButtonHideUnderline(
-          child: DropdownButton(
-            borderRadius: BorderRadius.circular(10),
-            isExpanded: true,
-            hint: Row(
-              children: [
-                Icon(
-                  widget.icon,
-                  size: 20.w,
-                  color: Colors.grey,
+      padding: EdgeInsets.symmetric(horizontal:  12.w,vertical: 5.h),
+      child: DropdownButtonHideUnderline(
+        child: DropdownButton(
+          borderRadius: BorderRadius.circular(10),
+          isExpanded: true,
+          hint: Row(
+            children: [
+              Icon(
+                widget.icon,
+                size: 20.w,
+                color: Colors.grey,
+              ),
+              SizedBox(
+                width: 4.h,
+              ),
+              Expanded(
+                child: Text(
+                  widget.text,
+                  style: TextStyle(
+                    fontSize: 14.sp,
+                    fontWeight: FontWeight.bold,
+                  ),
+                  overflow: TextOverflow.ellipsis,
                 ),
-                SizedBox(
-                  width: 4.h,
-                ),
-                Expanded(
+              ),
+            ],
+          ),
+          items: widget.items
+              .map(
+                (item) => DropdownMenuItem<String>(
+                  value: item,
                   child: Text(
-                    widget.text,
+                    item,
                     style: TextStyle(
                       fontSize: 14.sp,
                       fontWeight: FontWeight.bold,
@@ -56,34 +70,21 @@ class _CustomDropdownState extends State<CustomDropdown> {
                     overflow: TextOverflow.ellipsis,
                   ),
                 ),
-              ],
-            ),
-            items: widget.items
-                .map(
-                  (item) => DropdownMenuItem<String>(
-                    value: item,
-                    child: Text(
-                      item,
-                      style: TextStyle(
-                        fontSize: 14.sp,
-                        fontWeight: FontWeight.bold,
-                      ),
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                  ),
-                )
-                .toList(),
-            value: widget.selectedValue,
-            onChanged: (value) {
-              setState(() {
-                widget.selectedValue = value!;
-              });
-            },
-            icon: const Icon(
+              )
+              .toList(),
+          value: widget.selectedValue,
+          onChanged: (value) {
+            setState(() {
+              widget.selectedValue = value!;
+            });
+          },
+          icon: Padding(
+            padding: EdgeInsets.symmetric(horizontal: 15.w),
+            child: const Icon(
               Icons.arrow_forward_ios_outlined,
             ),
-            iconSize: 14.w,
           ),
+          iconSize: 14.w,
         ),
       ),
     );

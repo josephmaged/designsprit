@@ -1,4 +1,18 @@
 import 'package:bloc/bloc.dart';
+import 'package:designsprit/core/usecase/base_usecase.dart';
+import 'package:designsprit/core/utils/api_response.dart';
+import 'package:designsprit/core/utils/enum.dart';
+import 'package:designsprit/features/add_appointment/domain/entities/categories.dart';
+import 'package:designsprit/features/add_appointment/domain/entities/countries.dart';
+import 'package:designsprit/features/add_appointment/domain/entities/governments.dart';
+import 'package:designsprit/features/add_appointment/domain/entities/regions.dart';
+import 'package:designsprit/features/add_appointment/domain/entities/timeSheet.dart';
+import 'package:designsprit/features/add_appointment/domain/use_cases/get_categories_usecase.dart';
+import 'package:designsprit/features/add_appointment/domain/use_cases/get_countries_usecase.dart';
+import 'package:designsprit/features/add_appointment/domain/use_cases/get_governments_usecase.dart';
+import 'package:designsprit/features/add_appointment/domain/use_cases/get_regions_usecase.dart';
+import 'package:designsprit/features/add_appointment/domain/use_cases/get_timesheet_usecase.dart';
+import 'package:designsprit/features/add_appointment/domain/use_cases/set_appointment.dart';
 import 'package:designsprit/features/add_appointment/presentation/widgets/step_one_view.dart';
 import 'package:designsprit/features/add_appointment/presentation/widgets/step_three.dart';
 import 'package:designsprit/features/add_appointment/presentation/widgets/step_two_view.dart';
@@ -10,9 +24,141 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 part 'add_appointment_state.dart';
 
 class AddAppointmentCubit extends Cubit<AddAppointmentState> {
-  AddAppointmentCubit() : super(const AddAppointmentState());
+  final GetCategoriesUseCase getCategoriesUseCase;
+  final GetCountriesUseCase getCountriesUseCase;
+  final GetGovernmentsUseCase getGovernmentsUseCase;
+  final GetRegionsUseCase getRegionsUseCase;
+  final GetTimeSheetUseCase getTimeSheetUseCase;
+  final SetAppointmentUseCase setAppointmentUseCase;
+
+  AddAppointmentCubit(
+    this.getCategoriesUseCase,
+    this.getCountriesUseCase,
+    this.getGovernmentsUseCase,
+    this.getRegionsUseCase,
+    this.getTimeSheetUseCase,
+    this.setAppointmentUseCase,
+  ) : super(const AddAppointmentState());
 
   static AddAppointmentCubit get(context) => BlocProvider.of(context);
+
+  String? categoryValue;
+  String? imagesValue;
+  TextEditingController area = TextEditingController();
+  TextEditingController notes = TextEditingController();
+
+  Future<void> getCategories() async {
+    emit(state.copyWith(requestState: RequestState.loading));
+
+    final result = await getCategoriesUseCase(const NoParameters());
+
+    result.fold((l) {
+      emit(state.copyWith(
+        requestState: RequestState.error,
+        responseMessage: l.errMessage,
+      ));
+    }, (r) {
+      emit(state.copyWith(
+        categoriesResponse: r,
+      ));
+    });
+  }
+
+  Future<void> getCountries() async {
+    emit(state.copyWith(requestState: RequestState.loading));
+
+    final result = await getCountriesUseCase(const NoParameters());
+
+    result.fold((l) {
+      emit(state.copyWith(
+        requestState: RequestState.error,
+        responseMessage: l.errMessage,
+      ));
+    }, (r) {
+      emit(state.copyWith(
+        countriesResponse: r,
+      ));
+    });
+  }
+
+  Future<void> getGovernments() async {
+    emit(state.copyWith(requestState: RequestState.loading));
+
+    final result = await getGovernmentsUseCase(const NoParameters());
+
+    result.fold((l) {
+      emit(state.copyWith(
+        requestState: RequestState.error,
+        responseMessage: l.errMessage,
+      ));
+    }, (r) {
+      emit(state.copyWith(
+        governmentsResponse: r,
+      ));
+    });
+  }
+
+  Future<void> getRegions() async {
+    emit(state.copyWith(requestState: RequestState.loading));
+
+    final result = await getRegionsUseCase(const NoParameters());
+
+    result.fold((l) {
+      emit(state.copyWith(
+        requestState: RequestState.error,
+        responseMessage: l.errMessage,
+      ));
+    }, (r) {
+      emit(state.copyWith(
+        regionsResponse: r,
+      ));
+    });
+  }
+
+  Future<void> getTimeSheet() async {
+    emit(state.copyWith(requestState: RequestState.loading));
+
+    final result = await getTimeSheetUseCase(const NoParameters());
+
+    result.fold((l) {
+      emit(state.copyWith(
+        requestState: RequestState.error,
+        responseMessage: l.errMessage,
+      ));
+    }, (r) {
+      emit(state.copyWith(
+        timeSheetResponse: r,
+      ));
+    });
+  }
+
+ /* Future<void> setAppointment() async {
+    emit(state.copyWith(requestState: RequestState.loading));
+
+    final result = await setAppointmentUseCase(AppointmentParameters(
+      categoryId: categoryId,
+      area: area,
+      userId: userId,
+      countryId: countryId,
+      governmentId: governmentId,
+      regionId: regionId,
+      street: street,
+      notes: notes,
+      imagesId: imagesId,
+      timeSheetId: timeSheetId,
+    ));
+
+    result.fold((l) {
+      emit(state.copyWith(
+        requestState: RequestState.error,
+        responseMessage: l.errMessage,
+      ));
+    }, (r) {
+      emit(state.copyWith(
+        appointmentResponse: r,
+      ));
+    });
+  }*/
 
   int currentStep = 0;
 

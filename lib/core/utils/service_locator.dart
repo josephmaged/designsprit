@@ -1,3 +1,12 @@
+import 'package:designsprit/features/add_appointment/data/data_sources/appointment_remote_data_source.dart';
+import 'package:designsprit/features/add_appointment/data/repositories/appointment_repo.dart';
+import 'package:designsprit/features/add_appointment/domain/repositories/base_appointment_repo.dart';
+import 'package:designsprit/features/add_appointment/domain/use_cases/get_categories_usecase.dart';
+import 'package:designsprit/features/add_appointment/domain/use_cases/get_countries_usecase.dart';
+import 'package:designsprit/features/add_appointment/domain/use_cases/get_governments_usecase.dart';
+import 'package:designsprit/features/add_appointment/domain/use_cases/get_regions_usecase.dart';
+import 'package:designsprit/features/add_appointment/domain/use_cases/get_timesheet_usecase.dart';
+import 'package:designsprit/features/add_appointment/domain/use_cases/set_appointment.dart';
 import 'package:designsprit/features/add_appointment/presentation/cubit/add_appointment_cubit.dart';
 import 'package:designsprit/features/auth/login/data/data_sources/login_remote_data_source.dart';
 import 'package:designsprit/features/auth/login/data/repositories/login_repo.dart';
@@ -61,7 +70,7 @@ class SetupServiceLocator {
     sl.registerFactory(() => RegisterCubit(sl(), sl(), sl()));
     sl.registerFactory(() => MainScreenCubit());
     sl.registerFactory(() => HomeCubit(sl(), sl()));
-    sl.registerFactory(() => AddAppointmentCubit());
+    sl.registerFactory(() => AddAppointmentCubit(sl(), sl(),sl(),sl(), sl(),sl()));
     sl.registerFactory(() => StatusCubit(sl(),sl()));
     sl.registerFactory(() => ItemCubit(sl(), sl(), sl()));
     sl.registerFactory(() => ItemsListCubit(sl()));
@@ -149,5 +158,20 @@ class SetupServiceLocator {
 
     /// DATA SOURCE
     sl.registerLazySingleton<BaseFavoritesRemoteDataSource>(() => FavoritesRemoteDataSource());
+
+    /// Appointment
+    /// USE CASE
+    sl.registerLazySingleton(() => GetCategoriesUseCase(sl()));
+    sl.registerLazySingleton(() => GetCountriesUseCase(sl()));
+    sl.registerLazySingleton(() => GetGovernmentsUseCase(sl()));
+    sl.registerLazySingleton(() => GetRegionsUseCase(sl()));
+    sl.registerLazySingleton(() => GetTimeSheetUseCase(sl()));
+    sl.registerLazySingleton(() => SetAppointmentUseCase(sl()));
+
+    /// Repository
+    sl.registerLazySingleton<BaseAppointmentRepo>(() => AppointmentRepo(sl()));
+
+    /// DATA SOURCE
+    sl.registerLazySingleton<BaseAppointmentRemoteDataSource>(() => AppointmentRemoteDataSource());
   }
 }

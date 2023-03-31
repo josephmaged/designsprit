@@ -25,4 +25,12 @@ class ApiConst {
       '$baseUrlApi/UserLike/UserLikes?userId=$parameters';
 
   static const String updateProjectSteps = '$baseUrlApi/ProjectTrack/SetProjectTrackStatus';
+
+  // Request
+ static const String getCategories = '$baseUrlApi/Category/GetCategories';
+ static const String getCountries = '$baseUrlApi/Request/GetCountries';
+ static const String getGovernments = '$baseUrlApi/Request/GetGovernmentes';
+ static const String getRegions = '$baseUrlApi/Request/GetRegions';
+ static const String getTimeSheet = '$baseUrlApi/TimeSheet/getNotReserved';
+ static const String setAppointment = '$baseUrlApi/Request/AddRequest';
 }

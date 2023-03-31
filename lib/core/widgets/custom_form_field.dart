@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CustomTextFormField extends StatelessWidget {
   const CustomTextFormField({
@@ -10,6 +11,8 @@ class CustomTextFormField extends StatelessWidget {
     required this.label,
     required this.errorMessage,
     required this.textInputType,
+    this.maxLines,
+    this.minLines,
     this.secure = false
   });
 
@@ -21,6 +24,8 @@ class CustomTextFormField extends StatelessWidget {
   final String label;
   final TextInputType textInputType;
   final bool secure;
+  final int? maxLines;
+  final int? minLines;
 
   @override
   Widget build(BuildContext context) {
@@ -29,16 +34,18 @@ class CustomTextFormField extends StatelessWidget {
       controller: controller,
       obscureText: secure,
       validator: validator,
+      maxLines: maxLines,
+      minLines: minLines,
       decoration: InputDecoration(
         labelText: label,
         errorBorder: OutlineInputBorder(
           borderSide: const BorderSide(color: Colors.red),
-          borderRadius: BorderRadius.circular(10),
+          borderRadius: BorderRadius.circular(10.r),
         ),
         focusedBorder: OutlineInputBorder(
-            borderSide: const BorderSide(color: Colors.black), borderRadius: BorderRadius.circular(10)),
+            borderSide: const BorderSide(color: Colors.black), borderRadius: BorderRadius.circular(10.r)),
         enabledBorder: OutlineInputBorder(
-            borderSide: const BorderSide(color: Colors.black), borderRadius: BorderRadius.circular(10)),
+            borderSide: const BorderSide(color: Colors.black), borderRadius: BorderRadius.circular(10.r)),
         prefixIcon: prefixWidget,
         suffixIcon: suffixWidget
       ),

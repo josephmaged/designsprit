@@ -1,10 +1,8 @@
-import 'package:bloc/bloc.dart';
 import 'package:designsprit/constants.dart';
 import 'package:designsprit/core/utils/api_response.dart';
 import 'package:designsprit/core/utils/cache_helper.dart';
 import 'package:designsprit/core/utils/enum.dart';
 import 'package:designsprit/features/item_details/domain/entities/item_details.dart';
-import 'package:designsprit/features/item_details/domain/entities/item_images.dart';
 import 'package:designsprit/features/item_details/domain/entities/list_images.dart';
 import 'package:designsprit/features/item_details/domain/use_cases/item_details_usecase.dart';
 import 'package:designsprit/features/item_details/domain/use_cases/item_images_usecase.dart';

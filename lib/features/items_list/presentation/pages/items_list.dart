@@ -11,10 +11,7 @@ class ItemsList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<ItemsListCubit, ItemsListState>(
-      listener: (context, state) {
-        // TODO: implement listener
-      },
+    return BlocBuilder<ItemsListCubit, ItemsListState>(
       builder: (context, state) {
         return Scaffold(
           appBar: AppBar(

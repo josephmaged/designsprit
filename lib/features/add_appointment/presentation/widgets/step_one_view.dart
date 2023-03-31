@@ -1,6 +1,6 @@
-import 'package:designsprit/constants.dart';
 import 'package:designsprit/core/widgets/custom_dropdown.dart';
 import 'package:designsprit/core/widgets/custom_form_field.dart';
+import 'package:designsprit/features/add_appointment/presentation/cubit/add_appointment_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -22,37 +22,25 @@ class _StepOneState extends State<StepOne> {
     'Item7',
     'Item8',
   ];
-  String? selectedValue1;
-  String? selectedValue2;
-  String? selectedValue3;
-  TextEditingController area = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
+    var cubit = AddAppointmentCubit.get(context);
     return SingleChildScrollView(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           CustomDropdown(
             icon: Icons.list,
-            text: 'Select Need',
+            text: 'Select Category',
             items: items,
-            selectedValue: selectedValue1,
-          ),
-          SizedBox(
-            height: 10.h,
-          ),
-          CustomDropdown(
-            icon: Icons.list,
-            text: 'Select Project Type',
-            items: items,
-            selectedValue: selectedValue2,
+            selectedValue: cubit.categoryValue,
           ),
           SizedBox(
             height: 10.h,
           ),
           CustomTextFormField(
-            controller: area,
+            controller: cubit.area,
             textInputType: TextInputType.number,
             validator: (value) {},
             label: 'Area',
@@ -67,9 +55,25 @@ class _StepOneState extends State<StepOne> {
           ),
           CustomDropdown(
             icon: Icons.list,
-            text: 'Select Design Theme',
+            text: 'Select Images',
             items: items,
-            selectedValue: selectedValue3,
+            selectedValue: cubit.imagesValue,
+          ),
+          SizedBox(
+            height: 10.h,
+          ),
+          CustomTextFormField(
+            controller: cubit.notes,
+            textInputType: TextInputType.multiline,
+            validator: (value) {},
+            label: 'Notes',
+            prefixWidget: Icon(
+              Icons.edit_note,
+              size: 20.w,
+            ),
+            maxLines: 5,
+            minLines: 1,
+            errorMessage: 'Please enter your Notes',
           ),
         ],
       ),

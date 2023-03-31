@@ -86,7 +86,7 @@ class DetailsScreen extends StatelessWidget {
                                               child: Padding(
                                                 padding: EdgeInsets.all(10.r),
                                                 child: const Icon(
-                                                  Icons.favorite_border,
+                                                 Icons.favorite_border,
                                                   color: Colors.white,
                                                 ),
                                               ),

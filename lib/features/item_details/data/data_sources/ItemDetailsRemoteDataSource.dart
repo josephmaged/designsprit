@@ -3,7 +3,6 @@ import 'package:designsprit/core/network/api_const.dart';
 import 'package:designsprit/core/network/error_message_model.dart';
 import 'package:designsprit/core/utils/api_response.dart';
 import 'package:designsprit/features/item_details/data/models/item_details_model.dart';
-import 'package:designsprit/features/item_details/data/models/item_images_model.dart';
 import 'package:designsprit/features/item_details/data/models/list_images_model.dart';
 import 'package:designsprit/features/item_details/domain/use_cases/item_details_usecase.dart';
 import 'package:designsprit/features/item_details/domain/use_cases/item_images_usecase.dart';
