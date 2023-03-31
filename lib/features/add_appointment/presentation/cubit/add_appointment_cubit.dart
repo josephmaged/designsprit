@@ -44,8 +44,14 @@ class AddAppointmentCubit extends Cubit<AddAppointmentState> {
 
   String? categoryValue;
   String? imagesValue;
+  String? countryValue;
+  String? governmentValue;
+  String? regionValue;
   TextEditingController area = TextEditingController();
   TextEditingController notes = TextEditingController();
+  TextEditingController street = TextEditingController();
+
+  List<String> categories = [];
 
   Future<void> getCategories() async {
     emit(state.copyWith(requestState: RequestState.loading));
@@ -60,9 +66,13 @@ class AddAppointmentCubit extends Cubit<AddAppointmentState> {
     }, (r) {
       emit(state.copyWith(
         categoriesResponse: r,
+        requestState: RequestState.loaded,
       ));
+      categories = r.map((e) => e.name).toList();
     });
   }
+
+  List<String> countries = [];
 
   Future<void> getCountries() async {
     emit(state.copyWith(requestState: RequestState.loading));
@@ -78,8 +88,11 @@ class AddAppointmentCubit extends Cubit<AddAppointmentState> {
       emit(state.copyWith(
         countriesResponse: r,
       ));
+      countries = r.map((e) => e.countryName).toList();
     });
   }
+
+  List<String> governments = [];
 
   Future<void> getGovernments() async {
     emit(state.copyWith(requestState: RequestState.loading));
@@ -95,8 +108,11 @@ class AddAppointmentCubit extends Cubit<AddAppointmentState> {
       emit(state.copyWith(
         governmentsResponse: r,
       ));
+      governments = r.map((e) => e.govName).toList();
     });
   }
+
+  List<String> regions = [];
 
   Future<void> getRegions() async {
     emit(state.copyWith(requestState: RequestState.loading));
@@ -111,7 +127,9 @@ class AddAppointmentCubit extends Cubit<AddAppointmentState> {
     }, (r) {
       emit(state.copyWith(
         regionsResponse: r,
+        requestState: RequestState.loaded,
       ));
+      regions = r.map((e) => e.regionName).toList();
     });
   }
 
@@ -126,13 +144,11 @@ class AddAppointmentCubit extends Cubit<AddAppointmentState> {
         responseMessage: l.errMessage,
       ));
     }, (r) {
-      emit(state.copyWith(
-        timeSheetResponse: r,
-      ));
+      emit(state.copyWith(timeSheetResponse: r, requestState: RequestState.loaded));
     });
   }
 
- /* Future<void> setAppointment() async {
+  /* Future<void> setAppointment() async {
     emit(state.copyWith(requestState: RequestState.loading));
 
     final result = await setAppointmentUseCase(AppointmentParameters(

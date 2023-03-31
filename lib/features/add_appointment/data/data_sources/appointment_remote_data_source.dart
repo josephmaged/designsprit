@@ -27,9 +27,14 @@ abstract class BaseAppointmentRemoteDataSource {
 class AppointmentRemoteDataSource extends BaseAppointmentRemoteDataSource {
   @override
   Future<List<CategoriesModel>> getCategories() async {
-    final response = await Dio().get(
-      ApiConst.getCategories,
-    );
+    final response = await Dio().post(ApiConst.getCategories, data: {
+      "pageNumber": 1,
+      "rawsNumber": 50,
+      "sortField": "",
+      "sortType": "",
+      "filter": "",
+    });
+    print(response);
 
     if (response.statusCode == 200) {
       if (response.data.containsKey('data')) {
@@ -127,9 +132,11 @@ class AppointmentRemoteDataSource extends BaseAppointmentRemoteDataSource {
 
   @override
   Future<List<TimeSheetModel>> getTimeSheet() async {
-    final response = await Dio().get(
-      ApiConst.getTimeSheet,
-    );
+    final response = await Dio().post(ApiConst.getTimeSheet, data: {
+      "sortField": "",
+      "sortType": "",
+      "filter": "",
+    });
 
     if (response.statusCode == 200) {
       if (response.data.containsKey('data')) {

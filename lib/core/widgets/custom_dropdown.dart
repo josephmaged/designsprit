@@ -5,7 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 class CustomDropdown extends StatefulWidget {
   final IconData icon;
   final String text;
-  final List items;
+  final List<dynamic> items;
   Object? selectedValue;
 
   CustomDropdown({
