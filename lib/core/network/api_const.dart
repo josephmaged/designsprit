@@ -5,6 +5,7 @@ class ApiConst {
   static String getImages(String parameters) => '$baseUrl/imges/$parameters';
 
   static const String registerPath = '$baseUrlApi/Auth/Register';
+
   static String loginPath(String parameters) => '$baseUrlApi/Auth/login/$parameters';
 
   static const String getRandomCategories = '$baseUrlApi/Home/GetRandomCategory';
@@ -21,18 +22,17 @@ class ApiConst {
   static String getItemsByCategoryId(String parameters) =>
       '$baseUrlApi/Item/getItembyCategoryid?Categoryid=$parameters';
 
-  static String getFavorites(int parameters) =>
-      '$baseUrlApi/UserLike/UserLikes?userId=$parameters';
+  static String getFavorites(int parameters) => '$baseUrlApi/UserLike/UserLikes?userId=$parameters';
 
   static const String updateProjectSteps = '$baseUrlApi/ProjectTrack/SetProjectTrackStatus';
 
-  static const String updateUserData = '$baseUrlApi/Auth/UpdateProfile';
+  static const String updateUserData = 'http://167.86.119.94:4500/api/Auth/UpdateProfile';
 
   // Request
- static const String getCategories = '$baseUrlApi/Category/GetCategories';
- static const String getCountries = '$baseUrlApi/Request/GetCountries';
- static const String getGovernments = '$baseUrlApi/Request/GetGovernmentes';
- static const String getRegions = '$baseUrlApi/Request/GetRegions';
- static const String getTimeSheet = '$baseUrlApi/TimeSheet/getNotReserved';
- static const String setAppointment = '$baseUrlApi/Request/AddRequest';
+  static const String getCategories = '$baseUrlApi/Category/GetCategories';
+  static const String getCountries = '$baseUrlApi/Request/GetCountries';
+  static const String getGovernments = '$baseUrlApi/Request/GetGovernmentes';
+  static const String getRegions = '$baseUrlApi/Request/GetRegions';
+  static const String getTimeSheet = '$baseUrlApi/TimeSheet/getNotReserved';
+  static const String setAppointment = '$baseUrlApi/Request/AddRequest';
 }

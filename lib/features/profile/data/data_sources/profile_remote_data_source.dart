@@ -20,17 +20,19 @@ class ProfileRemoteDataSource extends BaseProfileRemoteDataSource {
         "UserEmail": parameters.userEmail,
         "Phone": parameters.phone,
         "Mobile": parameters.mobile,
+        "Description": "",
+        "Image": parameters.imageFile!,
         "KnownFrom": parameters.source,
-        "Image": parameters.image
       },
       options: Options(
         headers: {
           "Content-Type": 'multipart/form-data',
           'Accept': '*/*',
+          'Accept-Encoding': 'gzip, deflate, br',
+          'Connection': 'keep-alive',
         },
       ),
     );
-
 
     if (response.statusCode == 200) {
       if (response.data.containsKey('data')) {
@@ -44,8 +46,7 @@ class ProfileRemoteDataSource extends BaseProfileRemoteDataSource {
       throw ServerException(
         errorMessageModel: ErrorMessageModel.fromJson(response.data),
       );
-    }
-    else {
+    } else {
       throw ServerException(
         errorMessageModel: ErrorMessageModel.fromJson(response.data),
       );

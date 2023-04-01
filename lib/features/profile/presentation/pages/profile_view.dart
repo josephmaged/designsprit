@@ -6,15 +6,21 @@ import 'package:designsprit/core/widgets/custom_app_bar.dart';
 import 'package:designsprit/core/widgets/custom_form_field.dart';
 import 'package:designsprit/core/widgets/custom_primary_button.dart';
 import 'package:designsprit/features/profile/presentation/cubit/profile_cubit.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 
-class ProfileView extends StatelessWidget {
+class ProfileView extends StatefulWidget {
   const ProfileView({Key? key}) : super(key: key);
 
+  @override
+  State<ProfileView> createState() => _ProfileViewState();
+}
+
+class _ProfileViewState extends State<ProfileView> {
   @override
   Widget build(BuildContext context) {
     final user = FirebaseAuth.instance.currentUser!;
@@ -31,26 +37,45 @@ class ProfileView extends StatelessWidget {
             child: SingleChildScrollView(
               child: Column(
                 children: [
-                  Container(
-                    width: 120.w,
-                    height: 120.h,
-                    clipBehavior: Clip.hardEdge,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(60.r),
-                      ),
-                    ),
-                    child: InkWell(
-                      onTap: (){
-
-                      },
-                      child: CachedNetworkImage(
-                        placeholder: (context, url) => const CircularProgressIndicator(),
-                        errorWidget: (context, url, error) => const Icon(Icons.error),
-                        imageUrl:
-                        ApiConst.getImages(state.image!)
-                           /* "https://lh3.googleusercontent.com/a/AGNmyxav7RcuwpdMP7pW5D_FRscwntHNmrL-FClRKgg8hw=s288"*/,
-                      ),
+                  InkWell(
+                    onTap: () async {
+                      final result = await FilePicker.platform.pickFiles(
+                        type: FileType.image
+                      );
+                      if (result == null) return;
+                      final file = result.files.first;
+                      cubit.imageFile = await cubit.saveFilePermanently(file);
+                      print(cubit.imageFile);
+                      setState(() {});
+                    },
+                    child: Stack(
+                      children: [
+                        Container(
+                          width: 120.w,
+                          height: 120.h,
+                          clipBehavior: Clip.hardEdge,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.all(
+                              Radius.circular(60.r),
+                            ),
+                          ),
+                          child: cubit.imageFile == null
+                              ? CachedNetworkImage(
+                                  placeholder: (context, url) => const CircularProgressIndicator(),
+                                  errorWidget: (context, url, error) => const Icon(Icons.error),
+                                  imageUrl: ApiConst.getImages(state.image!),
+                                )
+                              : Image.file(cubit.imageFile!),
+                        ),
+                        Positioned(
+                          bottom: 5.h,
+                          right: 5.w,
+                          child: const Icon(
+                            Icons.add_circle,
+                            color: Colors.blue,
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                   Form(

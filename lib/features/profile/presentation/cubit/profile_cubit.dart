@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:designsprit/constants.dart';
 import 'package:designsprit/core/utils/cache_helper.dart';
@@ -6,8 +7,10 @@ import 'package:designsprit/core/utils/enum.dart';
 import 'package:designsprit/features/profile/domain/entities/user_data.dart';
 import 'package:designsprit/features/profile/domain/use_cases/update_profile_usecase.dart';
 import 'package:equatable/equatable.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:path_provider/path_provider.dart';
 
 part 'profile_state.dart';
 
@@ -27,6 +30,8 @@ class ProfileCubit extends Cubit<ProfileState> {
   String image = '';
 
   String fuid = CacheHelper.getData(key: Constants.fID);
+
+  File? imageFile;
 
   Future<void> setUserData() async {
     String userString = CacheHelper.getData(key: Constants.userData);
@@ -49,13 +54,14 @@ class ProfileCubit extends Cubit<ProfileState> {
   }
 
   Future<void> updateProfile() async {
-    final result = await updateProfileUseCase(UserData(
+     final result = await updateProfileUseCase(UserData(
       fuid: fuid,
       userName: usernameController.text,
       phone: phoneController.text,
       mobile: mobileController.text,
       source: sourceController.text,
       userEmail: emailController.text,
+      imageFile: imageFile!,
     ));
 
     result.fold((l) {
@@ -74,5 +80,11 @@ class ProfileCubit extends Cubit<ProfileState> {
       String user = jsonEncode(r[0]);
       CacheHelper.saveData(key: Constants.userData, value: user);
     });
+  }
+
+  Future<File> saveFilePermanently(PlatformFile file) async {
+    final appStorage = await getApplicationDocumentsDirectory();
+    final newFile = File('${appStorage.path}/${file.name}');
+    return File(file.path!).copy(newFile.path);
   }
 }

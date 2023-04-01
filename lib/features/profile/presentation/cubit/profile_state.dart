@@ -8,6 +8,7 @@ class ProfileState extends Equatable {
   final String? source;
   final String? username;
   final String? image;
+  final File? imageFile;
   final List<UserData>? requestResponse;
   final RequestState? requestState;
   final String? responseMessage;
@@ -20,6 +21,7 @@ class ProfileState extends Equatable {
     this.source,
     this.username,
     this.image,
+    this.imageFile,
     this.requestResponse = const [],
     this.requestState = RequestState.loading,
     this.responseMessage = '',
@@ -33,6 +35,7 @@ class ProfileState extends Equatable {
     String? source,
     String? username,
     String? image,
+    File? imageFile,
     List<UserData>? requsetResponse,
     RequestState? requestState,
     String? responseMessage,
@@ -45,6 +48,7 @@ class ProfileState extends Equatable {
       source: source ?? this.source,
       username: username ?? this.username,
       image: image ?? this.image,
+      imageFile: imageFile ?? this.imageFile,
     );
   }
 
@@ -57,5 +61,6 @@ class ProfileState extends Equatable {
         source,
         username,
         image,
+        imageFile,
       ];
 }
