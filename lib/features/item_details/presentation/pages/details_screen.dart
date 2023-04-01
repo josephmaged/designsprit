@@ -3,10 +3,8 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:designsprit/constants.dart';
 import 'package:designsprit/core/network/api_const.dart';
 import 'package:designsprit/core/utils/assets.dart';
-import 'package:designsprit/core/utils/cache_helper.dart';
 import 'package:designsprit/core/utils/enum.dart';
 import 'package:designsprit/core/utils/strings.dart';
-import 'package:designsprit/core/widgets/banner_item.dart';
 import 'package:designsprit/core/widgets/custom_loading_indicator.dart';
 import 'package:designsprit/features/item_details/presentation/cubit/item_cubit.dart';
 import 'package:flutter/material.dart';
@@ -73,6 +71,26 @@ class DetailsScreen extends StatelessWidget {
                                         ),
                                         Positioned(
                                           bottom: 10.h,
+                                          left: 10.h,
+                                          child: Container(
+                                            decoration: BoxDecoration(
+                                              borderRadius: BorderRadius.circular(50),
+                                              color: kPrimaryColor.withOpacity(0.8),
+                                            ),
+                                            child: Padding(
+                                              padding: EdgeInsets.symmetric(vertical: 10.h, horizontal:20.w),
+                                              child:  Text(
+                                                "Image ID: ${index.imgId}",
+                                                style: const TextStyle(
+                                                  color: Colors.white,
+                                                  fontWeight: FontWeight.bold,
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                        Positioned(
+                                          bottom: 10.h,
                                           right: 10.h,
                                           child: InkWell(
                                             onTap: () {
@@ -86,7 +104,7 @@ class DetailsScreen extends StatelessWidget {
                                               child: Padding(
                                                 padding: EdgeInsets.all(10.r),
                                                 child: const Icon(
-                                                 Icons.favorite_border,
+                                                  Icons.favorite_border,
                                                   color: Colors.white,
                                                 ),
                                               ),

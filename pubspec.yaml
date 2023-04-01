@@ -23,7 +23,6 @@ dependencies:
   get_it: ^7.2.0
 
   # Widgets
-  syncfusion_flutter_calendar: ^20.4.42
   font_awesome_flutter: ^10.3.0
   cached_network_image: ^3.2.3
   introduction_screen: ^3.1.4
@@ -35,6 +34,7 @@ dependencies:
   enhance_stepper: ^0.1.1
   tuple: ^2.0.1
   fluttertoast: ^8.0.7
+  dropdown_button2: ^2.0.0
 
   # Utils
   google_fonts: ^4.0.3
@@ -42,6 +42,8 @@ dependencies:
   go_router: ^6.0.3
   flutter_screenutil: ^5.6.1
   share_plus: ^6.3.1
+  intl: ^0.17.0
+  file_picker: ^5.2.6
 
   # Network
   sqflite: ^2.2.4+1

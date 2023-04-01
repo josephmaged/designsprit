@@ -5,14 +5,14 @@ const kSecondaryColor = Color(0xffed9728);
 const kLightGrey = Color(0xffd3d3d3);
 const kPrimaryOpacity70 = Color(0xff013654);
 
-
 const kTranstionDuration = Duration(milliseconds: 250);
 const kGtSectraFine = 'GT Sectra Fine';
-
 
 class Constants {
   static const fID = "fID";
   static const userID = "userID";
   static const userData = "userData";
   static const isFirstTime = 'isFirstTime';
+  static bool isLiked = false;
+  static List<String> favorites = [];
 }

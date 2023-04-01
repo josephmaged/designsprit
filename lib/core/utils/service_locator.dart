@@ -51,6 +51,11 @@ import 'package:designsprit/features/items_list/domain/repositories/items_list_r
 import 'package:designsprit/features/items_list/domain/use_cases/get_items_list_usecase.dart';
 import 'package:designsprit/features/items_list/presentation/cubit/items_list_cubit.dart';
 import 'package:designsprit/features/main_screen/cubit/main_screen_cubit.dart';
+import 'package:designsprit/features/profile/data/data_sources/profile_remote_data_source.dart';
+import 'package:designsprit/features/profile/data/repositories/profile_repo.dart';
+import 'package:designsprit/features/profile/domain/repositories/base_profile_repo.dart';
+import 'package:designsprit/features/profile/domain/use_cases/update_profile_usecase.dart';
+import 'package:designsprit/features/profile/presentation/cubit/profile_cubit.dart';
 import 'package:designsprit/features/project_status/data/data_sources/project_tracker_data_source.dart';
 import 'package:designsprit/features/project_status/data/repositories/project_repo.dart';
 import 'package:designsprit/features/project_status/domain/repositories/base_project_steps_repo.dart';
@@ -76,6 +81,7 @@ class SetupServiceLocator {
     sl.registerFactory(() => ItemsListCubit(sl()));
     sl.registerFactory(() => ChangePasswordCubit());
     sl.registerFactory(() => FavoritesCubit(sl()));
+    sl.registerFactory(() => ProfileCubit(sl()));
 
     /// Register
     /// USE CASES
@@ -173,5 +179,15 @@ class SetupServiceLocator {
 
     /// DATA SOURCE
     sl.registerLazySingleton<BaseAppointmentRemoteDataSource>(() => AppointmentRemoteDataSource());
+
+    /// Update Profile
+    /// USE CASE
+    sl.registerLazySingleton(() => UpdateProfileUseCase(sl()));
+
+    /// Repository
+    sl.registerLazySingleton<BaseProfileRepo>(() => ProfileRepo(sl()));
+
+    /// DATA SOURCE
+    sl.registerLazySingleton<BaseProfileRemoteDataSource>(() => ProfileRemoteDataSource());
   }
 }

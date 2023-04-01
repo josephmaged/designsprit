@@ -26,6 +26,8 @@ class ApiConst {
 
   static const String updateProjectSteps = '$baseUrlApi/ProjectTrack/SetProjectTrackStatus';
 
+  static const String updateUserData = '$baseUrlApi/Auth/UpdateProfile';
+
   // Request
  static const String getCategories = '$baseUrlApi/Category/GetCategories';
  static const String getCountries = '$baseUrlApi/Request/GetCountries';

@@ -11,8 +11,8 @@ class CustomTextFormField extends StatelessWidget {
     required this.label,
     required this.errorMessage,
     required this.textInputType,
-    this.maxLines,
-    this.minLines,
+    this.maxLines = 1,
+    this.minLines = 1,
     this.secure = false
   });
 

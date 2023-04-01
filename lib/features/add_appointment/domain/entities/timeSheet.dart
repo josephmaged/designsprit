@@ -1,18 +1,18 @@
 import 'package:equatable/equatable.dart';
 
 class TimeSheet extends Equatable {
-  final int id;
-  final String date;
-  final String time;
-  final String status;
+  final int? id;
+  final String? date;
+  final String? time;
+  final String? status;
 
   const TimeSheet({
-    required this.id,
-    required this.date,
-    required this.time,
-    required this.status,
+    this.id,
+    this.date,
+    this.time,
+    this.status,
   });
 
   @override
-  List<Object> get props => [id, date, time, status];
+  List<Object?> get props => [id, date, time, status];
 }

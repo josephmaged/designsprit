@@ -5,6 +5,7 @@ import 'package:designsprit/core/utils/enum.dart';
 import 'package:designsprit/features/favorites/domain/entities/favorites.dart';
 import 'package:designsprit/features/favorites/domain/use_cases/get_favorites_usecase.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 part 'favorites_state.dart';
 
@@ -12,6 +13,9 @@ class FavoritesCubit extends Cubit<FavoritesState> {
   final GetFavoritesUseCase getFavoritesUseCase;
 
   FavoritesCubit(this.getFavoritesUseCase) : super(const FavoritesState());
+
+  static FavoritesCubit get(context) => BlocProvider.of(context);
+
 
   Future<void> getFavorites() async {
     emit(state.copyWith(requestState: RequestState.loading));
@@ -27,10 +31,8 @@ class FavoritesCubit extends Cubit<FavoritesState> {
         responseMessage: l.errMessage,
       ));
     }, (r) {
-      emit(state.copyWith(
-        requestResponse: r,
-        requestState: RequestState.loaded
-      ));
+      emit(state.copyWith(requestResponse: r, requestState: RequestState.loaded));
+      Constants.favorites = r.map((e) => e.id).toList();
     });
   }
 }

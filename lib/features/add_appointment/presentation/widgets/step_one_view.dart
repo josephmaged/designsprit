@@ -1,6 +1,8 @@
+import 'package:designsprit/constants.dart';
 import 'package:designsprit/core/utils/enum.dart';
 import 'package:designsprit/core/widgets/custom_dropdown.dart';
 import 'package:designsprit/core/widgets/custom_form_field.dart';
+import 'package:designsprit/core/widgets/custom_multi_dropdown.dart';
 import 'package:designsprit/features/add_appointment/presentation/cubit/add_appointment_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -47,12 +49,12 @@ class _StepOneState extends State<StepOne> {
                     SizedBox(
                       height: 10.h,
                     ),
-                    /*CustomDropdown(
-                icon: Icons.list,
-                text: 'Select Images',
-                items: items,
-                selectedValue: cubit.imagesValue,
-              ),*/
+                    CustomDropdown2(
+                      icon: Icons.list,
+                      text: 'Select Images',
+                      items: Constants.favorites != [] ? Constants.favorites : ['No Favorites', 'Add some Likes'],
+                      selectedItems: cubit.selectedFavorites,
+                    ),
                     SizedBox(
                       height: 10.h,
                     ),

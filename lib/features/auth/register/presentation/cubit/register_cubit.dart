@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:country_code_picker/country_code_picker.dart';
 import 'package:designsprit/constants.dart';
 import 'package:designsprit/core/usecase/base_usecase.dart';
@@ -60,7 +62,8 @@ class RegisterCubit extends Cubit<RegisterState> {
 
       CacheHelper.saveData(key: Constants.fID, value: r[0].fuid);
       CacheHelper.saveData(key: Constants.userID, value: r[0].id);
-      CacheHelper.saveData(key: Constants.userData, value: r[0]);
+      String user = jsonEncode(r[0]);
+      CacheHelper.saveData(key: Constants.userData, value: user);
     });
   }
 

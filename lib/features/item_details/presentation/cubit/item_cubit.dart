@@ -56,8 +56,10 @@ class ItemCubit extends Cubit<ItemState> {
     });
   }
 
+  int uid = CacheHelper.getData(key: Constants.userID);
+
   Future<void> updateItem({required int uId, required int imageId, required bool isLiked}) async {
-    final result = await updateItemUseCase(UpdateItemParameters(uid: uId, itemImageId: imageId, isLiked: isLiked));
+    final result = await updateItemUseCase(UpdateItemParameters(uid: uId, itemImageId: imageId, isLiked: Constants.isLiked));
 
     result.fold((l) {
       emit(state.copyWith(
@@ -68,8 +70,9 @@ class ItemCubit extends Cubit<ItemState> {
       emit(state.copyWith(
         updateItemResponse: r,
         requestState: RequestState.loaded,
-        isLiked: isLiked,
+        isLiked: !isLiked,
       ));
+
       Fluttertoast.showToast(
         msg: r.first.message!,
         toastLength: Toast.LENGTH_SHORT,
@@ -80,11 +83,11 @@ class ItemCubit extends Cubit<ItemState> {
     });
   }
 
-  bool isLiked = false;
-
   Future<void> updateItemFun({required int imageId}) async {
-    int uid = CacheHelper.getData(key: Constants.userID);
-    isLiked = !isLiked;
-    await updateItem(uId: uid, imageId: imageId, isLiked: isLiked);
+    print(Constants.isLiked);
+
+
+    Constants.isLiked = !Constants.isLiked;
+    await updateItem(uId: uid, imageId: imageId, isLiked: Constants.isLiked);
   }
 }

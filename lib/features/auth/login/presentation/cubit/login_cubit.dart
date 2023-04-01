@@ -1,10 +1,10 @@
-import 'package:bloc/bloc.dart';
+import 'dart:convert';
+
 import 'package:designsprit/constants.dart';
 import 'package:designsprit/core/usecase/base_usecase.dart';
 import 'package:designsprit/core/utils/cache_helper.dart';
 import 'package:designsprit/core/utils/enum.dart';
 import 'package:designsprit/features/auth/login/data/models/login_response_model.dart';
-import 'package:designsprit/features/auth/login/domain/entities/login_response.dart';
 import 'package:designsprit/features/auth/login/domain/use_cases/login_API.dart';
 import 'package:designsprit/features/auth/login/domain/use_cases/login_with_email.dart';
 import 'package:designsprit/features/auth/login/domain/use_cases/login_with_google.dart';
@@ -12,7 +12,6 @@ import 'package:equatable/equatable.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:meta/meta.dart';
 
 part 'login_state.dart';
 
@@ -50,7 +49,8 @@ class LoginCubit extends Cubit<LoginState> {
         );
         CacheHelper.saveData(key: Constants.fID, value: r[0].fuid);
         CacheHelper.saveData(key: Constants.userID, value: r[0].id);
-        //CacheHelper.saveData(key: Constants.userData, value: r[0]);
+        String user = jsonEncode(r[0]);
+        CacheHelper.saveData(key: Constants.userData, value: user);
       },
     );
   }

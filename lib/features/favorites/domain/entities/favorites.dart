@@ -1,12 +1,11 @@
 import 'package:equatable/equatable.dart';
 
 class Favorites extends Equatable {
-  final String userName;
   final String image;
+  final String id;
 
-  const Favorites({required this.userName, required this.image});
+  const Favorites({required this.image, required this.id});
 
   @override
-  List<Object> get props => [userName, image];
+  List<Object> get props => [image, id];
 }
-

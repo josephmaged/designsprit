@@ -1,7 +1,10 @@
-import 'package:bloc/bloc.dart';
+import 'package:designsprit/constants.dart';
 import 'package:designsprit/core/usecase/base_usecase.dart';
 import 'package:designsprit/core/utils/api_response.dart';
+import 'package:designsprit/core/utils/cache_helper.dart';
 import 'package:designsprit/core/utils/enum.dart';
+import 'package:designsprit/features/add_appointment/data/models/appointment_model.dart';
+import 'package:designsprit/features/add_appointment/data/models/timesheet_model.dart';
 import 'package:designsprit/features/add_appointment/domain/entities/categories.dart';
 import 'package:designsprit/features/add_appointment/domain/entities/countries.dart';
 import 'package:designsprit/features/add_appointment/domain/entities/governments.dart';
@@ -43,13 +46,17 @@ class AddAppointmentCubit extends Cubit<AddAppointmentState> {
   static AddAppointmentCubit get(context) => BlocProvider.of(context);
 
   String? categoryValue;
-  String? imagesValue;
   String? countryValue;
   String? governmentValue;
   String? regionValue;
+  TimeSheetModel selectedTimeSheet = const TimeSheetModel();
+  List<String> selectedFavorites = [];
   TextEditingController area = TextEditingController();
   TextEditingController notes = TextEditingController();
   TextEditingController street = TextEditingController();
+
+  int uid = CacheHelper.getData(key: Constants.userID);
+
 
   List<String> categories = [];
 
@@ -144,24 +151,27 @@ class AddAppointmentCubit extends Cubit<AddAppointmentState> {
         responseMessage: l.errMessage,
       ));
     }, (r) {
-      emit(state.copyWith(timeSheetResponse: r, requestState: RequestState.loaded));
+      emit(state.copyWith(
+        timeSheetResponse: r,
+        requestState: RequestState.loaded,
+      ));
     });
   }
 
-  /* Future<void> setAppointment() async {
+  Future<void> setAppointment() async {
     emit(state.copyWith(requestState: RequestState.loading));
 
     final result = await setAppointmentUseCase(AppointmentParameters(
-      categoryId: categoryId,
-      area: area,
-      userId: userId,
-      countryId: countryId,
-      governmentId: governmentId,
-      regionId: regionId,
-      street: street,
-      notes: notes,
-      imagesId: imagesId,
-      timeSheetId: timeSheetId,
+      categoryId: categoryValue,
+      area: area.text,
+      userId: uid,
+      countryId: countryValue,
+      governmentId: governmentValue,
+      regionId: regionValue,
+      street: street.text,
+      notes: notes.text,
+      imagesId: selectedFavorites,
+      timeSheetId: selectedTimeSheet.id!,
     ));
 
     result.fold((l) {
@@ -172,14 +182,16 @@ class AddAppointmentCubit extends Cubit<AddAppointmentState> {
     }, (r) {
       emit(state.copyWith(
         appointmentResponse: r,
+        requestState: RequestState.loaded,
       ));
     });
-  }*/
+  }
 
   int currentStep = 0;
 
   void addStep() {
     currentStep += 1;
+
     emit(
       state.copyWith(
         currentStep: currentStep,

@@ -17,15 +17,15 @@ class SetAppointmentUseCase extends BaseUseCase<List<ApiResponse>, AppointmentPa
 }
 
 class AppointmentParameters extends Equatable {
-  final int categoryId;
-  final int area;
+  final String? categoryId;
+  final String? area;
   final int userId;
-  final int countryId;
-  final int governmentId;
-  final int regionId;
+  final String? countryId;
+  final String? governmentId;
+  final String? regionId;
   final String street;
   final String notes;
-  final List<int> imagesId;
+  final List<String>? imagesId;
   final int timeSheetId;
 
   const AppointmentParameters({
@@ -42,7 +42,7 @@ class AppointmentParameters extends Equatable {
   });
 
   @override
-  List<Object> get props => [
+  List<Object?> get props => [
         categoryId,
         area,
         userId,
