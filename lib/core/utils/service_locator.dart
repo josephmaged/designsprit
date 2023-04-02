@@ -51,6 +51,11 @@ import 'package:designsprit/features/items_list/domain/repositories/items_list_r
 import 'package:designsprit/features/items_list/domain/use_cases/get_items_list_usecase.dart';
 import 'package:designsprit/features/items_list/presentation/cubit/items_list_cubit.dart';
 import 'package:designsprit/features/main_screen/cubit/main_screen_cubit.dart';
+import 'package:designsprit/features/notifications/data/data_sources/notifications_remote_data_source.dart';
+import 'package:designsprit/features/notifications/data/repositories/notifications_repo.dart';
+import 'package:designsprit/features/notifications/domain/repositories/base_notifications_repo.dart';
+import 'package:designsprit/features/notifications/domain/use_cases/get_notifications_usecase.dart';
+import 'package:designsprit/features/notifications/presentation/cubit/notifications_cubit.dart';
 import 'package:designsprit/features/profile/data/data_sources/profile_remote_data_source.dart';
 import 'package:designsprit/features/profile/data/repositories/profile_repo.dart';
 import 'package:designsprit/features/profile/domain/repositories/base_profile_repo.dart';
@@ -71,17 +76,18 @@ class SetupServiceLocator {
     //getIt.registerSingleton<ApiService>(ApiService(Dio()));
 
     /// BLOC
-    sl.registerFactory(() => LoginCubit(sl(), sl(),sl()));
+    sl.registerFactory(() => LoginCubit(sl(), sl(), sl()));
     sl.registerFactory(() => RegisterCubit(sl(), sl(), sl()));
     sl.registerFactory(() => MainScreenCubit());
     sl.registerFactory(() => HomeCubit(sl(), sl()));
-    sl.registerFactory(() => AddAppointmentCubit(sl(), sl(),sl(),sl(), sl(),sl()));
-    sl.registerFactory(() => StatusCubit(sl(),sl()));
+    sl.registerFactory(() => AddAppointmentCubit(sl(), sl(), sl(), sl(), sl(), sl()));
+    sl.registerFactory(() => StatusCubit(sl(), sl()));
     sl.registerFactory(() => ItemCubit(sl(), sl(), sl()));
     sl.registerFactory(() => ItemsListCubit(sl()));
     sl.registerFactory(() => ChangePasswordCubit());
     sl.registerFactory(() => FavoritesCubit(sl()));
     sl.registerFactory(() => ProfileCubit(sl()));
+    sl.registerFactory(() => NotificationsCubit(sl()));
 
     /// Register
     /// USE CASES
@@ -189,5 +195,15 @@ class SetupServiceLocator {
 
     /// DATA SOURCE
     sl.registerLazySingleton<BaseProfileRemoteDataSource>(() => ProfileRemoteDataSource());
+
+    /// Notifications
+    /// USE CASE
+    sl.registerLazySingleton(() => GetNotificationsUseCase(sl()));
+
+    /// Repository
+    sl.registerLazySingleton<BaseNotificationsRepo>(() => NotificationsRepo(sl()));
+
+    /// DATA SOURCE
+    sl.registerLazySingleton<BaseNotificationsRemoteDataSource>(() => NotificationsRemoteDataSource());
   }
 }

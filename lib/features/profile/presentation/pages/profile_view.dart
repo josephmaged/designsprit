@@ -34,6 +34,7 @@ class _ProfileViewState extends State<ProfileView> {
     return Scaffold(
       appBar: CustomAppBar(
         titleName: AppStrings.myProfile,
+        listOfActions: const [],
       ),
       body: BlocBuilder<ProfileCubit, ProfileState>(
         builder: (context, state) {

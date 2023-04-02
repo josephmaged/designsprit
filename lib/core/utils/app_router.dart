@@ -12,6 +12,8 @@ import 'package:designsprit/features/item_details/presentation/pages/details_scr
 import 'package:designsprit/features/items_list/presentation/cubit/items_list_cubit.dart';
 import 'package:designsprit/features/items_list/presentation/pages/items_list.dart';
 import 'package:designsprit/features/main_screen/page/main_screen_view.dart';
+import 'package:designsprit/features/notifications/presentation/cubit/notifications_cubit.dart';
+import 'package:designsprit/features/notifications/presentation/pages/notifications_view.dart';
 import 'package:designsprit/features/onboarding/presentation/pages/onboarding_view.dart';
 import 'package:designsprit/features/profile/presentation/cubit/profile_cubit.dart';
 import 'package:designsprit/features/profile/presentation/pages/profile_view.dart';
@@ -36,6 +38,7 @@ abstract class AppRouter {
   static const kItemsListView = '/itemsListView';
   static const kChangePasswordView = '/changePasswordView';
   static const kFavoritesView = '/favoritesView';
+  static const kNotificationsView = '/notificationsView';
 
   static final router = GoRouter(
     routes: [
@@ -128,6 +131,13 @@ abstract class AppRouter {
         builder: (context, state) => BlocProvider(
           create: (context) => sl<ChangePasswordCubit>(),
           child: ChangePassword(),
+        ),
+      ),
+      GoRoute(
+        path: kNotificationsView,
+        builder: (context, state) => BlocProvider(
+          create: (context) => sl<NotificationsCubit>()..getNotifications(),
+          child: const Notifications(),
         ),
       ),
     ],

@@ -21,6 +21,8 @@ class CustomCategoryCard extends StatelessWidget {
     return InkWell(
       onTap: press,
       child: SizedBox(
+        width: 100.w,
+        height: 100.h,
         child: Stack(
           alignment: AlignmentDirectional.bottomCenter,
           children: [
@@ -37,8 +39,9 @@ class CustomCategoryCard extends StatelessWidget {
               width: 100.h,
               child: Text(
                 text!,
-                style: Styles.textStyle18.copyWith(
-                    color: Colors.white
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 14.sp
                 ),
                 textAlign: TextAlign.center,
                 maxLines: 1,

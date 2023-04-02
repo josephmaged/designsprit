@@ -1,14 +1,14 @@
 part of 'notifications_cubit.dart';
 
 class NotificationsState extends Equatable {
-  final List<Notifications>? requestResponse;
-  final RequestState? requestState;
-  final String? responseMessage;
+  final List<Notifications> requestResponse;
+  final RequestState requestState;
+  final String responseMessage;
 
   const NotificationsState({
-    this.requestResponse,
-    this.requestState,
-    this.responseMessage,
+    this.requestResponse= const [],
+    this.requestState = RequestState.loading,
+    this.responseMessage = '',
   });
 
   NotificationsState copyWith({
