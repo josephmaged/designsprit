@@ -1,3 +1,6 @@
+import 'dart:io';
+import 'dart:math';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:designsprit/core/network/api_const.dart';
 import 'package:designsprit/core/utils/app_router.dart';
@@ -6,12 +9,14 @@ import 'package:designsprit/core/widgets/custom_app_bar.dart';
 import 'package:designsprit/core/widgets/custom_form_field.dart';
 import 'package:designsprit/core/widgets/custom_primary_button.dart';
 import 'package:designsprit/features/profile/presentation/cubit/profile_cubit.dart';
-import 'package:file_picker/file_picker.dart';
+import 'package:dio/dio.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
+import 'package:image_picker/image_picker.dart';
 
 class ProfileView extends StatefulWidget {
   const ProfileView({Key? key}) : super(key: key);
@@ -39,14 +44,7 @@ class _ProfileViewState extends State<ProfileView> {
                 children: [
                   InkWell(
                     onTap: () async {
-                      final result = await FilePicker.platform.pickFiles(
-                        type: FileType.image
-                      );
-                      if (result == null) return;
-                      final file = result.files.first;
-                      cubit.imageFile = await cubit.saveFilePermanently(file);
-                      print(cubit.imageFile);
-                      setState(() {});
+                      cubit.pickImage();
                     },
                     child: Stack(
                       children: [
@@ -65,7 +63,7 @@ class _ProfileViewState extends State<ProfileView> {
                                   errorWidget: (context, url, error) => const Icon(Icons.error),
                                   imageUrl: ApiConst.getImages(state.image!),
                                 )
-                              : Image.file(cubit.imageFile!),
+                              : Image.file(cubit.imageUi!),
                         ),
                         Positioned(
                           bottom: 5.h,
@@ -130,7 +128,7 @@ class _ProfileViewState extends State<ProfileView> {
                             errorMessage: 'Please enter how you know us',
                           ),
                           SizedBox(height: 20.h),
-                          CustomPrimaryButton(
+                           CustomPrimaryButton(
                             text: AppStrings.updateProfile,
                             press: () {
                               cubit.updateProfile();

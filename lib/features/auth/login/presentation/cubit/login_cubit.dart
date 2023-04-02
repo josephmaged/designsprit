@@ -47,6 +47,7 @@ class LoginCubit extends Cubit<LoginState> {
             requestState: RequestState.loaded,
           ),
         );
+        print(r);
         CacheHelper.saveData(key: Constants.fID, value: r[0].fuid);
         CacheHelper.saveData(key: Constants.userID, value: r[0].id);
         String user = jsonEncode(r[0]);

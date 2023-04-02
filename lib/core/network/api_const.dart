@@ -24,6 +24,8 @@ class ApiConst {
 
   static String getFavorites(int parameters) => '$baseUrlApi/UserLike/UserLikes?userId=$parameters';
 
+  static String getNotifications(String parameters) => '$baseUrlApi/Notification/GetUserNotifications?Fuid=$parameters';
+
   static const String updateProjectSteps = '$baseUrlApi/ProjectTrack/SetProjectTrackStatus';
 
   static const String updateUserData = 'http://167.86.119.94:4500/api/Auth/UpdateProfile';

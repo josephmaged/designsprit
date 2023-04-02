@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:dio/dio.dart';
 import 'package:equatable/equatable.dart';
 
 class UserData extends Equatable {
@@ -11,7 +12,7 @@ class UserData extends Equatable {
   final String? mobile;
   final String? source;
   final String? image;
-  final File? imageFile;
+  final MultipartFile? imageFile;
 
   const UserData(
       {this.id,
@@ -23,6 +24,18 @@ class UserData extends Equatable {
       this.source,
       this.image,
       this.imageFile});
+
+
+  Map<String, dynamic> toJson() => {
+    'id': id,
+    'fuid': fuid,
+    'userName': userName,
+    'userEmail': userEmail,
+    'phone': phone,
+    'mobile': mobile,
+    'knownFrom': source,
+    'image': image,
+  };
 
   @override
   List<Object?> get props => [

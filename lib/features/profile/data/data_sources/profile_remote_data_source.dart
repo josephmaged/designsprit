@@ -12,18 +12,20 @@ abstract class BaseProfileRemoteDataSource {
 class ProfileRemoteDataSource extends BaseProfileRemoteDataSource {
   @override
   Future<List<UserDataModel>> updateUserData(UserData parameters) async {
+    print(parameters);
+    final formData = FormData.fromMap({
+      "Fuid": parameters.fuid,
+      "UserName": parameters.userName,
+      "UserEmail": parameters.userEmail,
+      "Phone": parameters.phone,
+      "Mobile": parameters.mobile,
+      "Description": null,
+      "Image": parameters.imageFile,
+      "KnownFrom": parameters.source,
+    });
     final response = await Dio().post(
       ApiConst.updateUserData,
-      data: {
-        "Fuid": parameters.fuid,
-        "UserName": parameters.userName,
-        "UserEmail": parameters.userEmail,
-        "Phone": parameters.phone,
-        "Mobile": parameters.mobile,
-        "Description": "",
-        "Image": parameters.imageFile!,
-        "KnownFrom": parameters.source,
-      },
+      data: formData,
       options: Options(
         headers: {
           "Content-Type": 'multipart/form-data',

@@ -19,7 +19,18 @@ class UserDataModel extends UserData {
         userEmail: json['userEmail'],
         phone: json['phone'],
         mobile: json['mobile'],
-        source: json['KnownFrom'],
+        source: json['knownFrom'],
         image: json['image'],
       );
+
+  Map<String, dynamic> toJson() => {
+    'id': id,
+    'fuid': fuid,
+    'userName': userName,
+    'userEmail': userEmail,
+    'phone': phone,
+    'mobile': mobile,
+    'knownFrom': source,
+    'image': image,
+  };
 }

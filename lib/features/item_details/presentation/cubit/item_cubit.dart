@@ -9,6 +9,7 @@ import 'package:designsprit/features/item_details/domain/use_cases/item_images_u
 import 'package:designsprit/features/item_details/domain/use_cases/update_item_usecase.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 part 'item_state.dart';
@@ -78,7 +79,7 @@ class ItemCubit extends Cubit<ItemState> {
         toastLength: Toast.LENGTH_SHORT,
         gravity: ToastGravity.CENTER,
         timeInSecForIosWeb: 1,
-        fontSize: 16.0,
+        fontSize: 14.sp,
       );
     });
   }
