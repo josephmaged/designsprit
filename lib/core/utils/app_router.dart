@@ -91,15 +91,11 @@ abstract class AppRouter {
         path: kAppointmentView,
         builder: (context, state) => MultiBlocProvider(providers: [
           BlocProvider(
-            create: (context) => sl<FavoritesCubit>()..getFavorites(),
-          ),
-          BlocProvider(
             create: (context) => sl<AddAppointmentCubit>()
               ..getCategories()
-              ..getCountries()
-              ..getGovernments()
-              ..getRegions()
-              ..getTimeSheet(),
+          ),
+          BlocProvider(
+            create: (context) => sl<FavoritesCubit>()..getFavorites(),
           ),
         ], child: const AddAppointment()),
       ),

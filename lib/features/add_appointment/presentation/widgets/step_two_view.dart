@@ -7,7 +7,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class StepTwo extends StatelessWidget {
-
   @override
   Widget build(BuildContext context) {
     var cubit = AddAppointmentCubit.get(context);
@@ -19,8 +18,25 @@ class StepTwo extends StatelessWidget {
                   CustomDropdown(
                     icon: Icons.list,
                     text: 'Country',
-                    items: cubit.countries,
-                    selectedValue: cubit.countryValue,
+                    items: state.countriesResponse
+                        .map(
+                          (item) => DropdownMenuItem<int>(
+                            value: item.id,
+                            child: Text(
+                              item.countryName,
+                              style: TextStyle(
+                                fontSize: 14.sp,
+                                fontWeight: FontWeight.bold,
+                              ),
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                          ),
+                        )
+                        .toList(),
+                    selectedValue: state.countryValue == 0 ? state.countriesResponse.first.id : state.countryValue,
+                    onChanged: (value) {
+                      cubit.updateCountryValue(value);
+                    },
                   ),
                   SizedBox(
                     height: 10.h,
@@ -28,8 +44,26 @@ class StepTwo extends StatelessWidget {
                   CustomDropdown(
                     icon: Icons.list,
                     text: 'Government',
-                    items: cubit.governments,
-                    selectedValue: cubit.governmentValue,
+                    items: state.governmentsResponse
+                        .map(
+                          (item) => DropdownMenuItem<int>(
+                            value: item.id,
+                            child: Text(
+                              item.govName,
+                              style: TextStyle(
+                                fontSize: 14.sp,
+                                fontWeight: FontWeight.bold,
+                              ),
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                          ),
+                        )
+                        .toList(),
+                    selectedValue:
+                        state.governmentValue == 0 ? state.governmentsResponse.first.id : state.governmentValue,
+                    onChanged: (value) {
+                      cubit.updateGovernmentValue(value);
+                    },
                   ),
                   SizedBox(
                     height: 10.h,
@@ -37,8 +71,25 @@ class StepTwo extends StatelessWidget {
                   CustomDropdown(
                     icon: Icons.list,
                     text: 'Region',
-                    items: cubit.regions,
-                    selectedValue: cubit.regionValue,
+                    items: state.regionsResponse
+                        .map(
+                          (item) => DropdownMenuItem<int>(
+                            value: item.id,
+                            child: Text(
+                              item.regionName,
+                              style: TextStyle(
+                                fontSize: 14.sp,
+                                fontWeight: FontWeight.bold,
+                              ),
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                          ),
+                        )
+                        .toList(),
+                    selectedValue: state.regionValue == 0 ? state.regionsResponse.first.id : state.regionValue,
+                    onChanged: (value) {
+                      cubit.updateRegionValue(value);
+                    },
                   ),
                   SizedBox(
                     height: 10.h,

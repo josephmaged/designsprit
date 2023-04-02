@@ -99,7 +99,7 @@ class LoginViewBody extends StatelessWidget {
                               : FlutterSocialButton(
                                   onTap: () {
                                     if (_formKey.currentState!.validate()) {
-                                      cubit.loginWithEmail().then((value) => cubit.login());
+                                      cubit.loginWithEmail();
                                     }
                                   },
                                   title: AppStrings.login,

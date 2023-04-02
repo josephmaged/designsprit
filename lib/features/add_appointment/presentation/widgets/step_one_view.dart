@@ -3,6 +3,7 @@ import 'package:designsprit/core/utils/enum.dart';
 import 'package:designsprit/core/widgets/custom_dropdown.dart';
 import 'package:designsprit/core/widgets/custom_form_field.dart';
 import 'package:designsprit/core/widgets/custom_multi_dropdown.dart';
+import 'package:designsprit/features/add_appointment/domain/entities/categories.dart';
 import 'package:designsprit/features/add_appointment/presentation/cubit/add_appointment_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -29,8 +30,25 @@ class _StepOneState extends State<StepOne> {
                     CustomDropdown(
                       icon: Icons.list,
                       text: 'Select Category',
-                      items: cubit.categories,
-                      selectedValue: cubit.categoryValue,
+                      items: state.categoriesResponse
+                          .map(
+                            (item) => DropdownMenuItem<int>(
+                              value: item.id,
+                              child: Text(
+                                item.name,
+                                style: TextStyle(
+                                  fontSize: 14.sp,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                            ),
+                          )
+                          .toList(),
+                      selectedValue: state.categoryValue == 0 ? state.categoriesResponse.first.id : state.categoryValue,
+                      onChanged: (value) {
+                        cubit.updateCategoryValue(value);
+                      },
                     ),
                     SizedBox(
                       height: 10.h,

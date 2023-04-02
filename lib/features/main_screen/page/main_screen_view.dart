@@ -40,6 +40,7 @@ class MainScreenView extends StatelessWidget {
           floatingActionButton: FloatingActionButton(
             backgroundColor: kSecondaryColor,
             onPressed: () {
+
               GoRouter.of(context).push(AppRouter.kAppointmentView);
             },
             child: const Icon(

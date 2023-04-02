@@ -17,16 +17,16 @@ class SetAppointmentUseCase extends BaseUseCase<List<ApiResponse>, AppointmentPa
 }
 
 class AppointmentParameters extends Equatable {
-  final String? categoryId;
+  final int? categoryId;
   final String? area;
   final int userId;
-  final String? countryId;
-  final String? governmentId;
-  final String? regionId;
+  final int? countryId;
+  final int? governmentId;
+  final int? regionId;
   final String street;
   final String notes;
   final List<String>? imagesId;
-  final int timeSheetId;
+  final int? timeSheetId;
 
   const AppointmentParameters({
     required this.categoryId,

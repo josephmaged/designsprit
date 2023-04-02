@@ -1,28 +1,29 @@
+/*
 import 'package:designsprit/constants.dart';
+import 'package:designsprit/features/add_appointment/data/models/timesheet_model.dart';
 import 'package:designsprit/features/add_appointment/domain/entities/timeSheet.dart';
+import 'package:designsprit/features/add_appointment/presentation/cubit/add_appointment_cubit.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
 
-class TimeSheetDropdown extends StatefulWidget {
+class TimeSheetDropdown extends StatelessWidget {
   final IconData icon;
   final String text;
   final List<TimeSheet> items;
-  TimeSheet? selectedModel;
+  int? selectedValue;
+  ValueChanged<dynamic>? onChanged;
 
   TimeSheetDropdown({
     Key? key,
     required this.icon,
     required this.text,
     required this.items,
-    this.selectedModel,
+    required this.selectedValue,
+    required this.onChanged,
   }) : super(key: key);
 
-  @override
-  State<TimeSheetDropdown> createState() => _TimeSheetDropdownState();
-}
-
-class _TimeSheetDropdownState extends State<TimeSheetDropdown> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -40,7 +41,7 @@ class _TimeSheetDropdownState extends State<TimeSheetDropdown> {
           hint: Row(
             children: [
               Icon(
-                widget.icon,
+                icon,
                 size: 20.w,
                 color: Colors.grey,
               ),
@@ -49,7 +50,7 @@ class _TimeSheetDropdownState extends State<TimeSheetDropdown> {
               ),
               Expanded(
                 child: Text(
-                  widget.text,
+                  text,
                   style: TextStyle(
                     fontSize: 14.sp,
                     fontWeight: FontWeight.bold,
@@ -59,12 +60,12 @@ class _TimeSheetDropdownState extends State<TimeSheetDropdown> {
               ),
             ],
           ),
-          items: widget.items
+          items: items
               .map(
-                (model) => DropdownMenuItem<TimeSheet>(
-                  value: model,
+                (item) => DropdownMenuItem<int>(
+                  value: item.id,
                   child: Text(
-                    "${model.date}  -  ${model.time}",
+                    "${item.date} - ${item.time}",
                     style: TextStyle(
                       fontSize: 14.sp,
                       fontWeight: FontWeight.bold,
@@ -74,12 +75,8 @@ class _TimeSheetDropdownState extends State<TimeSheetDropdown> {
                 ),
               )
               .toList(),
-          value: widget.selectedModel,
-          onChanged: (value) {
-            setState(() {
-              widget.selectedModel = value!;
-            });
-          },
+          value: selectedValue,
+          onChanged: onChanged,
           icon: Padding(
             padding: EdgeInsets.symmetric(horizontal: 15.w),
             child: const Icon(
@@ -92,3 +89,4 @@ class _TimeSheetDropdownState extends State<TimeSheetDropdown> {
     );
   }
 }
+*/

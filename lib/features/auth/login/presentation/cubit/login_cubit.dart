@@ -83,7 +83,10 @@ class LoginCubit extends Cubit<LoginState> {
 
   Future<void> loginWithEmail() async {
     emit(state.copyWith(requestState: RequestState.loading));
-    final result = await loginWithGoogleUsecase(const NoParameters());
+    final result = await loginWithEmailUsecase(LoginEmailParameters(
+      email: emailController.text,
+      password: passwordController.text,
+    ));
     result.fold(
       (l) {
         emit(
@@ -99,6 +102,7 @@ class LoginCubit extends Cubit<LoginState> {
             userCredential: r,
           ),
         );
+        login();
       },
     );
   }

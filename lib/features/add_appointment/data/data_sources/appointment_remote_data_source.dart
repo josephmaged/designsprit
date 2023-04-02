@@ -126,9 +126,7 @@ class AppointmentRemoteDataSource extends BaseAppointmentRemoteDataSource {
 
   @override
   Future<List<TimeSheetModel>> getTimeSheet() async {
-    final response = await Dio().post(ApiConst.getTimeSheet, data: {
-
-    });
+    final response = await Dio().post(ApiConst.getTimeSheet, data: {});
 
     if (response.statusCode == 200) {
       if (response.data.containsKey('data')) {
@@ -151,6 +149,7 @@ class AppointmentRemoteDataSource extends BaseAppointmentRemoteDataSource {
 
   @override
   Future<List<ApiResponse>> setAppointment(AppointmentParameters parameters) async {
+    print(parameters);
     final response = await Dio().post(
       ApiConst.setAppointment,
       data: {
@@ -169,6 +168,8 @@ class AppointmentRemoteDataSource extends BaseAppointmentRemoteDataSource {
         headers: {
           "Content-Type": 'application/json',
           'Accept': '*/*',
+          'Accept-Encoding': 'gzip, deflate, br',
+          'Connection': 'keep-alive',
         },
       ),
     );

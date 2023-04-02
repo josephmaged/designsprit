@@ -23,6 +23,7 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 part 'add_appointment_state.dart';
 
@@ -41,24 +42,28 @@ class AddAppointmentCubit extends Cubit<AddAppointmentState> {
     this.getRegionsUseCase,
     this.getTimeSheetUseCase,
     this.setAppointmentUseCase,
-  ) : super(const AddAppointmentState());
+  ) : super(AddAppointmentState(
+          categoryValue: 0,
+          countryValue: 0,
+          governmentValue: 0,
+          regionValue: 0,
+          timeSheetValue: 0,
+        ));
 
   static AddAppointmentCubit get(context) => BlocProvider.of(context);
 
-  String? categoryValue;
+  /*String? categoryValue;
   String? countryValue;
   String? governmentValue;
   String? regionValue;
-  TimeSheetModel selectedTimeSheet = const TimeSheetModel();
+  int? timeSheetValue;*/
+
   List<String> selectedFavorites = [];
   TextEditingController area = TextEditingController();
   TextEditingController notes = TextEditingController();
   TextEditingController street = TextEditingController();
 
   int uid = CacheHelper.getData(key: Constants.userID);
-
-
-  List<String> categories = [];
 
   Future<void> getCategories() async {
     emit(state.copyWith(requestState: RequestState.loading));
@@ -75,11 +80,11 @@ class AddAppointmentCubit extends Cubit<AddAppointmentState> {
         categoriesResponse: r,
         requestState: RequestState.loaded,
       ));
-      categories = r.map((e) => e.name).toList();
+      getCountries();
+      getGovernments();
+      getRegions();
     });
   }
-
-  List<String> countries = [];
 
   Future<void> getCountries() async {
     emit(state.copyWith(requestState: RequestState.loading));
@@ -95,11 +100,8 @@ class AddAppointmentCubit extends Cubit<AddAppointmentState> {
       emit(state.copyWith(
         countriesResponse: r,
       ));
-      countries = r.map((e) => e.countryName).toList();
     });
   }
-
-  List<String> governments = [];
 
   Future<void> getGovernments() async {
     emit(state.copyWith(requestState: RequestState.loading));
@@ -115,11 +117,8 @@ class AddAppointmentCubit extends Cubit<AddAppointmentState> {
       emit(state.copyWith(
         governmentsResponse: r,
       ));
-      governments = r.map((e) => e.govName).toList();
     });
   }
-
-  List<String> regions = [];
 
   Future<void> getRegions() async {
     emit(state.copyWith(requestState: RequestState.loading));
@@ -136,9 +135,11 @@ class AddAppointmentCubit extends Cubit<AddAppointmentState> {
         regionsResponse: r,
         requestState: RequestState.loaded,
       ));
-      regions = r.map((e) => e.regionName).toList();
+      getTimeSheet();
     });
   }
+
+  List<TimeSheet> timeSheet = [];
 
   Future<void> getTimeSheet() async {
     emit(state.copyWith(requestState: RequestState.loading));
@@ -155,23 +156,26 @@ class AddAppointmentCubit extends Cubit<AddAppointmentState> {
         timeSheetResponse: r,
         requestState: RequestState.loaded,
       ));
+
+      timeSheet = r;
     });
   }
 
   Future<void> setAppointment() async {
     emit(state.copyWith(requestState: RequestState.loading));
 
+    //print(timeSheetValue);
     final result = await setAppointmentUseCase(AppointmentParameters(
-      categoryId: categoryValue,
+      categoryId: state.categoryValue,
       area: area.text,
       userId: uid,
-      countryId: countryValue,
-      governmentId: governmentValue,
-      regionId: regionValue,
+      countryId: state.countryValue,
+      governmentId: state.governmentValue,
+      regionId: state.regionValue,
       street: street.text,
       notes: notes.text,
       imagesId: selectedFavorites,
-      timeSheetId: selectedTimeSheet.id!,
+      timeSheetId: state.timeSheetValue,
     ));
 
     result.fold((l) {
@@ -179,12 +183,46 @@ class AddAppointmentCubit extends Cubit<AddAppointmentState> {
         requestState: RequestState.error,
         responseMessage: l.errMessage,
       ));
+      Fluttertoast.showToast(
+        msg: l.errMessage,
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.CENTER,
+        timeInSecForIosWeb: 1,
+        fontSize: 14.sp,
+      );
     }, (r) {
       emit(state.copyWith(
         appointmentResponse: r,
         requestState: RequestState.loaded,
       ));
+      Fluttertoast.showToast(
+        msg: r.first.message!,
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.CENTER,
+        timeInSecForIosWeb: 1,
+        fontSize: 14.sp,
+      );
     });
+  }
+
+  void updateCategoryValue(int value) {
+    emit(state.copyWith(categoryValue: value));
+  }
+
+  void updateCountryValue(int value) {
+    emit(state.copyWith(countryValue: value));
+  }
+
+  void updateGovernmentValue(int value) {
+    emit(state.copyWith(governmentValue: value));
+  }
+
+  void updateRegionValue(int value) {
+    emit(state.copyWith(regionValue: value));
+  }
+
+  void updateTimeSheetValue(int value) {
+    emit(state.copyWith(timeSheetValue: value));
   }
 
   int currentStep = 0;

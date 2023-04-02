@@ -1,4 +1,5 @@
 import 'package:designsprit/core/utils/app_router.dart';
+import 'package:designsprit/core/utils/enum.dart';
 import 'package:designsprit/core/utils/service_locator.dart';
 import 'package:designsprit/core/utils/strings.dart';
 import 'package:designsprit/core/widgets/custom_app_bar.dart';
@@ -18,7 +19,12 @@ class AddAppointment extends StatelessWidget {
     var cubit = AddAppointmentCubit.get(context);
     return BlocBuilder<FavoritesCubit, FavoritesState>(
       builder: (context, state) {
-        return BlocBuilder<AddAppointmentCubit, AddAppointmentState>(
+        return BlocConsumer<AddAppointmentCubit, AddAppointmentState>(
+          listener: (context, state) {
+            if (state.responseMessage == 'added successfully') {
+              GoRouter.of(context).pushReplacement(AppRouter.kMainScreenView);
+            } else if (state.requestState == RequestState.error) {}
+          },
           builder: (context, state) {
             return Scaffold(
               appBar: CustomAppBar(

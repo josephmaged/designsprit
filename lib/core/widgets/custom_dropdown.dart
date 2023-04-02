@@ -2,11 +2,12 @@ import 'package:designsprit/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class CustomDropdown extends StatefulWidget {
+class CustomDropdown extends StatelessWidget {
   final IconData icon;
   final String text;
-  final List<dynamic> items;
+  final List<DropdownMenuItem> items;
   Object? selectedValue;
+  ValueChanged<dynamic>? onChanged;
 
   CustomDropdown({
     Key? key,
@@ -14,13 +15,9 @@ class CustomDropdown extends StatefulWidget {
     required this.text,
     required this.items,
     this.selectedValue,
+    required this.onChanged,
   }) : super(key: key);
 
-  @override
-  State<CustomDropdown> createState() => _CustomDropdownState();
-}
-
-class _CustomDropdownState extends State<CustomDropdown> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -30,7 +27,7 @@ class _CustomDropdownState extends State<CustomDropdown> {
           color: kPrimaryColor,
         ),
       ),
-      padding: EdgeInsets.symmetric(horizontal:  12.w,vertical: 5.h),
+      padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 5.h),
       child: DropdownButtonHideUnderline(
         child: DropdownButton(
           borderRadius: BorderRadius.circular(10),
@@ -38,7 +35,7 @@ class _CustomDropdownState extends State<CustomDropdown> {
           hint: Row(
             children: [
               Icon(
-                widget.icon,
+                icon,
                 size: 20.w,
                 color: Colors.grey,
               ),
@@ -47,7 +44,7 @@ class _CustomDropdownState extends State<CustomDropdown> {
               ),
               Expanded(
                 child: Text(
-                  widget.text,
+                  text,
                   style: TextStyle(
                     fontSize: 14.sp,
                     fontWeight: FontWeight.bold,
@@ -57,27 +54,9 @@ class _CustomDropdownState extends State<CustomDropdown> {
               ),
             ],
           ),
-          items: widget.items
-              .map(
-                (item) => DropdownMenuItem<String>(
-                  value: item,
-                  child: Text(
-                    item,
-                    style: TextStyle(
-                      fontSize: 14.sp,
-                      fontWeight: FontWeight.bold,
-                    ),
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                ),
-              )
-              .toList(),
-          value: widget.selectedValue,
-          onChanged: (value) {
-            setState(() {
-              widget.selectedValue = value!;
-            });
-          },
+          items: items,
+          value: selectedValue,
+          onChanged: onChanged,
           icon: Padding(
             padding: EdgeInsets.symmetric(horizontal: 15.w),
             child: const Icon(

@@ -1,14 +1,11 @@
 import 'package:country_code_picker/country_code_picker.dart';
 import 'package:designsprit/core/utils/app_router.dart';
-import 'package:designsprit/core/utils/cache_helper.dart';
 import 'package:designsprit/core/utils/enum.dart';
 import 'package:designsprit/core/utils/styles.dart';
 import 'package:designsprit/core/utils/validator.dart';
 import 'package:designsprit/core/widgets/custom_form_field.dart';
 import 'package:designsprit/core/widgets/flutter_social_button/social_button.dart';
-import 'package:designsprit/features/auth/register/data/models/register_response_model.dart';
 import 'package:designsprit/features/auth/register/presentation/cubit/register_cubit.dart';
-import 'package:designsprit/core/widgets/apple_button.dart';
 import 'package:designsprit/features/auth/register/presentation/widgets/privacy_policy.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
