@@ -19,7 +19,7 @@ class Notifications extends StatelessWidget {
     return Scaffold(
       appBar: CustomAppBar(
         titleName: AppStrings.notifications,
-        listOfActions: const [],
+        listOfActions: const [], count: 0,
       ),
       body: BlocBuilder<NotificationsCubit, NotificationsState>(
         builder: (context, state) {

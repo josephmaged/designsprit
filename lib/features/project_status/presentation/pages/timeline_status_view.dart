@@ -20,6 +20,8 @@ class TimelineView extends StatelessWidget {
         return Scaffold(
             appBar: CustomAppBar(
               titleName: AppStrings.projectTimeline,
+              listOfActions: [],
+              count: 0,
             ),
             body: state.requestState == RequestState.loading
                 ? const Center(

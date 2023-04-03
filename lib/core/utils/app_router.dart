@@ -67,7 +67,10 @@ abstract class AppRouter {
       ),
       GoRoute(
         path: kMainScreenView,
-        builder: (context, state) => const MainScreenView(),
+        builder: (context, state) => BlocProvider(
+          create: (context) => sl<NotificationsCubit>(),
+          child: const MainScreenView(),
+        ),
       ),
       GoRoute(
         path: kRegisterView,
@@ -90,10 +93,7 @@ abstract class AppRouter {
       GoRoute(
         path: kAppointmentView,
         builder: (context, state) => MultiBlocProvider(providers: [
-          BlocProvider(
-            create: (context) => sl<AddAppointmentCubit>()
-              ..getCategories()
-          ),
+          BlocProvider(create: (context) => sl<AddAppointmentCubit>()..getCategories()),
           BlocProvider(
             create: (context) => sl<FavoritesCubit>()..getFavorites(),
           ),

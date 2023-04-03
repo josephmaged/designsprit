@@ -5,6 +5,7 @@ import 'package:designsprit/core/network/api_const.dart';
 import 'package:designsprit/core/utils/assets.dart';
 import 'package:designsprit/core/utils/enum.dart';
 import 'package:designsprit/core/utils/strings.dart';
+import 'package:designsprit/core/widgets/custom_app_bar.dart';
 import 'package:designsprit/core/widgets/custom_loading_indicator.dart';
 import 'package:designsprit/features/item_details/presentation/cubit/item_cubit.dart';
 import 'package:flutter/material.dart';
@@ -20,8 +21,10 @@ class DetailsScreen extends StatelessWidget {
     return BlocBuilder<ItemCubit, ItemState>(
       builder: (context, state) {
         return Scaffold(
-          appBar: AppBar(
-            title: const Text(AppStrings.itemsDetails),
+          appBar: CustomAppBar(
+            titleName: AppStrings.itemsDetails,
+            count: 0,
+            listOfActions: [],
           ),
           body: state.requestState == RequestState.loading
               ? const CustomLoadingIndicator()
