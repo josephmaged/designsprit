@@ -5,21 +5,23 @@ import 'package:designsprit/features/project_status/domain/entities/project.dart
 import 'package:designsprit/features/project_status/domain/repositories/base_project_steps_repo.dart';
 import 'package:equatable/equatable.dart';
 
-class GetProjectStepsUseCase extends BaseUseCase<List<ProjectSteps>, ProjectStepsParameters> {
+class GetProjectsUseCase extends BaseUseCase<List<Projects>, ProjectsParameters>{
   final BaseProjectStepsRepo baseProjectStepsRepo;
 
-  GetProjectStepsUseCase(this.baseProjectStepsRepo);
+  GetProjectsUseCase(this.baseProjectStepsRepo);
 
   @override
-  Future<Either<Failure, List<ProjectSteps>>> call(ProjectStepsParameters parameters) async {
-    return await baseProjectStepsRepo.getProjectSteps(parameters);
+  Future<Either<Failure, List<Projects>>> call(ProjectsParameters parameters) async {
+    return await baseProjectStepsRepo.getProjects(parameters);
   }
+
 }
 
-class ProjectStepsParameters extends Equatable {
+
+class ProjectsParameters extends Equatable {
   final String fuid;
 
-  const ProjectStepsParameters({required this.fuid});
+  const ProjectsParameters({required this.fuid});
 
   @override
   List<Object?> get props => [fuid];

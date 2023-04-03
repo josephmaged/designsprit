@@ -13,11 +13,13 @@ class ApiConst {
 
   static String getItemById(String parameters) => '$baseUrlApi/Item/getItembyid/$parameters';
 
-  static String getItemImageById(String parameters) => '$baseUrlApi/Item/getItemImagebyItemid?Itemid=$parameters';
+  static String getItemImageById({required String itemId, required String fUid}) =>
+      '$baseUrlApi/Item/getItemImagebyItemid?Itemid=$itemId&Fuid=$fUid';
 
   static String updateItem = '$baseUrlApi/UserLike/AddUserliked';
 
-  static String getProjectSteps(String parameters) => '$baseUrlApi/ProjectTrack/GetProjectTracks/$parameters';
+  static String getProjects(String parameters) => '$baseUrlApi/ProjectTrack/GetUserProjects?Fuid=$parameters';
+  static String getSteps(int parameters) => '$baseUrlApi/ProjectTrack/GetUserProjectSteps?projectId=$parameters';
 
   static String getItemsByCategoryId(String parameters) =>
       '$baseUrlApi/Item/getItembyCategoryid?Categoryid=$parameters';

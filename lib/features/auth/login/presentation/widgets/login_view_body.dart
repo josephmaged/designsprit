@@ -11,6 +11,7 @@ import 'package:designsprit/features/auth/login/presentation/cubit/login_cubit.d
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:go_router/go_router.dart';
 
 class LoginViewBody extends StatelessWidget {
@@ -24,11 +25,14 @@ class LoginViewBody extends StatelessWidget {
         if (state.requestState == RequestState.loaded) {
           GoRouter.of(context).pushReplacement(AppRouter.kMainScreenView);
         } else if (state.requestState == RequestState.error) {
-          SnackBar snackBar = SnackBar(
-            content: Text("${state.responseMessage}"),
-          );
 
-          ScaffoldMessenger.of(context).showSnackBar(snackBar);
+          Fluttertoast.showToast(
+            msg: state.responseMessage!,
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.CENTER,
+            timeInSecForIosWeb: 1,
+            fontSize: 14.sp,
+          );
         }
       },
       builder: (context, state) {
@@ -94,9 +98,7 @@ class LoginViewBody extends StatelessWidget {
                               ),
                             ),
                           ),
-                          state.requestState == RequestState.loading
-                              ? const CircularProgressIndicator()
-                              : FlutterSocialButton(
+                          FlutterSocialButton(
                                   onTap: () {
                                     if (_formKey.currentState!.validate()) {
                                       cubit.loginWithEmail();

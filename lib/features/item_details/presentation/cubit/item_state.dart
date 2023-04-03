@@ -6,15 +6,14 @@ class ItemState extends Equatable {
   final List<ApiResponse>? updateItemResponse;
   final RequestState requestState;
   final String? responseMessage;
-  final bool? isLiked;
 
-  const ItemState(
-      {this.itemDetailsResponse,
-      this.itemImagesResponse,
-      this.updateItemResponse,
-      this.requestState = RequestState.loading,
-      this.responseMessage,
-      this.isLiked});
+  const ItemState({
+    this.itemDetailsResponse,
+    this.itemImagesResponse,
+    this.updateItemResponse,
+    this.requestState = RequestState.loading,
+    this.responseMessage,
+  });
 
   ItemState copyWith({
     List<ItemDetails>? itemDetailsResponse,
@@ -22,7 +21,6 @@ class ItemState extends Equatable {
     List<ApiResponse>? updateItemResponse,
     RequestState? requestState,
     String? responseMessage,
-    bool? isLiked,
   }) {
     return ItemState(
       itemDetailsResponse: itemDetailsResponse ?? this.itemDetailsResponse,
@@ -30,7 +28,6 @@ class ItemState extends Equatable {
       updateItemResponse: updateItemResponse ?? this.updateItemResponse,
       requestState: requestState ?? this.requestState,
       responseMessage: responseMessage ?? this.responseMessage,
-      isLiked: isLiked ?? this.isLiked,
     );
   }
 
@@ -41,6 +38,5 @@ class ItemState extends Equatable {
         updateItemResponse,
         requestState,
         responseMessage,
-        isLiked,
       ];
 }

@@ -45,8 +45,9 @@ class ItemDetailsRemoteDataSource extends BaseItemDetailsRemoteDataSource {
 
   @override
   Future<List<ListImagesModel>> getItemImages(ItemImagesParameters parameters) async {
-    final response = await Dio().get(ApiConst.getItemImageById(parameters.id));
+    final response = await Dio().get(ApiConst.getItemImageById(itemId: parameters.id,fUid: parameters.fuid));
 
+    print(response);
     if (response.statusCode == 200) {
       if (response.data.containsKey('data')) {
         final data = response.data['data']['itemImages'];

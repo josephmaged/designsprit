@@ -20,11 +20,13 @@ class GetItemImagesUseCase extends BaseUseCase<List<ListImages>, ItemImagesParam
 
 class ItemImagesParameters extends Equatable {
   final String id;
+  final String fuid;
 
   const ItemImagesParameters({
     required this.id,
+    required this.fuid
   });
 
   @override
-  List<Object> get props => [id];
+  List<Object> get props => [id,fuid];
 }

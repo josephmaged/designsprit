@@ -64,8 +64,9 @@ import 'package:designsprit/features/profile/presentation/cubit/profile_cubit.da
 import 'package:designsprit/features/project_status/data/data_sources/project_tracker_data_source.dart';
 import 'package:designsprit/features/project_status/data/repositories/project_repo.dart';
 import 'package:designsprit/features/project_status/domain/repositories/base_project_steps_repo.dart';
-import 'package:designsprit/features/project_status/domain/use_cases/get_project_steps.dart';
-import 'package:designsprit/features/project_status/domain/use_cases/update_project_steps.dart';
+import 'package:designsprit/features/project_status/domain/use_cases/get_projects_usecase.dart';
+import 'package:designsprit/features/project_status/domain/use_cases/get_steps_usecase.dart';
+import 'package:designsprit/features/project_status/domain/use_cases/update_project_steps_usecase.dart';
 import 'package:designsprit/features/project_status/presentation/cubit/status_cubit.dart';
 import 'package:get_it/get_it.dart';
 
@@ -81,7 +82,7 @@ class SetupServiceLocator {
     sl.registerFactory(() => MainScreenCubit());
     sl.registerFactory(() => HomeCubit(sl(), sl()));
     sl.registerFactory(() => AddAppointmentCubit(sl(), sl(), sl(), sl(), sl(), sl()));
-    sl.registerFactory(() => StatusCubit(sl(), sl()));
+    sl.registerFactory(() => StatusCubit(sl(), sl(), sl()));
     sl.registerFactory(() => ItemCubit(sl(), sl(), sl()));
     sl.registerFactory(() => ItemsListCubit(sl()));
     sl.registerFactory(() => ChangePasswordCubit());
@@ -130,7 +131,8 @@ class SetupServiceLocator {
 
     /// Project Tracker
     /// USE CASE
-    sl.registerLazySingleton(() => GetProjectStepsUseCase(sl()));
+    sl.registerLazySingleton(() => GetProjectsUseCase(sl()));
+    sl.registerLazySingleton(() => GetStepsUseCase(sl()));
     sl.registerLazySingleton(() => UpdateProjectStepsUseCase(sl()));
 
     /// Repository

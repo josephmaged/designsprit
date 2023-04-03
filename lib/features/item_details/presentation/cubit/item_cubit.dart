@@ -44,8 +44,10 @@ class ItemCubit extends Cubit<ItemState> {
     });
   }
 
+
+  static final String fuid = CacheHelper.getData(key: Constants.fID);
   Future<void> getItemImages({required String id}) async {
-    final result = await getItemImagesUseCase(ItemImagesParameters(id: id));
+    final result = await getItemImagesUseCase(ItemImagesParameters(id: id, fuid: fuid));
 
     result.fold((l) {
       emit(state.copyWith(
@@ -53,14 +55,17 @@ class ItemCubit extends Cubit<ItemState> {
         responseMessage: l.errMessage,
       ));
     }, (r) {
-      emit(state.copyWith(itemImagesResponse: r, requestState: RequestState.loaded));
+      emit(state.copyWith(
+        itemImagesResponse: r,
+        requestState: RequestState.loaded,
+      ));
     });
   }
 
   int uid = CacheHelper.getData(key: Constants.userID);
 
-  Future<void> updateItem({required int uId, required int imageId, required bool isLiked}) async {
-    final result = await updateItemUseCase(UpdateItemParameters(uid: uId, itemImageId: imageId, isLiked: Constants.isLiked));
+  Future<void> updateItem({required int imageId, required bool isLiked}) async {
+    final result = await updateItemUseCase(UpdateItemParameters(uid: uid, itemImageId: imageId, isLiked: !isLiked));
 
     result.fold((l) {
       emit(state.copyWith(
@@ -71,7 +76,6 @@ class ItemCubit extends Cubit<ItemState> {
       emit(state.copyWith(
         updateItemResponse: r,
         requestState: RequestState.loaded,
-        isLiked: !isLiked,
       ));
 
       Fluttertoast.showToast(
@@ -83,12 +87,10 @@ class ItemCubit extends Cubit<ItemState> {
       );
     });
   }
-
-  Future<void> updateItemFun({required int imageId}) async {
-    print(Constants.isLiked);
+  /*Future<bool> updateItemFun({required bool isLiked,required int imageId}) async {
 
 
-    Constants.isLiked = !Constants.isLiked;
-    await updateItem(uId: uid, imageId: imageId, isLiked: Constants.isLiked);
-  }
+    return updateItem( imageId: imageId, isLiked: isLiked).whenComplete(() => isLiked);
+
+  }*/
 }

@@ -4,28 +4,12 @@ class StepsModel extends Steps {
   const StepsModel(
       {required super.id,
       required super.stepName,
-      required super.status,
-      required super.startDate,
-      required super.endDate,
-      required super.details});
+      required super.status,});
 
   factory StepsModel.fromJson(Map<String, dynamic> json) => StepsModel(
     id: json["id"],
     stepName: json["stepName"],
-    status: json["status"] ?? "",
-    startDate: json["startDate"],
-    endDate: json["endDate"],
-    details: json["details"],
+    status: json["status"],
   );
 
-  Map<String, dynamic> toJson() {
-    final map = <String, dynamic>{};
-    map["id"] = id;
-    map["stepName"] = stepName;
-    map["status"] = status;
-    map["startDate"] = startDate;
-    map["endDate"] = endDate;
-    map["details"] = details;
-    return map;
-  }
 }

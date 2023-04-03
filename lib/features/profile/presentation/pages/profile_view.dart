@@ -4,6 +4,7 @@ import 'dart:math';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:designsprit/core/network/api_const.dart';
 import 'package:designsprit/core/utils/app_router.dart';
+import 'package:designsprit/core/utils/assets.dart';
 import 'package:designsprit/core/utils/strings.dart';
 import 'package:designsprit/core/widgets/custom_app_bar.dart';
 import 'package:designsprit/core/widgets/custom_form_field.dart';
@@ -62,10 +63,15 @@ class _ProfileViewState extends State<ProfileView> {
                           child: cubit.imageFile == null
                               ? CachedNetworkImage(
                                   placeholder: (context, url) => const CircularProgressIndicator(),
-                                  errorWidget: (context, url, error) => const Icon(Icons.error),
+                                  errorWidget: (context, url, error) => Image.asset(
+                                    AssetsData.notFound,
+                                    height: 250.h,
+                                  ),
                                   imageUrl: ApiConst.getImages(state.image!),
                                 )
-                              : Image.file(cubit.imageUi!),
+                              : Image.file(
+                                  cubit.imageUi!,
+                                ),
                         ),
                         Positioned(
                           bottom: 5.h,
@@ -130,7 +136,7 @@ class _ProfileViewState extends State<ProfileView> {
                             errorMessage: 'Please enter how you know us',
                           ),
                           SizedBox(height: 20.h),
-                           CustomPrimaryButton(
+                          CustomPrimaryButton(
                             text: AppStrings.updateProfile,
                             press: () {
                               cubit.updateProfile();

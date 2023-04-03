@@ -1,6 +1,8 @@
 import 'package:designsprit/constants.dart';
+import 'package:designsprit/core/utils/strings.dart';
+import 'package:designsprit/core/widgets/custom_app_bar.dart';
 import 'package:designsprit/core/widgets/custom_primary_button.dart';
-import 'package:designsprit/features/project_status/domain/entities/project.dart';
+import 'package:designsprit/features/project_status/domain/entities/steps.dart';
 import 'package:designsprit/features/project_status/presentation/cubit/status_cubit.dart';
 import 'package:enhance_stepper/enhance_stepper.dart';
 import 'package:flutter/material.dart';
@@ -8,20 +10,22 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CustomStepper extends StatelessWidget {
-  final ProjectSteps projectSteps;
-
-  const CustomStepper({Key? key, required this.projectSteps}) : super(key: key);
+  const CustomStepper({
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     var cubit = StatusCubit.get(context);
     return BlocBuilder<StatusCubit, StatusState>(
       builder: (context, state) {
-        return Container(
-          decoration: const BoxDecoration(
-            color: kLightGrey
+        return Scaffold(
+          appBar: CustomAppBar(
+            listOfActions: [],
+            titleName: AppStrings.projectTimeline,
+            count: 0,
           ),
-          child: EnhanceStepper(
+          body: EnhanceStepper(
             stepIconSize: 30.h,
             type: cubit.stepType,
             currentStep: cubit.stepIndex,
@@ -42,10 +46,7 @@ class CustomStepper extends StatelessWidget {
                         onPressed: details.onStepCancel,
                         child: const Text(
                           'REJECT',
-                          style: TextStyle(
-                            color: kSecondaryColor,
-                            fontWeight: FontWeight.bold
-                          ),
+                          style: TextStyle(color: kSecondaryColor, fontWeight: FontWeight.bold),
                         ),
                       ),
                     ),
@@ -54,7 +55,7 @@ class CustomStepper extends StatelessWidget {
               );
             },
             physics: const ClampingScrollPhysics(),
-            steps: projectSteps.steps
+            steps: Constants.stepsList!
                 .map(
                   (e) => EnhanceStep(
                     icon: Icon(
@@ -64,10 +65,9 @@ class CustomStepper extends StatelessWidget {
                     state: StepState.editing,
                     isActive: cubit.stepIndex == e.id,
                     title: Text(e.stepName),
-                    subtitle: Text("${e.startDate}-${e.endDate}"),
                     content: Align(
                       alignment: Alignment.centerLeft,
-                      child: Text(e.details),
+                      child: Text(e.status),
                     ),
                   ),
                 )

@@ -28,7 +28,7 @@ class MorePage extends StatelessWidget {
           leadingIcon: const Icon(Icons.preview),
           trailingIcon: Icons.arrow_forward_ios,
           onTap: () {
-            GoRouter.of(context).push(AppRouter.kTimelineView);
+            GoRouter.of(context).push(AppRouter.kProjectsView);
           },
         ),
         CustomListTile(

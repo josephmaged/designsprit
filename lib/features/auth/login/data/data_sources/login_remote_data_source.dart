@@ -1,4 +1,5 @@
 import 'package:designsprit/core/errors/exceptions.dart';
+import 'package:designsprit/core/errors/failures.dart';
 import 'package:designsprit/core/network/api_const.dart';
 import 'package:designsprit/core/network/error_message_model.dart';
 import 'package:designsprit/features/auth/login/data/models/login_response_model.dart';
@@ -80,8 +81,11 @@ class LoginRemoteDataSource extends BaseLoginRemoteDataSource {
 
   @override
   Future<UserCredential> loginWithEmail(LoginEmailParameters parameters) async {
-    final user =
-        await auth.signInWithEmailAndPassword(email: parameters.email, password: parameters.password);
-    return user;
+    try {
+      final user = await auth.signInWithEmailAndPassword(email: parameters.email, password: parameters.password);
+      return user;
+    } on FirebaseFailure catch (e){
+      throw FirebaseAuthException(code: e.errMessage);
+    }
   }
 }

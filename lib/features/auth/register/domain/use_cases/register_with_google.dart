@@ -10,7 +10,7 @@ class RegisterWithGoogleUsecase extends BaseUseCase<UserCredential, NoParameters
   RegisterWithGoogleUsecase(this.baseRegisterRepo);
 
   @override
-  Future<Either<Failure, UserCredential>> call(NoParameters noParameters) async {
+  Future<Either<Failure, UserCredential>> call(NoParameters parameters) async {
     return await baseRegisterRepo.registerWithGoogle();
   }
 }

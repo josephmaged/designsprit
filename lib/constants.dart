@@ -1,3 +1,5 @@
+import 'package:designsprit/core/utils/cache_helper.dart';
+import 'package:designsprit/features/project_status/domain/entities/steps.dart';
 import 'package:flutter/material.dart';
 
 const kPrimaryColor = Color(0xff373737);
@@ -13,6 +15,6 @@ class Constants {
   static const userID = "userID";
   static const userData = "userData";
   static const isFirstTime = 'isFirstTime';
-  static bool isLiked = false;
   static List<String> favorites = [];
+  static List<Steps> stepsList = [];
 }

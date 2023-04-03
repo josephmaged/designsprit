@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:designsprit/constants.dart';
+import 'package:designsprit/core/utils/assets.dart';
 import 'package:designsprit/core/utils/cache_helper.dart';
 import 'package:designsprit/core/utils/enum.dart';
 import 'package:designsprit/features/profile/data/models/user_data_model.dart';
@@ -30,7 +31,7 @@ class ProfileCubit extends Cubit<ProfileState> {
   TextEditingController sourceController = TextEditingController();
   TextEditingController usernameController = TextEditingController();
 
-  String image = '';
+  String? image;
 
   String fuid = CacheHelper.getData(key: Constants.fID);
 
@@ -40,11 +41,11 @@ class ProfileCubit extends Cubit<ProfileState> {
   Future<void> setUserData() async {
     String userString = CacheHelper.getData(key: Constants.userData);
     Map<String, dynamic> userMap = jsonDecode(userString);
-    usernameController.text = userMap['name'] ?? userMap['userName'];
-    emailController.text = userMap['email'] ?? userMap['userEmail'];
-    phoneController.text = userMap['phone'];
-    mobileController.text = userMap['mobile'];
-    image = userMap['image'] ?? userMap['Image'];
+    usernameController.text = userMap['name'] ?? userMap['userName'] ?? '';
+    emailController.text = userMap['email'] ?? userMap['userEmail'] ?? '';
+    phoneController.text = userMap['phone'] ?? '';
+    mobileController.text = userMap['mobile'] ?? "";
+    image = userMap['image'] ?? userMap['Image'] ?? '';
 
     print(fuid);
 

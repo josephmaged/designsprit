@@ -81,8 +81,8 @@ class DetailsScreen extends StatelessWidget {
                                               color: kPrimaryColor.withOpacity(0.8),
                                             ),
                                             child: Padding(
-                                              padding: EdgeInsets.symmetric(vertical: 10.h, horizontal:20.w),
-                                              child:  Text(
+                                              padding: EdgeInsets.symmetric(vertical: 10.h, horizontal: 20.w),
+                                              child: Text(
                                                 "Image ID: ${index.imgId}",
                                                 style: const TextStyle(
                                                   color: Colors.white,
@@ -97,7 +97,10 @@ class DetailsScreen extends StatelessWidget {
                                           right: 10.h,
                                           child: InkWell(
                                             onTap: () {
-                                              cubit.updateItemFun(imageId: index.imgId);
+                                              cubit.updateItem(
+                                                imageId: index.imgId,
+                                                isLiked: index.isLiked,
+                                              );
                                             },
                                             child: Container(
                                               decoration: BoxDecoration(
@@ -106,8 +109,8 @@ class DetailsScreen extends StatelessWidget {
                                               ),
                                               child: Padding(
                                                 padding: EdgeInsets.all(10.r),
-                                                child: const Icon(
-                                                  Icons.favorite_border,
+                                                child: Icon(
+                                                  index.isLiked == true ? Icons.favorite : Icons.favorite_border,
                                                   color: Colors.white,
                                                 ),
                                               ),

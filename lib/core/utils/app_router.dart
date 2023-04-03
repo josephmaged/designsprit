@@ -19,6 +19,7 @@ import 'package:designsprit/features/profile/presentation/cubit/profile_cubit.da
 import 'package:designsprit/features/profile/presentation/pages/profile_view.dart';
 import 'package:designsprit/features/project_status/presentation/cubit/status_cubit.dart';
 import 'package:designsprit/features/project_status/presentation/pages/timeline_status_view.dart';
+import 'package:designsprit/features/project_status/presentation/widgets/custom_stepper.dart';
 import 'package:designsprit/features/splash/presentation/pages/splash_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -33,12 +34,13 @@ abstract class AppRouter {
   static const kRegisterView = '/registerView';
   static const kAppointmentView = '/addAppointment';
   static const kProfileView = '/profileView';
-  static const kTimelineView = '/timelineView';
+  static const kProjectsView = '/timelineView';
   static const kItemDetailsView = '/itemDetailsView';
   static const kItemsListView = '/itemsListView';
   static const kChangePasswordView = '/changePasswordView';
   static const kFavoritesView = '/favoritesView';
   static const kNotificationsView = '/notificationsView';
+  static const kStepsView = '/kStepsView';
 
   static final router = GoRouter(
     routes: [
@@ -84,10 +86,17 @@ abstract class AppRouter {
         ),
       ),
       GoRoute(
-        path: kTimelineView,
+        path: kProjectsView,
         builder: (context, state) => BlocProvider(
-          create: (context) => sl<StatusCubit>()..getProjectTracker(),
+          create: (context) => sl<StatusCubit>()..getProjects(),
           child: const TimelineView(),
+        ),
+      ),
+      GoRoute(
+        path: kStepsView,
+        builder: (context, state) => BlocProvider(
+          create: (context) => sl<StatusCubit>(),
+          child: const CustomStepper(),
         ),
       ),
       GoRoute(
