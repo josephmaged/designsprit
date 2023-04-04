@@ -12,7 +12,7 @@ class ItemsList extends Equatable {
     required this.name,
     required this.description,
     required this.category,
-     this.image,
+      this.image,
   });
 
   @override

@@ -47,82 +47,84 @@ class DetailsScreen extends StatelessWidget {
                               ),
                             ),
                           ),
-                          Padding(
-                            padding: EdgeInsets.only(top: 60.h),
-                            child: CarouselSlider(
-                              options: CarouselOptions(
-                                height: 250.h,
-                                enableInfiniteScroll: true,
-                                aspectRatio: 16 / 9,
-                                viewportFraction: 0.8,
-                                initialPage: 0,
-                                enlargeCenterPage: true,
-                                enlargeFactor: 0.2,
-                                scrollDirection: Axis.horizontal,
-                              ),
-                              items: state.itemImagesResponse!.map((index) {
-                                return Builder(
-                                  builder: (BuildContext context) {
-                                    return Stack(
-                                      children: [
-                                        CachedNetworkImage(
-                                          imageUrl: ApiConst.getImages(index.imagePath),
-                                          errorWidget: (context, url, error) => Image.asset(AssetsData.notFound),
-                                          fit: BoxFit.cover,
-                                          width: double.infinity,
-                                        ),
-                                        Positioned(
-                                          bottom: 10.h,
-                                          left: 10.h,
-                                          child: Container(
-                                            decoration: BoxDecoration(
-                                              borderRadius: BorderRadius.circular(50),
-                                              color: kPrimaryColor.withOpacity(0.8),
-                                            ),
-                                            child: Padding(
-                                              padding: EdgeInsets.symmetric(vertical: 10.h, horizontal: 20.w),
-                                              child: Text(
-                                                "Image ID: ${index.imgId}",
-                                                style: const TextStyle(
-                                                  color: Colors.white,
-                                                  fontWeight: FontWeight.bold,
+                          state.itemImagesResponse!.isEmpty
+                              ? Image.asset(AssetsData.imageNotFound)
+                              : Padding(
+                                  padding: EdgeInsets.only(top: 60.h),
+                                  child: CarouselSlider(
+                                    options: CarouselOptions(
+                                      height: 250.h,
+                                      enableInfiniteScroll: true,
+                                      aspectRatio: 16 / 9,
+                                      viewportFraction: 0.8,
+                                      initialPage: 0,
+                                      enlargeCenterPage: true,
+                                      enlargeFactor: 0.2,
+                                      scrollDirection: Axis.horizontal,
+                                    ),
+                                    items: state.itemImagesResponse!.map((index) {
+                                      return Builder(
+                                        builder: (BuildContext context) {
+                                          return Stack(
+                                            children: [
+                                              CachedNetworkImage(
+                                                imageUrl: ApiConst.getImages(index.imagePath),
+                                                errorWidget: (context, url, error) => Image.asset(AssetsData.notFound),
+                                                fit: BoxFit.cover,
+                                                width: double.infinity,
+                                              ),
+                                              Positioned(
+                                                bottom: 10.h,
+                                                left: 10.h,
+                                                child: Container(
+                                                  decoration: BoxDecoration(
+                                                    borderRadius: BorderRadius.circular(50),
+                                                    color: kPrimaryColor.withOpacity(0.8),
+                                                  ),
+                                                  child: Padding(
+                                                    padding: EdgeInsets.symmetric(vertical: 10.h, horizontal: 20.w),
+                                                    child: Text(
+                                                      "Image ID: ${index.imgId}",
+                                                      style: const TextStyle(
+                                                        color: Colors.white,
+                                                        fontWeight: FontWeight.bold,
+                                                      ),
+                                                    ),
+                                                  ),
                                                 ),
                                               ),
-                                            ),
-                                          ),
-                                        ),
-                                        Positioned(
-                                          bottom: 10.h,
-                                          right: 10.h,
-                                          child: InkWell(
-                                            onTap: () {
-                                              cubit.updateItem(
-                                                imageId: index.imgId,
-                                                isLiked: index.isLiked,
-                                              );
-                                            },
-                                            child: Container(
-                                              decoration: BoxDecoration(
-                                                borderRadius: BorderRadius.circular(50),
-                                                color: kPrimaryColor.withOpacity(0.8),
-                                              ),
-                                              child: Padding(
-                                                padding: EdgeInsets.all(10.r),
-                                                child: Icon(
-                                                  index.isLiked == true ? Icons.favorite : Icons.favorite_border,
-                                                  color: Colors.white,
+                                              Positioned(
+                                                bottom: 10.h,
+                                                right: 10.h,
+                                                child: InkWell(
+                                                  onTap: () {
+                                                    cubit.updateItem(
+                                                      imageId: index.imgId,
+                                                      isLiked: index.isLiked,
+                                                    );
+                                                  },
+                                                  child: Container(
+                                                    decoration: BoxDecoration(
+                                                      borderRadius: BorderRadius.circular(50),
+                                                      color: kPrimaryColor.withOpacity(0.8),
+                                                    ),
+                                                    child: Padding(
+                                                      padding: EdgeInsets.all(10.r),
+                                                      child: Icon(
+                                                        index.isLiked == true ? Icons.favorite : Icons.favorite_border,
+                                                        color: Colors.white,
+                                                      ),
+                                                    ),
+                                                  ),
                                                 ),
                                               ),
-                                            ),
-                                          ),
-                                        ),
-                                      ],
-                                    );
-                                  },
-                                );
-                              }).toList(),
-                            ),
-                          ),
+                                            ],
+                                          );
+                                        },
+                                      );
+                                    }).toList(),
+                                  ),
+                                ),
                           Positioned(
                             bottom: 20.h,
                             width: MediaQuery.of(context).size.width,

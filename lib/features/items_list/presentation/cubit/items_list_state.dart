@@ -1,12 +1,12 @@
 part of 'items_list_cubit.dart';
 
 class ItemsListState extends Equatable {
-  final List<ItemsList> itemsList;
+  final List<ItemsList>? itemsList;
   final RequestState requestState;
   final String responseMessage;
 
   const ItemsListState({
-    this.itemsList = const [],
+    this.itemsList,
     this.requestState = RequestState.loading,
     this.responseMessage = '',
   });

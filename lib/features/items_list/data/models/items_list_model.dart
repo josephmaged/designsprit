@@ -6,7 +6,7 @@ class ItemsListModel extends ItemsList {
     required super.name,
     required super.description,
     required super.category,
-    required super.image,
+     super.image,
   });
 
   factory ItemsListModel.fromJson(Map<String, dynamic> json) => ItemsListModel(

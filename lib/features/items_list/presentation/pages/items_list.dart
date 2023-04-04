@@ -1,4 +1,5 @@
 import 'package:designsprit/core/utils/strings.dart';
+import 'package:designsprit/core/widgets/custom_app_bar.dart';
 import 'package:designsprit/features/items_list/presentation/cubit/items_list_cubit.dart';
 import 'package:designsprit/features/items_list/presentation/widgets/items_listview.dart';
 import 'package:flutter/material.dart';
@@ -14,8 +15,9 @@ class ItemsList extends StatelessWidget {
     return BlocBuilder<ItemsListCubit, ItemsListState>(
       builder: (context, state) {
         return Scaffold(
-          appBar: AppBar(
-            title: const Text(AppStrings.itemsList),
+          appBar: CustomAppBar(
+            titleName: AppStrings.itemsList,
+            listOfActions: [],
           ),
           body: BlocBuilder<ItemsListCubit, ItemsListState>(
             builder: (context, state) {

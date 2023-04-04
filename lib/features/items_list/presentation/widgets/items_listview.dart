@@ -22,7 +22,7 @@ class ItemsListView extends StatelessWidget {
           case RequestState.loading:
             return const CustomLoadingIndicator();
           case RequestState.loaded:
-            return state.itemsList.isEmpty
+            return state.itemsList!.isEmpty
                 ? Center(
                     child: Image.asset(
                       AssetsData.notFound,
@@ -31,12 +31,12 @@ class ItemsListView extends StatelessWidget {
                   )
                 : ListView.builder(
                     physics: const BouncingScrollPhysics(),
-                    itemCount: state.itemsList.length,
+                    itemCount: state.itemsList!.length,
                     padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 12.h),
                     itemBuilder: (context, index) {
                       return InkWell(
                         onTap: () {
-                          int itemId = state.itemsList[index].id;
+                          int itemId = state.itemsList![index].id;
                           context.push("${AppRouter.kItemDetailsView}/$itemId");
                         },
                         child: Padding(
@@ -44,23 +44,23 @@ class ItemsListView extends StatelessWidget {
                           child: Row(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              state.itemsList[index].image == ''
-                                  ? CachedNetworkImage(
+                              state.itemsList![index].image == null
+                                  ? Image.asset(
+                                      AssetsData.imageNotFound,
+                                      width: 100.w,
+                                      height: 100.h,
+                                    )
+                                  : CachedNetworkImage(
                                       placeholder: (context, url) => const CircularProgressIndicator(),
                                       errorWidget: (context, url, error) => Image(
                                         height: 50.h,
                                         width: 50.w,
                                         image: const AssetImage(AssetsData.imageNotFound),
                                       ),
-                                      imageUrl: ApiConst.getImages(state.itemsList[index].image!),
+                                      imageUrl: ApiConst.getImages(state.itemsList![index].image!),
                                       height: 100.h,
                                       width: 100.w,
                                       fit: BoxFit.cover,
-                                    )
-                                  : Image.asset(
-                                      AssetsData.imageNotFound,
-                                      width: 100.w,
-                                height: 100.h,
                                     ),
                               SizedBox(
                                 width: 20.w,
@@ -69,14 +69,14 @@ class ItemsListView extends StatelessWidget {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
-                                    state.itemsList[index].name,
+                                    state.itemsList![index].name,
                                     style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20.sp),
                                   ),
                                   SizedBox(
                                     height: 15.h,
                                   ),
                                   Text(
-                                    state.itemsList[index].description,
+                                    state.itemsList![index].description,
                                     style: TextStyle(fontSize: 16.sp),
                                   ),
                                 ],
