@@ -10,11 +10,7 @@ class CustomAppBar extends AppBar {
   Color? color = kPrimaryColor;
 
   CustomAppBar(
-      {required this.titleName,
-      this.listOfActions,
-      this.notificationIconClickedCallBack,
-      this.color,
-      super.key});
+      {required this.titleName, this.listOfActions, this.notificationIconClickedCallBack, this.color, super.key});
 
   @override
   Widget? get title => Text(
@@ -29,15 +25,12 @@ class CustomAppBar extends AppBar {
   List<Widget>? get actions =>
       listOfActions ??
       [
-        Padding(
-          padding: EdgeInsets.symmetric(vertical: 10.h),
-          child: IconButton(
-            splashColor: Colors.white,
-            disabledColor: Colors.white,
-            icon: const Icon(Icons.notifications),
-            onPressed: notificationIconClickedCallBack,
-            color: Colors.white,
-          ),
+        IconButton(
+          splashColor: Colors.white,
+          disabledColor: Colors.white,
+          icon: const Icon(Icons.notifications),
+          onPressed: notificationIconClickedCallBack,
+          color: Colors.white,
         ),
         const SizedBox(width: 20),
       ];

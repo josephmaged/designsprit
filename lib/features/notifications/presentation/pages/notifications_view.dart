@@ -46,6 +46,7 @@ class Notifications extends StatelessWidget {
                       padding: EdgeInsets.symmetric(vertical: 8.h),
                       child: InkWell(
                         onTap: () {
+                          cubit.updateNotifications(notificationId: state.requestResponse[index].id.toString());
                           NotificationsModel notification = NotificationsModel(
                             id: state.requestResponse[index].id,
                             title: state.requestResponse[index].title,

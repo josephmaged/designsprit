@@ -55,6 +55,7 @@ import 'package:designsprit/features/notifications/data/data_sources/notificatio
 import 'package:designsprit/features/notifications/data/repositories/notifications_repo.dart';
 import 'package:designsprit/features/notifications/domain/repositories/base_notifications_repo.dart';
 import 'package:designsprit/features/notifications/domain/use_cases/get_notifications_usecase.dart';
+import 'package:designsprit/features/notifications/domain/use_cases/update_notifications_usecase.dart';
 import 'package:designsprit/features/notifications/presentation/cubit/notifications_cubit.dart';
 import 'package:designsprit/features/profile/data/data_sources/profile_remote_data_source.dart';
 import 'package:designsprit/features/profile/data/repositories/profile_repo.dart';
@@ -88,7 +89,7 @@ class SetupServiceLocator {
     sl.registerFactory(() => ChangePasswordCubit());
     sl.registerFactory(() => FavoritesCubit(sl()));
     sl.registerFactory(() => ProfileCubit(sl()));
-    sl.registerFactory(() => NotificationsCubit(sl()));
+    sl.registerFactory(() => NotificationsCubit(sl(), sl()));
 
     /// Register
     /// USE CASES
@@ -201,6 +202,7 @@ class SetupServiceLocator {
     /// Notifications
     /// USE CASE
     sl.registerLazySingleton(() => GetNotificationsUseCase(sl()));
+    sl.registerLazySingleton(() => UpdateNotificationsUseCase(sl()));
 
     /// Repository
     sl.registerLazySingleton<BaseNotificationsRepo>(() => NotificationsRepo(sl()));
