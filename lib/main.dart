@@ -4,6 +4,7 @@ import 'package:designsprit/core/utils/cache_helper.dart';
 import 'package:designsprit/core/utils/service_locator.dart';
 import 'package:designsprit/core/utils/theme.dart';
 import 'package:designsprit/features/add_appointment/presentation/cubit/add_appointment_cubit.dart';
+import 'package:designsprit/features/categories_list/presentation/cubit/categories_cubit.dart';
 import 'package:designsprit/features/home/presentation/cubit/home_cubit.dart';
 import 'package:designsprit/features/main_screen/cubit/main_screen_cubit.dart';
 import 'package:designsprit/features/notifications/presentation/cubit/notifications_cubit.dart';
@@ -39,6 +40,9 @@ class MyApp extends StatelessWidget {
           create: (context) => sl<HomeCubit>()
             ..getCategories()
             ..getIPopulars(),
+        ),
+        BlocProvider(
+          create: (context) => sl<CategoriesCubit>()..getCategories(),
         ),
       ],
       child: MaterialApp.router(

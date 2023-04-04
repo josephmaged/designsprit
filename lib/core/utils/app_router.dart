@@ -44,6 +44,7 @@ abstract class AppRouter {
   static const kNotificationsView = '/notificationsView';
   static const kNotificationDetailsView = '/notificationDetailsView';
   static const kStepsView = '/kStepsView';
+  static const kCategoriesView = '/kCategoriesView';
 
   static final router = GoRouter(
     routes: [

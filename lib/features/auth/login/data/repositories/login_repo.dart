@@ -60,12 +60,11 @@ class LoginRepo extends BaseLoginRepo {
 
   @override
   Future<Either<Failure, UserCredential>> loginWithEmail(LoginEmailParameters parameters) async {
-    final result = await baseLoginDataSource.loginWithEmail(parameters);
-
     try {
+      final result = await baseLoginDataSource.loginWithEmail(parameters);
       return Right(result);
     } on FirebaseAuthException catch (failure) {
-      return Left(FirebaseFailure(failure.message!));
+      return Left(ServerFailure(failure.message!));
     }
   }
 }

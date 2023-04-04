@@ -20,7 +20,7 @@ class LoginState extends Equatable {
   LoginState copyWith({
     List<LoginResponseModel>? loginResponse,
     RequestState? requestState,
-    String? loginMessage,
+    String? responseMessage,
     UserCredential? userCredential,
     bool? isPassword,
     bool? checkState
@@ -28,7 +28,7 @@ class LoginState extends Equatable {
     return LoginState(
       loginResponse: loginResponse ?? this.loginResponse,
       requestState: requestState ?? this.requestState,
-      responseMessage: loginMessage ?? this.responseMessage,
+      responseMessage: responseMessage ?? this.responseMessage,
       userCredential: userCredential ?? this.userCredential,
       isPassword: isPassword ?? this.isPassword,
       checkState: checkState ?? this.checkState,

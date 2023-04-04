@@ -26,7 +26,7 @@ class NotificationsCubit extends Cubit<NotificationsState> {
     emit(state.copyWith(requestState: RequestState.loading));
 
     final result = await getNotificationsUseCase(
-      NotificationsParameters(fuid: 'x9y2a0juJNUuuqVXWtBc6kYqtRt1'),
+      NotificationsParameters(fuid: fuid),
     );
     result.fold(
       (l) {

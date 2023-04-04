@@ -81,11 +81,9 @@ class LoginRemoteDataSource extends BaseLoginRemoteDataSource {
 
   @override
   Future<UserCredential> loginWithEmail(LoginEmailParameters parameters) async {
-    try {
+
       final user = await auth.signInWithEmailAndPassword(email: parameters.email, password: parameters.password);
       return user;
-    } on FirebaseFailure catch (e){
-      throw FirebaseAuthException(code: e.errMessage);
-    }
+
   }
 }

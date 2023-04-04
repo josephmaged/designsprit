@@ -26,6 +26,11 @@ import 'package:designsprit/features/auth/register/domain/use_cases/register_wit
 import 'package:designsprit/features/auth/register/domain/use_cases/register_with_facebook.dart';
 import 'package:designsprit/features/auth/register/domain/use_cases/register_with_google.dart';
 import 'package:designsprit/features/auth/register/presentation/cubit/register_cubit.dart';
+import 'package:designsprit/features/categories_list/data/data_sources/categories_remote_data_source.dart';
+import 'package:designsprit/features/categories_list/data/repositories/categories_repo.dart';
+import 'package:designsprit/features/categories_list/domain/repositories/base_categories_repo.dart';
+import 'package:designsprit/features/categories_list/domain/use_cases/get_categories_usecase.dart';
+import 'package:designsprit/features/categories_list/presentation/cubit/categories_cubit.dart';
 import 'package:designsprit/features/change_password/cubit/change_password_cubit.dart';
 import 'package:designsprit/features/favorites/data/data_sources/favorites_remote_data_source.dart';
 import 'package:designsprit/features/favorites/data/repositories/favorites_repo.dart';
@@ -90,6 +95,7 @@ class SetupServiceLocator {
     sl.registerFactory(() => FavoritesCubit(sl()));
     sl.registerFactory(() => ProfileCubit(sl()));
     sl.registerFactory(() => NotificationsCubit(sl(), sl()));
+    sl.registerFactory(() => CategoriesCubit(sl(), ));
 
     /// Register
     /// USE CASES
@@ -209,5 +215,15 @@ class SetupServiceLocator {
 
     /// DATA SOURCE
     sl.registerLazySingleton<BaseNotificationsRemoteDataSource>(() => NotificationsRemoteDataSource());
+
+    /// Categories
+    /// USE CASE
+    sl.registerLazySingleton(() => GetCategoriesListUseCase(sl()));
+
+    /// Repository
+    sl.registerLazySingleton<BaseCategoriesRepo>(() => CategoriesRepo(sl()));
+
+    /// DATA SOURCE
+    sl.registerLazySingleton<BaseCategoriesRemoteDataSource>(() => CategoriesRemoteDataSource());
   }
 }

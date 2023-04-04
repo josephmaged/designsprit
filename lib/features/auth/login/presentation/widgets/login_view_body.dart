@@ -25,9 +25,8 @@ class LoginViewBody extends StatelessWidget {
         if (state.requestState == RequestState.loaded) {
           GoRouter.of(context).pushReplacement(AppRouter.kMainScreenView);
         } else if (state.requestState == RequestState.error) {
-
           Fluttertoast.showToast(
-            msg: state.responseMessage!,
+            msg: "${state.responseMessage}",
             toastLength: Toast.LENGTH_SHORT,
             gravity: ToastGravity.CENTER,
             timeInSecForIosWeb: 1,
@@ -86,26 +85,17 @@ class LoginViewBody extends StatelessWidget {
                               },
                             ),
                           ),
-                          Align(
-                            alignment: Alignment.bottomRight,
-                            child: TextButton(
-                              style: TextButton.styleFrom(
-                                  minimumSize: Size(50.sp, 30.sp), alignment: Alignment.centerLeft),
-                              onPressed: () {},
-                              child: const Text(
-                                AppStrings.forgetPassword,
-                                style: Styles.textStyle14,
-                              ),
-                            ),
+                          SizedBox(
+                            height: 20.h,
                           ),
                           FlutterSocialButton(
-                                  onTap: () {
-                                    if (_formKey.currentState!.validate()) {
-                                      cubit.loginWithEmail();
-                                    }
-                                  },
-                                  title: AppStrings.login,
-                                ),
+                            onTap: () {
+                              if (_formKey.currentState!.validate()) {
+                                cubit.loginWithEmail();
+                              }
+                            },
+                            title: AppStrings.login,
+                          ),
                         ],
                       ),
                     ),

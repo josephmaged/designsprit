@@ -38,7 +38,7 @@ class LoginCubit extends Cubit<LoginState> {
         emit(
           state.copyWith(
             requestState: RequestState.error,
-            loginMessage: l.errMessage,
+            responseMessage: l.errMessage,
           ),
         );
       },
@@ -67,7 +67,7 @@ class LoginCubit extends Cubit<LoginState> {
         emit(
           state.copyWith(
             requestState: RequestState.error,
-            loginMessage: l.errMessage,
+            responseMessage: l.errMessage,
           ),
         );
       },
@@ -94,7 +94,7 @@ class LoginCubit extends Cubit<LoginState> {
         emit(
           state.copyWith(
             requestState: RequestState.error,
-            loginMessage: l.errMessage,
+            responseMessage: l.errMessage,
           ),
         );
       },

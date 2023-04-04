@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:designsprit/features/categories_list/presentation/pages/categories_list.dart';
 import 'package:designsprit/features/chat/presentation/pages/chat.dart';
 import 'package:designsprit/features/favorites/presentation/pages/favorites_view.dart';
 import 'package:designsprit/features/home/presentation/pages/home_view.dart';
@@ -17,21 +18,21 @@ class MainScreenCubit extends Cubit<MainScreenState> {
 
   List<Widget> screens = [
     const HomeView(),
-    const Chat(),
+    const Categories(),
     const FavoritesView(),
     const MorePage(),
   ];
 
   List<String> screenNames = [
     "Home",
-    "Chat",
+    "Categories",
     "Favorite",
     "More"
   ];
 
   List<IconData> bottomItems = [
     Icons.home,
-    Icons.message,
+    Icons.category,
     Icons.bookmark_border_rounded,
     Icons.more_vert,
   ];
