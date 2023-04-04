@@ -1,5 +1,6 @@
+
 import 'package:audioplayers/audioplayers.dart';
-import 'package:design_spirit_admin/constants.dart';
+import 'package:designsprit/constants.dart';
 import 'package:flutter/material.dart';
 
 class AudioPlayerItem extends StatefulWidget {
@@ -36,7 +37,7 @@ class _AudioPlayerItemState extends State<AudioPlayerItem> {
   Widget build(BuildContext context) {
     return IconButton(
       iconSize: 36.0,
-      color: widget.isSender ? Colors.white : primary,
+      color: widget.isSender ? Colors.white : kPrimaryColor,
       constraints: const BoxConstraints(minWidth: 100.0),
       onPressed: () {
         if (!_isPlayingAudio) {

@@ -32,6 +32,11 @@ import 'package:designsprit/features/categories_list/domain/repositories/base_ca
 import 'package:designsprit/features/categories_list/domain/use_cases/get_categories_usecase.dart';
 import 'package:designsprit/features/categories_list/presentation/cubit/categories_cubit.dart';
 import 'package:designsprit/features/change_password/cubit/change_password_cubit.dart';
+import 'package:designsprit/features/chat/data/data_sources/chat_remote_data_source.dart';
+import 'package:designsprit/features/chat/data/repositories/chat_repo.dart';
+import 'package:designsprit/features/chat/domain/repositories/base_chat_repo.dart';
+import 'package:designsprit/features/chat/domain/use_cases/get_chat_usecase.dart';
+import 'package:designsprit/features/chat/presentation/cubit/chat_cubit.dart';
 import 'package:designsprit/features/favorites/data/data_sources/favorites_remote_data_source.dart';
 import 'package:designsprit/features/favorites/data/repositories/favorites_repo.dart';
 import 'package:designsprit/features/favorites/domain/repositories/base_favorites_repo.dart';
@@ -95,7 +100,8 @@ class SetupServiceLocator {
     sl.registerFactory(() => FavoritesCubit(sl()));
     sl.registerFactory(() => ProfileCubit(sl()));
     sl.registerFactory(() => NotificationsCubit(sl(), sl()));
-    sl.registerFactory(() => CategoriesCubit(sl(), ));
+    sl.registerFactory(() => CategoriesCubit(sl()));
+    sl.registerFactory(() => ChatCubit(sl()));
 
     /// Register
     /// USE CASES
@@ -225,5 +231,15 @@ class SetupServiceLocator {
 
     /// DATA SOURCE
     sl.registerLazySingleton<BaseCategoriesRemoteDataSource>(() => CategoriesRemoteDataSource());
+
+    /// Chat
+    /// USE CASE
+    sl.registerLazySingleton(() => GetChatContentUseCase(sl()));
+
+    /// Repository
+    sl.registerLazySingleton<BaseChatRepo>(() => ChatRepo(sl()));
+
+    /// DATA SOURCE
+    sl.registerLazySingleton<BaseChatRemoteDataSource>(() => ChatDataSource());
   }
 }

@@ -62,6 +62,7 @@ class RegisterCubit extends Cubit<RegisterState> {
 
       CacheHelper.saveData(key: Constants.fID, value: r[0].fuid);
       CacheHelper.saveData(key: Constants.userID, value: r[0].id);
+      CacheHelper.saveData(key: Constants.userName, value: r[0].name);
       String user = jsonEncode(r[0]);
       CacheHelper.saveData(key: Constants.userData, value: user);
     });

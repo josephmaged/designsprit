@@ -1,7 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:design_spirit_admin/core/utils/enum.dart';
-import 'package:design_spirit_admin/features/chat/presentation/widgets/audio_player_item.dart';
-import 'package:design_spirit_admin/features/chat/presentation/widgets/video_player_item.dart';
+import 'package:designsprit/core/utils/enum.dart';
+import 'package:designsprit/features/chat/presentation/widgets/audio_player_item.dart';
+import 'package:designsprit/features/chat/presentation/widgets/video_player_item.dart';
 import 'package:flutter/material.dart';
 
 class DisplayMessage extends StatelessWidget {

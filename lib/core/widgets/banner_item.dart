@@ -22,12 +22,14 @@ class BannerItem extends StatelessWidget {
               borderRadius: BorderRadius.all(Radius.circular(10.0)),
             ),
             height: 200,
-            child: CachedNetworkImage(
-              imageUrl: ApiConst.getImages(image!.first),
-              errorWidget: (context, url, error) => Image.asset(AssetsData.notFound),
-              fit: BoxFit.fill,
-              width: double.infinity,
-            ),
+            child: image == null
+                ? CachedNetworkImage(
+                    imageUrl: ApiConst.getImages(image!.first),
+                    errorWidget: (context, url, error) => Image.asset(AssetsData.notFound),
+                    fit: BoxFit.fill,
+                    width: double.infinity,
+                  )
+                : Image.asset(AssetsData.imageNotFound),
           ),
         ),
         Padding(

@@ -1,6 +1,4 @@
-import 'package:bloc/bloc.dart';
 import 'package:designsprit/features/categories_list/presentation/pages/categories_list.dart';
-import 'package:designsprit/features/chat/presentation/pages/chat.dart';
 import 'package:designsprit/features/favorites/presentation/pages/favorites_view.dart';
 import 'package:designsprit/features/home/presentation/pages/home_view.dart';
 import 'package:designsprit/features/more/presentation/pages/more_page.dart';
@@ -23,12 +21,7 @@ class MainScreenCubit extends Cubit<MainScreenState> {
     const MorePage(),
   ];
 
-  List<String> screenNames = [
-    "Home",
-    "Categories",
-    "Favorite",
-    "More"
-  ];
+  List<String> screenNames = ["Home", "Categories", "Favorite", "More"];
 
   List<IconData> bottomItems = [
     Icons.home,

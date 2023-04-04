@@ -26,9 +26,8 @@ class RegisterRepo extends BaseRegisterRepo {
 
   @override
   Future<Either<Failure, RegisterResponse>> registerWithApple() async {
-    final result = await baseRegisterDataSource.registerWithApple();
-
     try {
+      final result = await baseRegisterDataSource.registerWithApple();
       return Right(result);
     } on ServerException catch (failure) {
       return Left(ServerFailure(failure.errorMessageModel.statusMessage));

@@ -1,28 +1,36 @@
 part of 'chat_cubit.dart';
 
-@immutable
-abstract class ChatState {}
+class ChatState extends Equatable {
+  final List<ChatContent>? requestResponse;
+  final RequestState? requestState;
+  final String? requestMessage;
+  final MultipartFile? imageFile;
+  final File? imageUi;
 
-class ChatInitial extends ChatState {}
+  const ChatState({this.requestResponse, this.requestState, this.requestMessage, this.imageFile, this.imageUi});
 
-class ChatLoading extends ChatState {}
+  ChatState copyWith({
+    List<ChatContent>? requestResponse,
+    RequestState? requestState,
+    String? requestMessage,
+    MultipartFile? imageFile,
+    File? imageUi,
+  }) {
+    return ChatState(
+      requestResponse: requestResponse ?? this.requestResponse,
+      requestState: requestState ?? this.requestState,
+      requestMessage: requestMessage ?? this.requestMessage,
+      imageFile: imageFile ?? this.imageFile,
+      imageUi: imageUi ?? this.imageUi,
+    );
+  }
 
-class ChatFailure extends ChatState {
-  final String errMessage;
-
-  ChatFailure(this.errMessage);
+  @override
+  List<Object?> get props => [
+        requestResponse,
+        requestState,
+        requestMessage,
+        imageFile,
+        imageUi,
+      ];
 }
-
-class ChatSuccess extends ChatState {
-  final ChatResponse response;
-
-  ChatSuccess(this.response);
-}
-
-
-
-class ChatSendMessageLoading extends ChatState{}
-class ChatSendMessageSuccess extends ChatState{}
-class ChatSendMessageFailure extends ChatState{}
-
-class ChatSendVideo extends ChatState{}

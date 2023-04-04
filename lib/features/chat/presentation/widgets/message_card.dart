@@ -1,6 +1,7 @@
-import 'package:design_spirit_admin/constants.dart';
-import 'package:design_spirit_admin/core/utils/enum.dart';
-import 'package:design_spirit_admin/features/chat/presentation/widgets/display_message.dart';
+
+import 'package:designsprit/constants.dart';
+import 'package:designsprit/core/utils/enum.dart';
+import 'package:designsprit/features/chat/presentation/widgets/display_message.dart';
 import 'package:flutter/material.dart';
 
 class MessageCard extends StatelessWidget {
@@ -35,7 +36,7 @@ class MessageCard extends StatelessWidget {
           ),
           padding: const EdgeInsets.all(8.0),
           decoration: BoxDecoration(
-            color: isSender ? primary : onPrimary,
+            color: isSender ? kPrimaryColor : kSecondaryColor,
             borderRadius: BorderRadius.only(
               topLeft: isSender ? const Radius.circular(12.0) : Radius.zero,
               topRight: const Radius.circular(12.0),

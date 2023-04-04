@@ -36,7 +36,7 @@ class MorePage extends StatelessWidget {
           leadingIcon: const Icon(Icons.contact_page),
           trailingIcon: Icons.arrow_forward_ios,
           onTap: () {
-            //GoRouter.of(context).push(AppRouter.kContactUs);
+            GoRouter.of(context).push(AppRouter.kChatDemoView);
           },
         ),
         CustomListTile(

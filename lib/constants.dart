@@ -14,6 +14,7 @@ class Constants {
   static const userID = "userID";
   static const userData = "userData";
   static const isFirstTime = 'isFirstTime';
+  static const userName = 'userName';
   static List<String> favorites = [];
   static List<Steps> stepsList = [];
 }
