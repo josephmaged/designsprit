@@ -12,7 +12,7 @@ class ChatScreenDemo extends StatelessWidget {
   Widget build(BuildContext context) {
     TextEditingController demo = TextEditingController();
     return Scaffold(
-      appBar: CustomAppBar(titleName: AppStrings.chat),
+      appBar: CustomAppBar(titleName: AppStrings.chat, listOfActions: []),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
@@ -29,7 +29,9 @@ class ChatScreenDemo extends StatelessWidget {
                     textInputType: TextInputType.name,
                   ),
                 ),
-                SizedBox(width: 5.w,),
+                SizedBox(
+                  width: 5.w,
+                ),
                 Icon(Icons.send),
               ],
             ),
