@@ -22,7 +22,7 @@ class BannerItem extends StatelessWidget {
               borderRadius: BorderRadius.all(Radius.circular(10.0)),
             ),
             height: 200,
-            child: image == null
+            child: image == []
                 ? CachedNetworkImage(
                     imageUrl: ApiConst.getImages(image!.first),
                     errorWidget: (context, url, error) => Image.asset(AssetsData.notFound),

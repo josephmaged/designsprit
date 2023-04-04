@@ -35,7 +35,7 @@ class ItemsListView extends StatelessWidget {
                     padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 12.h),
                     itemBuilder: (context, index) {
                       return InkWell(
-                        onTap: (){
+                        onTap: () {
                           int itemId = state.itemsList[index].id;
                           context.push("${AppRouter.kItemDetailsView}/$itemId");
                         },
@@ -44,18 +44,24 @@ class ItemsListView extends StatelessWidget {
                           child: Row(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              CachedNetworkImage(
-                                placeholder: (context, url) => const CircularProgressIndicator(),
-                                errorWidget: (context, url, error) => Image(
-                                  height: 50.h,
-                                  width: 50.w,
-                                  image: const AssetImage(AssetsData.imageNotFound),
-                                ),
-                                imageUrl: ApiConst.getImages(state.itemsList[index].image!),
+                              state.itemsList[index].image == ''
+                                  ? CachedNetworkImage(
+                                      placeholder: (context, url) => const CircularProgressIndicator(),
+                                      errorWidget: (context, url, error) => Image(
+                                        height: 50.h,
+                                        width: 50.w,
+                                        image: const AssetImage(AssetsData.imageNotFound),
+                                      ),
+                                      imageUrl: ApiConst.getImages(state.itemsList[index].image!),
+                                      height: 100.h,
+                                      width: 100.w,
+                                      fit: BoxFit.cover,
+                                    )
+                                  : Image.asset(
+                                      AssetsData.imageNotFound,
+                                      width: 100.w,
                                 height: 100.h,
-                                width: 100.w,
-                                fit: BoxFit.cover,
-                              ),
+                                    ),
                               SizedBox(
                                 width: 20.w,
                               ),
