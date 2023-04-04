@@ -23,7 +23,6 @@ class CustomStepper extends StatelessWidget {
           appBar: CustomAppBar(
             listOfActions: [],
             titleName: AppStrings.projectTimeline,
-            count: 0,
           ),
           body: EnhanceStepper(
             stepIconSize: 30.h,

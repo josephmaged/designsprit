@@ -8,14 +8,12 @@ class CustomAppBar extends AppBar {
   final VoidCallback? notificationIconClickedCallBack;
   final List<Widget>? listOfActions;
   Color? color = kPrimaryColor;
-  int count;
 
   CustomAppBar(
       {required this.titleName,
       this.listOfActions,
       this.notificationIconClickedCallBack,
       this.color,
-      required this.count,
       super.key});
 
   @override
@@ -33,18 +31,12 @@ class CustomAppBar extends AppBar {
       [
         Padding(
           padding: EdgeInsets.symmetric(vertical: 10.h),
-          child: Badge.count(
-            count: count,
-            textStyle: TextStyle(
-              fontSize: 15.sp,
-            ),
-            child: IconButton(
-              splashColor: Colors.white,
-              disabledColor: Colors.white,
-              icon: const Icon(Icons.notifications),
-              onPressed: notificationIconClickedCallBack,
-              color: Colors.white,
-            ),
+          child: IconButton(
+            splashColor: Colors.white,
+            disabledColor: Colors.white,
+            icon: const Icon(Icons.notifications),
+            onPressed: notificationIconClickedCallBack,
+            color: Colors.white,
           ),
         ),
         const SizedBox(width: 20),

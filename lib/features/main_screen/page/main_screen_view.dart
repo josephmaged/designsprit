@@ -24,7 +24,7 @@ class MainScreenView extends StatelessWidget {
                   notificationIconClickedCallBack: () {
                     GoRouter.of(context).push(AppRouter.kNotificationsView);
                   },
-                  count: notificationState.requestResponse.isEmpty ? 0 : notificationState.requestResponse.length,
+
                 ),
                 body: cubit.screens[cubit.currentIndex],
                 bottomNavigationBar: AnimatedBottomNavigationBar(

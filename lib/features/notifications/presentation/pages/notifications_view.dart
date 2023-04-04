@@ -28,7 +28,6 @@ class Notifications extends StatelessWidget {
       appBar: CustomAppBar(
         titleName: AppStrings.notifications,
         listOfActions: const [],
-        count: 0,
       ),
       body: BlocBuilder<NotificationsCubit, NotificationsState>(
         builder: (context, state) {

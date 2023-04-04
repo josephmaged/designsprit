@@ -28,7 +28,6 @@ class TimelineView extends StatelessWidget {
             appBar: CustomAppBar(
               titleName: AppStrings.projectTimeline,
               listOfActions: [],
-              count: 0,
             ),
             body: state.requestState == RequestState.loading
                 ? const Center(

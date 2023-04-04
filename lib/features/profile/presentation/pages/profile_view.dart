@@ -36,7 +36,6 @@ class _ProfileViewState extends State<ProfileView> {
       appBar: CustomAppBar(
         titleName: AppStrings.myProfile,
         listOfActions: const [],
-        count: 0,
       ),
       body: BlocBuilder<ProfileCubit, ProfileState>(
         builder: (context, state) {

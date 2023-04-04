@@ -23,7 +23,6 @@ class DetailsScreen extends StatelessWidget {
         return Scaffold(
           appBar: CustomAppBar(
             titleName: AppStrings.itemsDetails,
-            count: 0,
             listOfActions: [],
           ),
           body: state.requestState == RequestState.loading

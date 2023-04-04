@@ -6,6 +6,7 @@ import 'package:designsprit/core/utils/theme.dart';
 import 'package:designsprit/features/add_appointment/presentation/cubit/add_appointment_cubit.dart';
 import 'package:designsprit/features/home/presentation/cubit/home_cubit.dart';
 import 'package:designsprit/features/main_screen/cubit/main_screen_cubit.dart';
+import 'package:designsprit/features/notifications/presentation/cubit/notifications_cubit.dart';
 import 'package:designsprit/firebase_options.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -35,7 +36,9 @@ class MyApp extends StatelessWidget {
           create: (context) => sl<MainScreenCubit>(),
         ),
         BlocProvider(
-          create: (context) => sl<HomeCubit>()..getCategories()..getIPopulars(),
+          create: (context) => sl<HomeCubit>()
+            ..getCategories()
+            ..getIPopulars(),
         ),
       ],
       child: MaterialApp.router(

@@ -29,7 +29,6 @@ class AddAppointment extends StatelessWidget {
             return Scaffold(
               appBar: CustomAppBar(
                 titleName: AppStrings.addAppointment,
-                count: 0,
                 listOfActions: [],
               ),
               body: Stepper(
