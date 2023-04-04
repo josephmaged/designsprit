@@ -21,7 +21,7 @@ class ProjectStepsRemoteDataSource extends BaseProjectStepsDataSource {
   @override
   Future<List<StepsModel>> getSteps(StepsParameters parameters) async {
     final response = await Dio().get(
-      ApiConst.getSteps(15),
+      ApiConst.getSteps(projectId: parameters.id),
     );
     if (response.statusCode == 200) {
       if (response.data.containsKey('data')) {
@@ -60,7 +60,7 @@ class ProjectStepsRemoteDataSource extends BaseProjectStepsDataSource {
   @override
   Future<List<ProjectsModel>> getProjects(ProjectsParameters parameters) async {
     final response = await Dio().get(
-      ApiConst.getProjects('VWj8dVsuvzfcfJ1y97Bu3Jxs7du1'),
+      ApiConst.getProjects(fuId: parameters.fuid),
     );
     if (response.statusCode == 200) {
       if (response.data.containsKey('data')) {

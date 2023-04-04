@@ -18,8 +18,8 @@ class ApiConst {
 
   static String updateItem = '$baseUrlApi/UserLike/AddUserliked';
 
-  static String getProjects(String parameters) => '$baseUrlApi/ProjectTrack/GetUserProjects?Fuid=$parameters';
-  static String getSteps(int parameters) => '$baseUrlApi/ProjectTrack/GetUserProjectSteps?projectId=$parameters';
+  static String getProjects({required String fuId}) => '$baseUrlApi/ProjectTrack/GetUserProjects?Fuid=$fuId';
+  static String getSteps({required int projectId}) => '$baseUrlApi/ProjectTrack/GetUserProjectSteps?projectId=$projectId';
 
   static String getItemsByCategoryId(String parameters) =>
       '$baseUrlApi/Item/getItembyCategoryid?Categoryid=$parameters';

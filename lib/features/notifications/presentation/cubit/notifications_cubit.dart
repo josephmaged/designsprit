@@ -18,11 +18,12 @@ class NotificationsCubit extends Cubit<NotificationsState> {
 
   String fuid = CacheHelper.getData(key: Constants.fID);
 
+
   Future<void> getNotifications() async {
     emit(state.copyWith(requestState: RequestState.loading));
 
     final result = await getNotificationsUseCase(
-      NotificationsParameters(fuid: fuid),
+      NotificationsParameters(fuid: 'x9y2a0juJNUuuqVXWtBc6kYqtRt1'),
     );
     result.fold(
       (l) {
@@ -36,6 +37,7 @@ class NotificationsCubit extends Cubit<NotificationsState> {
           requestResponse: r,
           requestState: RequestState.loaded,
         ));
+         r.sort((a,b) => b.createdAt!.compareTo(a.createdAt!));
       },
     );
   }

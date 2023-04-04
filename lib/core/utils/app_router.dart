@@ -12,8 +12,10 @@ import 'package:designsprit/features/item_details/presentation/pages/details_scr
 import 'package:designsprit/features/items_list/presentation/cubit/items_list_cubit.dart';
 import 'package:designsprit/features/items_list/presentation/pages/items_list.dart';
 import 'package:designsprit/features/main_screen/page/main_screen_view.dart';
+import 'package:designsprit/features/notifications/data/models/notification_model.dart';
 import 'package:designsprit/features/notifications/presentation/cubit/notifications_cubit.dart';
 import 'package:designsprit/features/notifications/presentation/pages/notifications_view.dart';
+import 'package:designsprit/features/notifications/presentation/widgets/notification_details.dart';
 import 'package:designsprit/features/onboarding/presentation/pages/onboarding_view.dart';
 import 'package:designsprit/features/profile/presentation/cubit/profile_cubit.dart';
 import 'package:designsprit/features/profile/presentation/pages/profile_view.dart';
@@ -40,21 +42,29 @@ abstract class AppRouter {
   static const kChangePasswordView = '/changePasswordView';
   static const kFavoritesView = '/favoritesView';
   static const kNotificationsView = '/notificationsView';
+  static const kNotificationDetailsView = '/notificationDetailsView';
   static const kStepsView = '/kStepsView';
 
   static final router = GoRouter(
     routes: [
       GoRoute(
         path: '/',
-        builder: (context, state) => ScreenUtilInit(
-          designSize: Size(
-            MediaQuery.of(context).size.width,
-            MediaQuery.of(context).size.height,
-          ),
-          builder: (BuildContext context, Widget? child) {
-            return const SplashView();
-          },
-        ),
+        builder: (context, state) =>
+            ScreenUtilInit(
+              designSize: Size(
+                MediaQuery
+                    .of(context)
+                    .size
+                    .width,
+                MediaQuery
+                    .of(context)
+                    .size
+                    .height,
+              ),
+              builder: (BuildContext context, Widget? child) {
+                return const SplashView();
+              },
+            ),
       ),
       GoRoute(
         path: konBoardingView,
@@ -62,17 +72,19 @@ abstract class AppRouter {
       ),
       GoRoute(
         path: kLoginView,
-        builder: (context, state) => BlocProvider(
-          create: (context) => sl<LoginCubit>(),
-          child: const LoginView(),
-        ),
+        builder: (context, state) =>
+            BlocProvider(
+              create: (context) => sl<LoginCubit>(),
+              child: const LoginView(),
+            ),
       ),
       GoRoute(
         path: kMainScreenView,
-        builder: (context, state) => BlocProvider(
-          create: (context) => sl<NotificationsCubit>(),
-          child: const MainScreenView(),
-        ),
+        builder: (context, state) =>
+            BlocProvider(
+              create: (context) => sl<NotificationsCubit>(),
+              child: const MainScreenView(),
+            ),
       ),
       GoRoute(
         path: kRegisterView,
@@ -80,70 +92,102 @@ abstract class AppRouter {
       ),
       GoRoute(
         path: kProfileView,
-        builder: (context, state) => BlocProvider(
-          create: (context) => sl<ProfileCubit>()..setUserData(),
-          child: const ProfileView(),
-        ),
+        builder: (context, state) =>
+            BlocProvider(
+              create: (context) =>
+              sl<ProfileCubit>()
+                ..setUserData(),
+              child: const ProfileView(),
+            ),
       ),
       GoRoute(
         path: kProjectsView,
-        builder: (context, state) => BlocProvider(
-          create: (context) => sl<StatusCubit>()..getProjects(),
-          child: const TimelineView(),
-        ),
+        builder: (context, state) =>
+            BlocProvider(
+              create: (context) =>
+              sl<StatusCubit>()
+                ..getProjects(),
+              child: const TimelineView(),
+            ),
       ),
       GoRoute(
         path: kStepsView,
-        builder: (context, state) => BlocProvider(
-          create: (context) => sl<StatusCubit>(),
-          child: const CustomStepper(),
-        ),
+        builder: (context, state) =>
+            BlocProvider(
+              create: (context) => sl<StatusCubit>(),
+              child: const CustomStepper(),
+            ),
       ),
       GoRoute(
         path: kAppointmentView,
-        builder: (context, state) => MultiBlocProvider(providers: [
-          BlocProvider(create: (context) => sl<AddAppointmentCubit>()..getCategories()),
-          BlocProvider(
-            create: (context) => sl<FavoritesCubit>()..getFavorites(),
-          ),
-        ], child: const AddAppointment()),
+        builder: (context, state) =>
+            MultiBlocProvider(providers: [
+              BlocProvider(create: (context) =>
+              sl<AddAppointmentCubit>()
+                ..getCategories()),
+              BlocProvider(
+                create: (context) =>
+                sl<FavoritesCubit>()
+                  ..getFavorites(),
+              ),
+            ], child: const AddAppointment()),
       ),
       GoRoute(
         path: "$kItemDetailsView/:id",
-        builder: (context, state) => BlocProvider(
-          create: (context) => sl<ItemCubit>()
-            ..getItemDetails(
-              id: state.params['id']!,
-            )
-            ..getItemImages(
-              id: state.params['id']!,
+        builder: (context, state) =>
+            BlocProvider(
+              create: (context) =>
+              sl<ItemCubit>()
+                ..getItemDetails(
+                  id: state.params['id']!,
+                )
+                ..getItemImages(
+                  id: state.params['id']!,
+                ),
+              child: DetailsScreen(itemId: state.params['id']!),
             ),
-          child: DetailsScreen(itemId: state.params['id']!),
-        ),
       ),
       GoRoute(
         path: "$kItemsListView/:id",
-        builder: (context, state) => BlocProvider(
-          create: (context) => sl<ItemsListCubit>()
-            ..getItemsList(
-              categoryId: state.params['id']!,
+        builder: (context, state) =>
+            BlocProvider(
+              create: (context) =>
+              sl<ItemsListCubit>()
+                ..getItemsList(
+                  categoryId: state.params['id']!,
+                ),
+              child: ItemsList(categoryId: state.params['id']!),
             ),
-          child: ItemsList(categoryId: state.params['id']!),
-        ),
       ),
       GoRoute(
         path: kChangePasswordView,
-        builder: (context, state) => BlocProvider(
-          create: (context) => sl<ChangePasswordCubit>(),
-          child: ChangePassword(),
-        ),
+        builder: (context, state) =>
+            BlocProvider(
+              create: (context) => sl<ChangePasswordCubit>(),
+              child: ChangePassword(),
+            ),
       ),
       GoRoute(
         path: kNotificationsView,
-        builder: (context, state) => BlocProvider(
-          create: (context) => sl<NotificationsCubit>()..getNotifications(),
-          child: const Notifications(),
-        ),
+        builder: (context, state) =>
+            BlocProvider(
+              create: (context) =>
+              sl<NotificationsCubit>()
+                ..getNotifications(),
+              child: const Notifications(),
+            ),
+      ),
+      GoRoute(
+        path: kNotificationDetailsView,
+        builder: (context, state) {
+          NotificationsModel notification = state.extra as NotificationsModel;
+          return BlocProvider(
+            create: (context) => sl<NotificationsCubit>(),
+            child: NotificationDetails(
+              notification: notification,
+            ),
+          );
+        },
       ),
     ],
   );
