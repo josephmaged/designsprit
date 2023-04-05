@@ -1,5 +1,3 @@
-import 'package:designsprit/constants.dart';
-import 'package:designsprit/core/network/api_const.dart';
 import 'package:designsprit/core/utils/app_router.dart';
 import 'package:designsprit/core/utils/bloc_observer.dart';
 import 'package:designsprit/core/utils/cache_helper.dart';
@@ -9,7 +7,6 @@ import 'package:designsprit/features/categories_list/presentation/cubit/categori
 import 'package:designsprit/features/home/presentation/cubit/home_cubit.dart';
 import 'package:designsprit/features/main_screen/cubit/main_screen_cubit.dart';
 import 'package:designsprit/firebase_options.dart';
-import 'package:dio/dio.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
