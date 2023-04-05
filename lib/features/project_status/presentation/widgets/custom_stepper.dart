@@ -2,7 +2,6 @@ import 'package:designsprit/constants.dart';
 import 'package:designsprit/core/utils/strings.dart';
 import 'package:designsprit/core/widgets/custom_app_bar.dart';
 import 'package:designsprit/core/widgets/custom_primary_button.dart';
-import 'package:designsprit/features/project_status/domain/entities/steps.dart';
 import 'package:designsprit/features/project_status/presentation/cubit/status_cubit.dart';
 import 'package:enhance_stepper/enhance_stepper.dart';
 import 'package:flutter/material.dart';
@@ -54,7 +53,7 @@ class CustomStepper extends StatelessWidget {
               );
             },
             physics: const ClampingScrollPhysics(),
-            steps: Constants.stepsList!
+            steps: Constants.stepsList
                 .map(
                   (e) => EnhanceStep(
                     icon: Icon(
@@ -72,14 +71,15 @@ class CustomStepper extends StatelessWidget {
                 )
                 .toList(),
             onStepCancel: () {
-              cubit.go(-1);
+              cubit.go(-1, false);
             },
             onStepContinue: () {
-              cubit.go(1);
-            },
+              cubit.go(1, true);
+            }, /*
             onStepTapped: (index) {
               cubit.stepIndex = index;
-            },
+              print(index);
+            },*/
           ),
         );
       },

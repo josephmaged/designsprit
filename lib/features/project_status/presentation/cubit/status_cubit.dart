@@ -6,7 +6,6 @@ import 'package:designsprit/features/project_status/domain/entities/project.dart
 import 'package:designsprit/features/project_status/domain/entities/steps.dart';
 import 'package:designsprit/features/project_status/domain/use_cases/get_projects_usecase.dart';
 import 'package:designsprit/features/project_status/domain/use_cases/get_steps_usecase.dart';
-import 'package:designsprit/features/project_status/domain/use_cases/get_steps_usecase.dart';
 import 'package:designsprit/features/project_status/domain/use_cases/update_project_steps_usecase.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
@@ -29,8 +28,8 @@ class StatusCubit extends Cubit<StatusState> {
     emit(state.copyWith(
       requestState: RequestState.loading,
     ));
-
-    final result = await getProjectsUseCase(ProjectsParameters(fuid: fuid));
+/// Fuid
+    final result = await getProjectsUseCase(ProjectsParameters(fuid:  "VWj8dVsuvzfcfJ1y97Bu3Jxs7du1" /*fuid*/));
 
     result.fold((l) {
       emit(state.copyWith(
@@ -50,8 +49,8 @@ class StatusCubit extends Cubit<StatusState> {
     emit(state.copyWith(
       stepsState: RequestState.loading,
     ));
-
-    final result = await getStepsUseCase(StepsParameters(id: id));
+///Steps id
+    final result = await getStepsUseCase(StepsParameters(id: 15 /*id*/));
 
     result.fold((l) {
       emit(state.copyWith(
@@ -75,7 +74,7 @@ class StatusCubit extends Cubit<StatusState> {
       requestState: RequestState.loading,
     ));
 
-    final result = await updateProjectTrackerUseCase(UpdateProjectStepsParameters(stepId: stepId, status: status));
+    final result = await updateProjectTrackerUseCase(UpdateProjectStepsParameters(stepId: state.steps![stepId].id, status: status));
 
     result.fold((l) {
       emit(state.copyWith(
@@ -94,7 +93,7 @@ class StatusCubit extends Cubit<StatusState> {
 
   int stepIndex = 0;
 
-  void go(int index) {
+  void go(int index, bool isAccepted) {
     if (index == -1 && stepIndex <= 0) {
       return;
     }
@@ -106,6 +105,7 @@ class StatusCubit extends Cubit<StatusState> {
     stepIndex += index;
     emit(
       state.copyWith(stepIndex: stepIndex),
-    );
+    );/*
+    updateProjectTracker(stepId: index,status: isAccepted);*/
   }
 }

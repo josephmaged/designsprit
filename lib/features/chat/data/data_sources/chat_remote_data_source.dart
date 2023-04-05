@@ -41,9 +41,10 @@ class ChatDataSource extends BaseChatRemoteDataSource {
 
   @override
   Future<List<ApiResponse>> sendMessage(SendMessage parameters) async {
+
     final formData = FormData.fromMap({
       'MediaPath': parameters.mediaPath,
-      'Note': parameters.type,
+      'Note': parameters.note,
       'Type': parameters.type,
       'AudioDuration': parameters.audioDuration,
       'ChannelId': parameters.channelId,

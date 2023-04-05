@@ -29,6 +29,7 @@ class ChatCubit extends Cubit<ChatState> {
 
   Future<void> getChat() async {
     String fUid = CacheHelper.getData(key: Constants.fID);
+    print(fUid);
     final result = await getChatContentUseCase(ChatContentParameters(fUid: fUid));
     result.fold(
       (l) {
@@ -46,19 +47,28 @@ class ChatCubit extends Cubit<ChatState> {
             requestResponse: r,
           ),
         );
+
       },
     );
   }
 
-  Future<void> sendMessage(MessageType type,) async {
+  Future<void> sendMessage(
+    MessageType type,
+  ) async {
     int uid = CacheHelper.getData(key: Constants.userID);
+    int? channel;
+    try {
+      if (state.requestResponse != null || state.requestResponse!.isNotEmpty) {
+        channel = state.requestResponse?[0].channelId;
+      }
+    } catch (e) {}
 
     final result = await sendMessageUseCase(SendMessage(
       senderId: uid,
       note: type == MessageType.text ? messageController.text : null,
       type: type.type,
       audioDuration: 0,
-      channelId: state.requestResponse!.isEmpty ? '' : state.requestResponse?[0].channelId,
+      channelId: channel,
       mediaPath: imageFile,
     ));
 
@@ -71,11 +81,10 @@ class ChatCubit extends Cubit<ChatState> {
       },
       (r) {
         emit(state.copyWith(
-          apiResponse:  r,
+          apiResponse: r,
           requestState: RequestState.loaded,
         ));
-      //  getChat();
-        print(r[0].message);
+        getChat();
       },
     );
   }
@@ -97,7 +106,7 @@ class ChatCubit extends Cubit<ChatState> {
     sendMessage(MessageType.image);
   }
 
-  Future<void> pickVideo( ) async {
+  Future<void> pickVideo() async {
     XFile? pickedFile = await ImagePicker().pickVideo(source: ImageSource.gallery);
     if (pickedFile != null) {
       final file = await MultipartFile.fromFile(pickedFile.path);

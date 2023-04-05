@@ -23,13 +23,11 @@ class ChatContent extends StatelessWidget {
             builder: (context, state) {
               return Center(
                 child: Column(
-                  children: [
+                  children: const [
                     Expanded(
                       child: MessagesList(),
                     ),
-                    BottomChatTextField(
-                      userId: userId,
-                    ),
+                    BottomChatTextField(),
                   ],
                 ),
               );
@@ -44,10 +42,7 @@ class ChatContent extends StatelessWidget {
 class BottomChatTextField extends StatefulWidget {
   const BottomChatTextField({
     Key? key,
-    required this.userId,
   }) : super(key: key);
-
-  final int userId;
 
   @override
   State<BottomChatTextField> createState() => _BottomChatTextFieldState();
@@ -100,10 +95,7 @@ class _BottomChatTextFieldState extends State<BottomChatTextField> {
       child: Container(
         width: 50.w,
         height: 50.h,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(50),
-          color: kPrimaryColor
-        ),
+        decoration: BoxDecoration(borderRadius: BorderRadius.circular(50), color: kPrimaryColor),
         child: const Icon(
           Icons.send,
           color: Colors.white,

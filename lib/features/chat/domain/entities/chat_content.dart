@@ -7,8 +7,8 @@ class ChatContent extends Equatable {
   final String sentAt;
   final double? audioDuration;
   final String? mediaPath;
-  final int sender;
-  final String? channelId;
+  final String? sender;
+  final int? channelId;
 
   const ChatContent({
     required this.id,

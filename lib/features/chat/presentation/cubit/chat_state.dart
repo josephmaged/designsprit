@@ -7,9 +7,16 @@ class ChatState extends Equatable {
   final String? requestMessage;
   final MultipartFile? imageFile;
   final File? imageUi;
+  final MessageType? type;
 
   const ChatState(
-      {this.apiResponse, this.requestResponse, this.requestState, this.requestMessage, this.imageFile, this.imageUi});
+      {this.type,
+      this.apiResponse,
+      this.requestResponse,
+      this.requestState,
+      this.requestMessage,
+      this.imageFile,
+      this.imageUi});
 
   ChatState copyWith({
     List<ChatContent>? requestResponse,
@@ -18,6 +25,7 @@ class ChatState extends Equatable {
     String? requestMessage,
     MultipartFile? imageFile,
     File? imageUi,
+    MessageType? type,
   }) {
     return ChatState(
       requestResponse: requestResponse ?? this.requestResponse,
@@ -26,6 +34,7 @@ class ChatState extends Equatable {
       requestMessage: requestMessage ?? this.requestMessage,
       imageFile: imageFile ?? this.imageFile,
       imageUi: imageUi ?? this.imageUi,
+      type: type ?? this.type,
     );
   }
 
@@ -37,5 +46,6 @@ class ChatState extends Equatable {
         requestMessage,
         imageFile,
         imageUi,
+        type,
       ];
 }

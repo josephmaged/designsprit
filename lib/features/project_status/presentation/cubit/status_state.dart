@@ -26,7 +26,7 @@ class StatusState extends Equatable {
     RequestState? requestState,
     RequestState? stepsState,
     String? responseMessage,
-    int? stepIndex,
+    int? stepIndex = 0,
   }) {
     return StatusState(
       projects: projects ?? this.projects,

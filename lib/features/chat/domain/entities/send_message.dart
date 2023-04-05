@@ -7,7 +7,7 @@ class SendMessage extends Equatable {
   final MultipartFile? mediaPath;
   final int? type;
   final int? audioDuration;
-  final String? channelId;
+  final int? channelId;
 
   const SendMessage({
     this.senderId,

@@ -10,7 +10,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
 
 class MessagesList extends StatefulWidget {
-  MessagesList({
+  const MessagesList({
     Key? key,
   }) : super(key: key);
 
