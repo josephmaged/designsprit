@@ -14,7 +14,7 @@ abstract class BaseProjectStepsDataSource {
 
   Future<List<StepsModel>> getSteps(StepsParameters parameters);
 
-  Future<ApiResponse> updateProjectSteps(UpdateProjectStepsParameters parameters);
+  Future<List<ApiResponse>> updateProjectSteps(UpdateProjectStepsParameters parameters);
 }
 
 class ProjectStepsRemoteDataSource extends BaseProjectStepsDataSource {
@@ -43,13 +43,21 @@ class ProjectStepsRemoteDataSource extends BaseProjectStepsDataSource {
   }
 
   @override
-  Future<ApiResponse> updateProjectSteps(UpdateProjectStepsParameters parameters) async {
+  Future<List<ApiResponse>> updateProjectSteps(UpdateProjectStepsParameters parameters) async {
     final response = await Dio().post(ApiConst.updateProjectSteps, data: {
       "stepId": parameters.stepId,
       "status": parameters.status,
     });
     if (response.statusCode == 200) {
-      return (response.data).map((e) => ApiResponse.fromJson(e));
+      final data = response.data;
+      if (data is List) {
+        return data.map((e) => ApiResponse.fromJson(e)).toList();
+      } else if (data is Map<String, dynamic>) {
+        return [ApiResponse.fromJson(data)];
+      }
+      throw ServerException(
+        errorMessageModel: ErrorMessageModel.fromJson(response.data),
+      );
     } else {
       throw ServerException(
         errorMessageModel: ErrorMessageModel.fromJson(response.data),

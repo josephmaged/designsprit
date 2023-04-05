@@ -40,31 +40,26 @@ class CategoriesListView extends StatelessWidget {
                       itemBuilder: (context, index) {
                         return InkWell(
                           onTap: () {
-                             int categoryId = state.categoriesList[index].id;
-                          context.push("${AppRouter.kItemsListView}/$categoryId");
+                            int categoryId = state.categoriesList[index].id;
+                            context.push("${AppRouter.kItemsListView}/$categoryId");
                           },
                           child: Padding(
                             padding: EdgeInsets.symmetric(vertical: 8.h),
                             child: Row(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                state.categoriesList[index].image == null
-                                    ? Image(
-                                        height: 50.h,
-                                        width: 50.w,
-                                        image: const AssetImage(AssetsData.imageNotFound),
-                                      )
-                                    : CachedNetworkImage(
-                                        placeholder: (context, url) => const CircularProgressIndicator(),
-                                        errorWidget: (context, url, error) => Image(
-                                          height: 50.h,
-                                          width: 50.w,
-                                          image: const AssetImage(AssetsData.imageNotFound),
-                                        ),
-                                        imageUrl: ApiConst.getImages(state.categoriesList[index].image!),
-                                        height: 50.h,
-                                        width: 50.w,
-                                      ),
+                                CachedNetworkImage(
+                                  placeholder: (context, url) => const CircularProgressIndicator(),
+                                  errorWidget: (context, url, error) => Image(
+                                    height: 50.h,
+                                    width: 50.w,
+                                    image: const AssetImage(AssetsData.imageNotFound),
+                                  ),
+                                  imageUrl: ApiConst.getImages("${state.categoriesList[index].image}"),
+                                  height: 50.h,
+                                  width: 50.w,
+                                  fit: BoxFit.cover,
+                                ),
                                 SizedBox(
                                   width: 20.w,
                                 ),

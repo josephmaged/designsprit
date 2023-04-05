@@ -12,5 +12,5 @@ abstract class BaseProjectStepsRepo {
 
   Future<Either<Failure, List<Steps>>> getSteps(StepsParameters parameters);
 
-  Future<Either<Failure, ApiResponse>> updateProjectSteps(UpdateProjectStepsParameters parameters);
+  Future<Either<Failure, List<ApiResponse>>> updateProjectSteps(UpdateProjectStepsParameters parameters);
 }

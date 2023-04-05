@@ -10,6 +10,8 @@ import 'package:designsprit/features/project_status/domain/use_cases/update_proj
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 part 'status_state.dart';
 
@@ -18,7 +20,8 @@ class StatusCubit extends Cubit<StatusState> {
   final GetProjectsUseCase getProjectsUseCase;
   final UpdateProjectStepsUseCase updateProjectTrackerUseCase;
 
-  StatusCubit(this.getStepsUseCase, this.updateProjectTrackerUseCase, this.getProjectsUseCase) : super(const StatusState());
+  StatusCubit(this.getStepsUseCase, this.updateProjectTrackerUseCase, this.getProjectsUseCase)
+      : super(const StatusState());
 
   static StatusCubit get(context) => BlocProvider.of(context);
 
@@ -28,8 +31,9 @@ class StatusCubit extends Cubit<StatusState> {
     emit(state.copyWith(
       requestState: RequestState.loading,
     ));
-/// Fuid
-    final result = await getProjectsUseCase(ProjectsParameters(fuid:  "VWj8dVsuvzfcfJ1y97Bu3Jxs7du1" /*fuid*/));
+
+    /// Fuid
+    final result = await getProjectsUseCase(ProjectsParameters(fuid: "VWj8dVsuvzfcfJ1y97Bu3Jxs7du1" /*fuid*/));
 
     result.fold((l) {
       emit(state.copyWith(
@@ -44,12 +48,12 @@ class StatusCubit extends Cubit<StatusState> {
     });
   }
 
-
   Future<void> getSteps({required int id}) async {
     emit(state.copyWith(
       stepsState: RequestState.loading,
     ));
-///Steps id
+
+    ///Steps id
     final result = await getStepsUseCase(StepsParameters(id: 15 /*id*/));
 
     result.fold((l) {
@@ -66,26 +70,37 @@ class StatusCubit extends Cubit<StatusState> {
     });
   }
 
-  Future<void> updateProjectTracker({
-  required int stepId,
-    required bool status
-}) async {
+  Future<void> updateProjectTracker({required int stepId, required bool status}) async {
     emit(state.copyWith(
       requestState: RequestState.loading,
     ));
 
-    final result = await updateProjectTrackerUseCase(UpdateProjectStepsParameters(stepId: state.steps![stepId].id, status: status));
+    final result = await updateProjectTrackerUseCase(UpdateProjectStepsParameters(stepId: stepIndex, status: status));
 
     result.fold((l) {
       emit(state.copyWith(
         requestState: RequestState.error,
         responseMessage: l.errMessage,
       ));
+      Fluttertoast.showToast(
+        msg: l.errMessage,
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.CENTER,
+        timeInSecForIosWeb: 1,
+        fontSize: 14.sp,
+      );
     }, (r) {
       emit(state.copyWith(
         requestState: RequestState.loaded,
         apiResponse: r,
       ));
+      Fluttertoast.showToast(
+        msg: "${r[0].message}",
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.CENTER,
+        timeInSecForIosWeb: 1,
+        fontSize: 14.sp,
+      );
     });
   }
 
@@ -105,7 +120,7 @@ class StatusCubit extends Cubit<StatusState> {
     stepIndex += index;
     emit(
       state.copyWith(stepIndex: stepIndex),
-    );/*
+    ); /*
     updateProjectTracker(stepId: index,status: isAccepted);*/
   }
 }

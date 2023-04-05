@@ -7,7 +7,6 @@ import 'package:designsprit/features/auth/register/presentation/pages/register_v
 import 'package:designsprit/features/change_password/cubit/change_password_cubit.dart';
 import 'package:designsprit/features/change_password/pages/change_password.dart';
 import 'package:designsprit/features/chat/presentation/cubit/chat_cubit.dart';
-import 'package:designsprit/features/chat/presentation/pages/chat_screen_demo.dart';
 import 'package:designsprit/features/chat/presentation/pages/chat_view.dart';
 import 'package:designsprit/features/favorites/presentation/cubit/favorites_cubit.dart';
 import 'package:designsprit/features/item_details/presentation/cubit/item_cubit.dart';

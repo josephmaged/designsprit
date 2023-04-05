@@ -26,7 +26,7 @@ class ProjectStepsRepo extends BaseProjectStepsRepo{
   }
 
   @override
-  Future<Either<Failure, ApiResponse>> updateProjectSteps(UpdateProjectStepsParameters parameters) async {
+  Future<Either<Failure, List<ApiResponse>>> updateProjectSteps(UpdateProjectStepsParameters parameters) async {
     try {
       final result = await baseProjectStepsDataSource.updateProjectSteps(parameters);
       return Right(result);

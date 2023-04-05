@@ -3,7 +3,7 @@ part of 'status_cubit.dart';
 class StatusState extends Equatable {
   final List<Projects>? projects;
   final List<Steps>? steps;
-  final ApiResponse? apiResponse;
+  final List<ApiResponse>? apiResponse;
   final RequestState? requestState;
   final RequestState? stepsState;
   final String? responseMessage;
@@ -22,7 +22,7 @@ class StatusState extends Equatable {
   StatusState copyWith({
     List<Projects>? projects,
     List<Steps>? steps,
-    apiResponse,
+    List<ApiResponse>? apiResponse,
     RequestState? requestState,
     RequestState? stepsState,
     String? responseMessage,
@@ -39,6 +39,7 @@ class StatusState extends Equatable {
     );
   }
 
+  @override
   List<Object?> get props =>
       [
         projects,

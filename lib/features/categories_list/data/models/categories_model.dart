@@ -5,13 +5,13 @@ class CategoriesModel extends Categories {
     required super.id,
     required super.name,
     required super.description,
-    required super.image,
+     super.image,
   });
 
   factory CategoriesModel.fromJson(Map<String, dynamic> json) => CategoriesModel(
         id: json["id"],
         name: json["name"],
         description: json["description"],
-        image: json["itemImage"],
+        image: json["image"],
       );
 }

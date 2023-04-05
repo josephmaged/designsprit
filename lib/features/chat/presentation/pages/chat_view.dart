@@ -18,7 +18,7 @@ class ChatContent extends StatelessWidget {
     return BlocBuilder<ChatCubit, ChatState>(
       builder: (context, state) {
         return Scaffold(
-          appBar: CustomAppBar(titleName: AppStrings.chat),
+          appBar: CustomAppBar(titleName: AppStrings.chat, listOfActions: []),
           body: BlocBuilder<ChatCubit, ChatState>(
             builder: (context, state) {
               return Center(

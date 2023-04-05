@@ -17,34 +17,34 @@ class MessagesList extends StatefulWidget {
 class _MessagesListState extends State<MessagesList> {
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<ChatCubit, ChatState>(
-        builder: (context, state) {
-          return state.requestResponse == null
-              ? const Center(
-              child: CircularProgressIndicator()
-          )
-              : ListView.builder(
-            reverse: true,
-            itemCount: state.requestResponse!.length ?? 0,
-            itemBuilder: (context, index) {
-              var message = state.requestResponse![index];
+    return BlocBuilder<ChatCubit, ChatState>(builder: (context, state) {
 
-              final bool isSenderUser =
-                  state.requestResponse![index].sender == CacheHelper.getData(key: Constants.userName);
-              var userId = CacheHelper.getData(key: Constants.userName);
+      return state.requestResponse == null
+          ? const Center(child: CircularProgressIndicator())
+          : ListView.builder(
+              reverse: true,
+              itemCount: state.requestResponse!.length ?? 0,
+              itemBuilder: (context, index) {
+                var message = state.requestResponse![index];
 
 
-              return MessageCard(
-                isSender: isSenderUser,
-                messageType: message.type.toEnum() ?? MessageType.text,
-                time: DateFormat.Hm().format(DateTime.now()),
-                swipeDirection:
-                isSenderUser ? SwipeDirection.right : SwipeDirection.left,
-                message: message.note ?? "",
-              );
-            },
-          );
-        }
-    );
+                String time = state.requestResponse![index].sentAt.split('T').last;
+                String timesplit = time.substring(0, 5);
+                String day = state.requestResponse![index].sentAt.split('T').first;
+
+                final bool isSenderUser =
+                    state.requestResponse![index].sender == CacheHelper.getData(key: Constants.userName);
+                var userId = CacheHelper.getData(key: Constants.userName);
+
+                return MessageCard(
+                  isSender: isSenderUser,
+                  messageType: message.type.toEnum() ?? MessageType.text,
+                  time: '$day / $timesplit',
+                  swipeDirection: isSenderUser ? SwipeDirection.right : SwipeDirection.left,
+                  message: message.note ?? "",
+                );
+              },
+            );
+    });
   }
 }

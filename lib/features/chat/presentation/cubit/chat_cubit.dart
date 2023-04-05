@@ -44,10 +44,9 @@ class ChatCubit extends Cubit<ChatState> {
         emit(
           state.copyWith(
             requestState: RequestState.loaded,
-            requestResponse: r,
+            requestResponse: r.reversed.toList(),
           ),
         );
-
       },
     );
   }
@@ -84,6 +83,7 @@ class ChatCubit extends Cubit<ChatState> {
           apiResponse: r,
           requestState: RequestState.loaded,
         ));
+
         getChat();
       },
     );

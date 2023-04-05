@@ -5,13 +5,13 @@ import 'package:designsprit/core/utils/api_response.dart';
 import 'package:designsprit/features/project_status/domain/repositories/base_project_steps_repo.dart';
 import 'package:equatable/equatable.dart';
 
-class UpdateProjectStepsUseCase extends BaseUseCase<ApiResponse, UpdateProjectStepsParameters> {
+class UpdateProjectStepsUseCase extends BaseUseCase<List<ApiResponse>, UpdateProjectStepsParameters> {
   final BaseProjectStepsRepo baseProjectStepsRepo;
 
   UpdateProjectStepsUseCase(this.baseProjectStepsRepo);
 
   @override
-  Future<Either<Failure, ApiResponse>> call(UpdateProjectStepsParameters parameters) async {
+  Future<Either<Failure, List<ApiResponse>>> call(UpdateProjectStepsParameters parameters) async {
     return await baseProjectStepsRepo.updateProjectSteps(parameters);
   }
 }

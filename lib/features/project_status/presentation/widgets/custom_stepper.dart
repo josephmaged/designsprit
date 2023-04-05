@@ -34,14 +34,21 @@ class CustomStepper extends StatelessWidget {
                   children: [
                     Expanded(
                       child: CustomPrimaryButton(
-                        press: details.onStepContinue,
+                        press: () {
+                          cubit.updateProjectTracker(stepId: details.stepIndex, status: true);
+                          details.onStepContinue;
+                        },
                         text: 'ACCEPT',
                         height: 40.h,
                       ),
                     ),
                     Expanded(
                       child: TextButton(
-                        onPressed: details.onStepCancel,
+                        onPressed: () {
+                          cubit.updateProjectTracker(stepId: details.stepIndex, status: false);
+
+                          details.onStepCancel;
+                        },
                         child: const Text(
                           'REJECT',
                           style: TextStyle(color: kSecondaryColor, fontWeight: FontWeight.bold),
