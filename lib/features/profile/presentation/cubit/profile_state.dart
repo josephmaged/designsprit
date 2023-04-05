@@ -36,7 +36,7 @@ class ProfileState extends Equatable {
     String? username,
     String? image,
     File? imageUi,
-    List<UserData>? requsetResponse,
+    List<UserData>? requestResponse,
     RequestState? requestState,
     String? responseMessage,
   }) {

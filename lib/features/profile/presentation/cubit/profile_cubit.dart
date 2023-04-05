@@ -76,7 +76,7 @@ class ProfileCubit extends Cubit<ProfileState> {
       ));
     }, (r) {
       emit(state.copyWith(
-        requsetResponse: r,
+        requestResponse: r,
         requestState: RequestState.loaded,
       ));
       print(r[0]);

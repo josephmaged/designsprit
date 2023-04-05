@@ -1,3 +1,5 @@
+import 'package:designsprit/constants.dart';
+import 'package:designsprit/core/utils/cache_helper.dart';
 import 'package:designsprit/core/utils/enum.dart';
 import 'package:designsprit/core/utils/strings.dart';
 import 'package:designsprit/core/widgets/custom_app_bar.dart';
@@ -5,12 +7,14 @@ import 'package:designsprit/features/chat/presentation/cubit/chat_cubit.dart';
 import 'package:designsprit/features/chat/presentation/widgets/messages_list.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class ChatContent extends StatelessWidget {
   const ChatContent({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    int userId = CacheHelper.getData(key: Constants.userID);
     return BlocBuilder<ChatCubit, ChatState>(
       builder: (context, state) {
         return Scaffold(
@@ -23,10 +27,9 @@ class ChatContent extends StatelessWidget {
                     Expanded(
                       child: MessagesList(),
                     ),
-                    /*BottomChatTextField(
-                      userId: data.userId!,
-                      channelId: data.id!,
-                    ),*/
+                    BottomChatTextField(
+                      userId: userId,
+                    ),
                   ],
                 ),
               );
@@ -39,10 +42,12 @@ class ChatContent extends StatelessWidget {
 }
 
 class BottomChatTextField extends StatefulWidget {
-  const BottomChatTextField({Key? key, required this.userId, required this.channelId}) : super(key: key);
+  const BottomChatTextField({
+    Key? key,
+    required this.userId,
+  }) : super(key: key);
 
   final int userId;
-  final int channelId;
 
   @override
   State<BottomChatTextField> createState() => _BottomChatTextFieldState();
@@ -90,11 +95,19 @@ class _BottomChatTextFieldState extends State<BottomChatTextField> {
   }
 
   Widget _buildMicOrSendButton() {
-    return FloatingActionButton(
-      onPressed: _sendTextMessage,
-      child: const Icon(
-        Icons.send,
-        color: Colors.white,
+    return InkWell(
+      onTap: _sendTextMessage,
+      child: Container(
+        width: 50.w,
+        height: 50.h,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(50),
+          color: kPrimaryColor
+        ),
+        child: const Icon(
+          Icons.send,
+          color: Colors.white,
+        ),
       ),
     );
   }
@@ -117,7 +130,7 @@ class _BottomChatTextFieldState extends State<BottomChatTextField> {
         suffixIcon: _buildSuffixTFIcon(),
         hintText: 'Type a message...',
         hintStyle: Theme.of(context).textTheme.bodyMedium?.copyWith(
-              color: Colors.white30,
+              color: Colors.white54,
             ),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(24.0),
@@ -157,12 +170,12 @@ class _BottomChatTextFieldState extends State<BottomChatTextField> {
                   buildPopUpMenuItem(
                     Icons.video_collection_rounded,
                     'Send Video',
-                    () => ChatCubit.get(context).pickVideo(widget.userId, widget.channelId),
+                    () => ChatCubit.get(context).pickVideo(),
                   ),
                   buildPopUpMenuItem(
                     Icons.camera,
                     'Send Image',
-                    () => ChatCubit.get(context).pickImage(widget.userId, widget.channelId),
+                    () => ChatCubit.get(context).pickImage(),
                   ),
                 ];
               },
@@ -176,7 +189,9 @@ class _BottomChatTextFieldState extends State<BottomChatTextField> {
   }
 
   void _sendTextMessage() {
-    ChatCubit.get(context).sendMessage(MessageType.text, widget.userId, widget.channelId);
+    ChatCubit.get(context).sendMessage(
+      MessageType.text,
+    );
   }
 
   PopupMenuItem buildPopUpMenuItem(

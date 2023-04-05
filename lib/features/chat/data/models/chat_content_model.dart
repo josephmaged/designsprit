@@ -8,7 +8,8 @@ class ChatContentModel extends ChatContent {
       required super.sentAt,
       super.audioDuration,
       super.mediaPath,
-      required super.sender});
+      required super.sender,
+      required super.channelId});
 
   factory ChatContentModel.fromJson(Map<String, dynamic> json) => ChatContentModel(
         id: json["id"],
@@ -18,5 +19,6 @@ class ChatContentModel extends ChatContent {
         audioDuration: json["audioDuration"],
         mediaPath: json['mediaPath'],
         sender: json["sender"],
+      channelId: json['channelId'],
       );
 }

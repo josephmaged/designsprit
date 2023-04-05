@@ -36,6 +36,7 @@ import 'package:designsprit/features/chat/data/data_sources/chat_remote_data_sou
 import 'package:designsprit/features/chat/data/repositories/chat_repo.dart';
 import 'package:designsprit/features/chat/domain/repositories/base_chat_repo.dart';
 import 'package:designsprit/features/chat/domain/use_cases/get_chat_usecase.dart';
+import 'package:designsprit/features/chat/domain/use_cases/send_message_usecase.dart';
 import 'package:designsprit/features/chat/presentation/cubit/chat_cubit.dart';
 import 'package:designsprit/features/favorites/data/data_sources/favorites_remote_data_source.dart';
 import 'package:designsprit/features/favorites/data/repositories/favorites_repo.dart';
@@ -101,7 +102,7 @@ class SetupServiceLocator {
     sl.registerFactory(() => ProfileCubit(sl()));
     sl.registerFactory(() => NotificationsCubit(sl(), sl()));
     sl.registerFactory(() => CategoriesCubit(sl()));
-    sl.registerFactory(() => ChatCubit(sl()));
+    sl.registerFactory(() => ChatCubit(sl(),sl()));
 
     /// Register
     /// USE CASES
@@ -235,6 +236,7 @@ class SetupServiceLocator {
     /// Chat
     /// USE CASE
     sl.registerLazySingleton(() => GetChatContentUseCase(sl()));
+    sl.registerLazySingleton(() => SendMessageUseCase(sl()));
 
     /// Repository
     sl.registerLazySingleton<BaseChatRepo>(() => ChatRepo(sl()));

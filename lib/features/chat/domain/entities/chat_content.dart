@@ -7,7 +7,8 @@ class ChatContent extends Equatable {
   final String sentAt;
   final double? audioDuration;
   final String? mediaPath;
-  final String sender;
+  final int sender;
+  final String? channelId;
 
   const ChatContent({
     required this.id,
@@ -17,6 +18,7 @@ class ChatContent extends Equatable {
     this.audioDuration,
     this.mediaPath,
     required this.sender,
+     this.channelId  ,
   });
 
   @override
@@ -28,5 +30,6 @@ class ChatContent extends Equatable {
         audioDuration,
         mediaPath,
         sender,
+        channelId,
       ];
 }

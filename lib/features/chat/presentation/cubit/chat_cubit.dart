@@ -1,10 +1,13 @@
 import 'dart:io';
 
 import 'package:designsprit/constants.dart';
+import 'package:designsprit/core/utils/api_response.dart';
 import 'package:designsprit/core/utils/cache_helper.dart';
 import 'package:designsprit/core/utils/enum.dart';
 import 'package:designsprit/features/chat/domain/entities/chat_content.dart';
+import 'package:designsprit/features/chat/domain/entities/send_message.dart';
 import 'package:designsprit/features/chat/domain/use_cases/get_chat_usecase.dart';
+import 'package:designsprit/features/chat/domain/use_cases/send_message_usecase.dart';
 import 'package:dio/dio.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
@@ -15,8 +18,9 @@ part 'chat_state.dart';
 
 class ChatCubit extends Cubit<ChatState> {
   final GetChatContentUseCase getChatContentUseCase;
+  final SendMessageUseCase sendMessageUseCase;
 
-  ChatCubit(this.getChatContentUseCase) : super(const ChatState());
+  ChatCubit(this.getChatContentUseCase, this.sendMessageUseCase) : super(const ChatState());
 
   static ChatCubit get(context) => BlocProvider.of(context);
   final TextEditingController messageController = TextEditingController();
@@ -46,28 +50,37 @@ class ChatCubit extends Cubit<ChatState> {
     );
   }
 
-  Future<void> sendMessage(MessageType type, int senderId, int channelId) async {
+  Future<void> sendMessage(MessageType type,) async {
+    int uid = CacheHelper.getData(key: Constants.userID);
 
-   /* var result = await repo.sendMessage(
-      ChatParameter(
-        channelId: channelId,
-        note: type == MessageType.text ? messageController.text : null,
-        mediaPath: imageFile,
-        senderId: senderId,
-        type: type.type,
-      ),
-    );
+    final result = await sendMessageUseCase(SendMessage(
+      senderId: uid,
+      note: type == MessageType.text ? messageController.text : null,
+      type: type.type,
+      audioDuration: 0,
+      channelId: state.requestResponse!.isEmpty ? '' : state.requestResponse?[0].channelId,
+      mediaPath: imageFile,
+    ));
 
     result.fold(
-      (l) => emit(ChatSendMessageFailure()),
-      (r) {
-        messageController.text = '';
-        emit(ChatSendMessageSuccess());
+      (l) {
+        emit(state.copyWith(
+          requestState: RequestState.error,
+          requestMessage: l.errMessage,
+        ));
       },
-    );*/
+      (r) {
+        emit(state.copyWith(
+          apiResponse:  r,
+          requestState: RequestState.loaded,
+        ));
+      //  getChat();
+        print(r[0].message);
+      },
+    );
   }
 
-  Future<void> pickImage(int senderId, int channelId) async {
+  Future<void> pickImage() async {
     XFile? pickedFile = await ImagePicker().pickImage(source: ImageSource.gallery);
     if (pickedFile != null) {
       final file = await MultipartFile.fromFile(pickedFile.path);
@@ -81,10 +94,10 @@ class ChatCubit extends Cubit<ChatState> {
       imageFile: imageFile,
       imageUi: imageUi,
     ));
-    sendMessage(MessageType.image, senderId, channelId);
+    sendMessage(MessageType.image);
   }
 
-  Future<void> pickVideo(int senderId, int channelId) async {
+  Future<void> pickVideo( ) async {
     XFile? pickedFile = await ImagePicker().pickVideo(source: ImageSource.gallery);
     if (pickedFile != null) {
       final file = await MultipartFile.fromFile(pickedFile.path);
@@ -98,6 +111,6 @@ class ChatCubit extends Cubit<ChatState> {
       imageFile: imageFile,
       imageUi: imageUi,
     ));
-    sendMessage(MessageType.video, senderId, channelId);
+    sendMessage(MessageType.video);
   }
 }

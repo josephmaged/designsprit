@@ -170,15 +170,9 @@ abstract class AppRouter {
         path: kChatView,
         builder: (context, state) {
           return BlocProvider(
-            create: (context) => sl<ChatCubit>(),
+            create: (context) => sl<ChatCubit>()..getChat(),
             child: const ChatContent(),
           );
-        },
-      ),
-      GoRoute(
-        path: kChatDemoView,
-        builder: (context, state) {
-          return const ChatScreenDemo();
         },
       ),
     ],
