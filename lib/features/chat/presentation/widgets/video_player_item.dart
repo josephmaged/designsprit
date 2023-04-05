@@ -1,9 +1,11 @@
+
+import 'package:designsprit/core/network/api_const.dart';
 import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
 
 class VideoPlayerItem extends StatefulWidget {
-  const VideoPlayerItem({Key? key}) : super(key: key);
-
+   VideoPlayerItem({Key? key,required this.videoUrl}) : super(key: key);
+  String videoUrl;
   @override
   State<VideoPlayerItem> createState() => _VideoPlayerItemState();
 }
@@ -15,7 +17,7 @@ class _VideoPlayerItemState extends State<VideoPlayerItem> {
   @override
   void initState() {
     super.initState();
-    _videoPlayerController = VideoPlayerController.network('')
+    _videoPlayerController = VideoPlayerController.network(ApiConst.getImages(widget.videoUrl))
       ..initialize().then((_) {
         _videoPlayerController.setVolume(1.0);
       });

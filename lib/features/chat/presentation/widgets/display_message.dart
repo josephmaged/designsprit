@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:designsprit/core/network/api_const.dart';
 import 'package:designsprit/core/utils/enum.dart';
 import 'package:designsprit/features/chat/presentation/widgets/audio_player_item.dart';
 import 'package:designsprit/features/chat/presentation/widgets/video_player_item.dart';
@@ -32,11 +33,11 @@ class DisplayMessage extends StatelessWidget {
               ),
         );
       case MessageType.image:
-        return CachedNetworkImage(imageUrl: message);
+        return CachedNetworkImage(imageUrl:ApiConst.getImages(message));
       case MessageType.audio:
         return AudioPlayerItem(audioUrl: message, isSender: isSender);
       case MessageType.video:
-        return VideoPlayerItem();
+        return VideoPlayerItem(videoUrl: message,);
       default:
         return Text(
           textAlign: TextAlign.left,

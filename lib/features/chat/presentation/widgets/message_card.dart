@@ -1,4 +1,3 @@
-
 import 'package:designsprit/constants.dart';
 import 'package:designsprit/core/utils/enum.dart';
 import 'package:designsprit/features/chat/presentation/widgets/display_message.dart';
@@ -50,8 +49,7 @@ class MessageCard extends StatelessWidget {
     );
   }
 
-  Widget _buildMessageContent(
-      BuildContext context, bool isReplying, bool isSender) {
+  Widget _buildMessageContent(BuildContext context, bool isReplying, bool isSender) {
     bool isSeen = false;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.end,
@@ -61,10 +59,7 @@ class MessageCard extends StatelessWidget {
             'username',
             style: isSender
                 ? Theme.of(context).textTheme.headlineSmall
-                : Theme.of(context)
-                    .textTheme
-                    .headlineSmall!
-                    .copyWith(color: Colors.black),
+                : Theme.of(context).textTheme.headlineSmall!.copyWith(color: Colors.black),
           ),
           const SizedBox(height: 8),
           Container(
@@ -78,7 +73,7 @@ class MessageCard extends StatelessWidget {
             child: DisplayMessage(
               isSender: isSender,
               message: 'repliedText',
-              messageType: MessageType.text,
+              messageType: messageType,
             ),
           ),
         ],
@@ -86,14 +81,14 @@ class MessageCard extends StatelessWidget {
         DisplayMessage(
           message: message,
           isSender: isSender,
-          messageType: MessageType.text,
+          messageType: messageType,
         ),
         Row(
           mainAxisAlignment: MainAxisAlignment.end,
           mainAxisSize: MainAxisSize.min,
           children: [
             Text(
-              'time',
+              time,
               style: Theme.of(context).textTheme.labelSmall?.copyWith(
                     color: isSender ? Colors.white : Colors.grey,
                   ),
@@ -102,8 +97,7 @@ class MessageCard extends StatelessWidget {
             isSender
                 ? Icon(
                     Icons.done,
-                    color:
-                        isSeen ? Colors.black.withOpacity(0.3) : Colors.white10,
+                    color: isSeen ? Colors.black.withOpacity(0.3) : Colors.white10,
                   )
                 : const SizedBox(),
           ],

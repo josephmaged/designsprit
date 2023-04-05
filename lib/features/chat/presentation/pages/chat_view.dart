@@ -23,11 +23,11 @@ class ChatContent extends StatelessWidget {
             builder: (context, state) {
               return Center(
                 child: Column(
-                  children: const [
+                  children: [
                     Expanded(
                       child: MessagesList(),
                     ),
-                    BottomChatTextField(),
+                    const BottomChatTextField(),
                   ],
                 ),
               );
