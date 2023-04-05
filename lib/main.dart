@@ -1,3 +1,5 @@
+import 'package:designsprit/constants.dart';
+import 'package:designsprit/core/network/api_const.dart';
 import 'package:designsprit/core/utils/app_router.dart';
 import 'package:designsprit/core/utils/bloc_observer.dart';
 import 'package:designsprit/core/utils/cache_helper.dart';
@@ -7,13 +9,26 @@ import 'package:designsprit/features/categories_list/presentation/cubit/categori
 import 'package:designsprit/features/home/presentation/cubit/home_cubit.dart';
 import 'package:designsprit/features/main_screen/cubit/main_screen_cubit.dart';
 import 'package:designsprit/firebase_options.dart';
+import 'package:dio/dio.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async{
-print('Background');
+Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
+  print('Background');
+}
+
+Future<void> refreshToken() async {
+  String fuid = CacheHelper.getData(key: Constants.fID);
+  print(fuid);
+  FirebaseMessaging.instance.onTokenRefresh.listen((fcmToken)  {
+     Dio().post(ApiConst.refreshToken, data: {
+      'fuid': fuid,
+      'newToken': fcmToken,
+    });
+     print(fcmToken);
+  });
 }
 
 void main() async {
@@ -26,8 +41,10 @@ void main() async {
   );
   await FirebaseMessaging.instance.getInitialMessage();
   FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
+
   await CacheHelper.init();
 
+  refreshToken();
 
   runApp(const MyApp());
 }
@@ -40,7 +57,10 @@ class MyApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(
-          create: (context) => sl<MainScreenCubit>()..requestPermission()..getToken()..initInfo(),
+          create: (context) => sl<MainScreenCubit>()
+            ..requestPermission()
+            ..getToken()
+            ..initInfo(),
         ),
         BlocProvider(
           create: (context) => sl<HomeCubit>()

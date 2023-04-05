@@ -53,4 +53,7 @@ class ApiConst {
   // Chat
   static String getChat(String parameters) => '$baseUrlApi/Chat/GetUserChannel?Fuid=$parameters';
   static String sendChat = '$baseUrlApi/Chat/SendNoteFromUser';
+
+  // Token
+  static String refreshToken = '$baseUrlApi/Auth/RefreshToken';
 }

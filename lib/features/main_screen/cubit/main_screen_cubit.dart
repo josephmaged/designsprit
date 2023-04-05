@@ -71,8 +71,9 @@ class MainScreenCubit extends Cubit<MainScreenState> {
     var initializationsSettings = InitializationSettings(android: androidInitialize, iOS: iOSInitialize);
     FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
     flutterLocalNotificationsPlugin.initialize(initializationsSettings);
-
+    FirebaseMessaging.instance.subscribeToTopic('General');
     FirebaseMessaging.onMessage.listen((RemoteMessage message) async {
+
       BigTextStyleInformation bigTextStyleInformation = BigTextStyleInformation(
         message.notification!.body.toString(),
         htmlFormatBigText: true,
@@ -93,5 +94,7 @@ class MainScreenCubit extends Cubit<MainScreenState> {
           0, message.notification?.title, message.notification?.body, platformChannelSpecifics,
       payload: message.data['body']);
     });
+
   }
+
 }
