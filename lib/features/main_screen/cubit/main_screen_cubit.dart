@@ -1,9 +1,11 @@
 import 'package:designsprit/constants.dart';
+import 'package:designsprit/core/network/api_const.dart';
 import 'package:designsprit/core/utils/cache_helper.dart';
 import 'package:designsprit/features/categories_list/presentation/pages/categories_list.dart';
 import 'package:designsprit/features/favorites/presentation/pages/favorites_view.dart';
 import 'package:designsprit/features/home/presentation/pages/home_view.dart';
 import 'package:designsprit/features/more/presentation/pages/more_page.dart';
+import 'package:dio/dio.dart';
 import 'package:equatable/equatable.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
@@ -42,7 +44,20 @@ class MainScreenCubit extends Cubit<MainScreenState> {
   void getToken() async {
     await FirebaseMessaging.instance.getToken().then((token) {
       CacheHelper.saveData(key: Constants.uToken, value: token);
-      print(token);
+    });
+  }
+
+  Future<void> refreshToken() async {
+    String fuid = CacheHelper.getData(key: Constants.fID);
+    print(fuid);
+    FirebaseMessaging.instance.onTokenRefresh.listen((fcmToken) async  {
+      var response = await Dio().post(ApiConst.refreshToken, data: {
+        'fuid': fuid,
+        'newToken': fcmToken,
+      });
+      print (response);
+    }).onError((handleError){
+      print(handleError);
     });
   }
 

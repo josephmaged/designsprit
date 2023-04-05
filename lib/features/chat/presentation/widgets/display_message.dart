@@ -33,7 +33,7 @@ class DisplayMessage extends StatelessWidget {
               ),
         );
       case MessageType.image:
-        return CachedNetworkImage(imageUrl:ApiConst.getImages(message));
+        return CachedNetworkImage(imageUrl:ApiConst.getChatImages(message));
       case MessageType.audio:
         return AudioPlayerItem(audioUrl: message, isSender: isSender);
       case MessageType.video:

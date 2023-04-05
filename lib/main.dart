@@ -19,17 +19,7 @@ Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   print('Background');
 }
 
-Future<void> refreshToken() async {
-  String fuid = CacheHelper.getData(key: Constants.fID);
-  print(fuid);
-  FirebaseMessaging.instance.onTokenRefresh.listen((fcmToken)  {
-     Dio().post(ApiConst.refreshToken, data: {
-      'fuid': fuid,
-      'newToken': fcmToken,
-    });
-     print(fcmToken);
-  });
-}
+
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -44,7 +34,6 @@ void main() async {
 
   await CacheHelper.init();
 
-  refreshToken();
 
   runApp(const MyApp());
 }
@@ -60,7 +49,7 @@ class MyApp extends StatelessWidget {
           create: (context) => sl<MainScreenCubit>()
             ..requestPermission()
             ..getToken()
-            ..initInfo(),
+            ..initInfo()..refreshToken(),
         ),
         BlocProvider(
           create: (context) => sl<HomeCubit>()

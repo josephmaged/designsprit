@@ -4,6 +4,7 @@ class ApiConst {
   static const String baseUrlApi = '$baseUrl/api';
 
   static String getImages(String parameters) => '$baseUrl/imges/$parameters';
+  static String getChatImages(String parameters) => '$baseUrl/chatMedia/$parameters';
 
   // Auth
   static const String registerPath = '$baseUrlApi/Auth/Register';
