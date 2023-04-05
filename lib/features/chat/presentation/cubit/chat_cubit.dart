@@ -10,6 +10,7 @@ import 'package:designsprit/features/chat/domain/use_cases/get_chat_usecase.dart
 import 'package:designsprit/features/chat/domain/use_cases/send_message_usecase.dart';
 import 'package:dio/dio.dart';
 import 'package:equatable/equatable.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
@@ -32,7 +33,7 @@ class ChatCubit extends Cubit<ChatState> {
     print(fUid);
     final result = await getChatContentUseCase(ChatContentParameters(fUid: fUid));
     result.fold(
-      (l) {
+          (l) {
         emit(
           state.copyWith(
             requestMessage: l.errMessage,
@@ -40,7 +41,7 @@ class ChatCubit extends Cubit<ChatState> {
           ),
         );
       },
-      (r) {
+          (r) {
         emit(
           state.copyWith(
             requestState: RequestState.loaded,
@@ -51,9 +52,7 @@ class ChatCubit extends Cubit<ChatState> {
     );
   }
 
-  Future<void> sendMessage(
-    MessageType type,
-  ) async {
+  Future<void> sendMessage(MessageType type,) async {
     int uid = CacheHelper.getData(key: Constants.userID);
     int? channel;
     try {
@@ -72,13 +71,13 @@ class ChatCubit extends Cubit<ChatState> {
     ));
 
     result.fold(
-      (l) {
+          (l) {
         emit(state.copyWith(
           requestState: RequestState.error,
           requestMessage: l.errMessage,
         ));
       },
-      (r) {
+          (r) {
         emit(state.copyWith(
           apiResponse: r,
           requestState: RequestState.loaded,
@@ -93,8 +92,7 @@ class ChatCubit extends Cubit<ChatState> {
     XFile? pickedFile = await ImagePicker().pickImage(source: ImageSource.gallery);
     if (pickedFile != null) {
       final file = await MultipartFile.fromFile(pickedFile.path);
-      if (file.isFinalized) {
-      } else {
+      if (file.isFinalized) {} else {
         imageFile = file;
         imageUi = File(pickedFile.path);
       }
@@ -110,8 +108,7 @@ class ChatCubit extends Cubit<ChatState> {
     XFile? pickedFile = await ImagePicker().pickVideo(source: ImageSource.gallery);
     if (pickedFile != null) {
       final file = await MultipartFile.fromFile(pickedFile.path);
-      if (file.isFinalized) {
-      } else {
+      if (file.isFinalized) {} else {
         imageFile = file;
         imageUi = File(pickedFile.path);
       }

@@ -17,4 +17,5 @@ class Constants {
   static const userName = 'userName';
   static List<String> favorites = [];
   static List<Steps> stepsList = [];
+  static const String uToken = '';
 }
