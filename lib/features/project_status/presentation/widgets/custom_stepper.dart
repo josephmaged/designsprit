@@ -23,70 +23,72 @@ class CustomStepper extends StatelessWidget {
             listOfActions: [],
             titleName: AppStrings.projectTimeline,
           ),
-          body: EnhanceStepper(
-            stepIconSize: 30.h,
-            type: cubit.stepType,
-            currentStep: cubit.stepIndex,
-            controlsBuilder: (BuildContext context, ControlsDetails details) {
-              return Padding(
-                padding: EdgeInsets.only(top: 10.h),
-                child: Row(
-                  children: [
-                    Expanded(
-                      child: CustomPrimaryButton(
-                        press: () {
-                          cubit.updateProjectTracker(stepId: details.stepIndex, status: true);
-                          details.onStepContinue;
-                        },
-                        text: 'ACCEPT',
-                        height: 40.h,
-                      ),
-                    ),
-                    Expanded(
-                      child: TextButton(
-                        onPressed: () {
-                          cubit.updateProjectTracker(stepId: details.stepIndex, status: false);
-
-                          details.onStepCancel;
-                        },
-                        child: const Text(
-                          'REJECT',
-                          style: TextStyle(color: kSecondaryColor, fontWeight: FontWeight.bold),
+          body: SingleChildScrollView(
+            child: EnhanceStepper(
+              stepIconSize: 30.h,
+              type: cubit.stepType,
+              currentStep: cubit.stepIndex,
+              controlsBuilder: (BuildContext context, ControlsDetails details) {
+                return Padding(
+                  padding: EdgeInsets.only(top: 10.h),
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: CustomPrimaryButton(
+                          press: () {
+                            cubit.updateProjectTracker(stepId: details.stepIndex, status: true);
+                            details.onStepContinue;
+                          },
+                          text: 'ACCEPT',
+                          height: 40.h,
                         ),
                       ),
-                    ),
-                  ],
-                ),
-              );
-            },
-            physics: const ClampingScrollPhysics(),
-            steps: Constants.stepsList
-                .map(
-                  (e) => EnhanceStep(
-                    icon: Icon(
-                      Icons.info,
-                      size: 30.h,
-                    ),
-                    state: StepState.editing,
-                    isActive: cubit.stepIndex == e.id,
-                    title: Text(e.stepName),
-                    content: Align(
-                      alignment: Alignment.centerLeft,
-                      child: Text(e.status),
-                    ),
+                      Expanded(
+                        child: TextButton(
+                          onPressed: () {
+                            cubit.updateProjectTracker(stepId: details.stepIndex, status: false);
+
+                            details.onStepCancel;
+                          },
+                          child: const Text(
+                            'REJECT',
+                            style: TextStyle(color: kSecondaryColor, fontWeight: FontWeight.bold),
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
-                )
-                .toList(),
-            onStepCancel: () {
-              cubit.go(-1, false);
-            },
-            onStepContinue: () {
-              cubit.go(1, true);
-            }, /*
-            onStepTapped: (index) {
-              cubit.stepIndex = index;
-              print(index);
-            },*/
+                );
+              },
+              physics: const ClampingScrollPhysics(),
+              steps: Constants.stepsList
+                  .map(
+                    (e) => EnhanceStep(
+                      icon: Icon(
+                        Icons.info,
+                        size: 30.h,
+                      ),
+                      state: StepState.editing,
+                      isActive: cubit.stepIndex == e.id,
+                      title: Text(e.stepName),
+                      content: Align(
+                        alignment: Alignment.centerLeft,
+                        child: Text(e.status),
+                      ),
+                    ),
+                  )
+                  .toList(),
+              onStepCancel: () {
+                cubit.go(-1, false);
+              },
+              onStepContinue: () {
+                cubit.go(1, true);
+              }, /*
+              onStepTapped: (index) {
+                cubit.stepIndex = index;
+                print(index);
+              },*/
+            ),
           ),
         );
       },

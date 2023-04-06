@@ -19,44 +19,35 @@ class ProjectsView extends StatelessWidget {
     var cubit = StatusCubit.get(context);
     return BlocConsumer<StatusCubit, StatusState>(
       listener: (context, state) {
-        if (state.stepsState == RequestState.loaded){
-          GoRouter.of(context).push(AppRouter.kStepsView);
-        } else if (state.stepsState == RequestState.error){
-          Fluttertoast.showToast(
-            msg: "${state.responseMessage}",
-            toastLength: Toast.LENGTH_SHORT,
-            gravity: ToastGravity.CENTER,
-            timeInSecForIosWeb: 1,
-            fontSize: 14.sp,
-          );
-        }
+
       },
       builder: (context, state) {
         return Container(
           child: state.projects == null
               ? Center(
-                  child: Image.asset(AssetsData.notFound),
-                )
+            child: Image.asset(AssetsData.notFound),
+          )
               : ListView.builder(
-                  physics: const BouncingScrollPhysics(),
-                  itemCount: state.projects!.length,
-                  itemBuilder: (BuildContext context, int index) {
-                    return Padding(
-                      padding: EdgeInsets.all(5.r),
-                      child: ListTile(
-                        title: Text("${state.projects?[index].projectName}"),
-                        onTap: () {
-                          cubit.getSteps(id: state.projects![index].id);
-                        },
-                        trailing: const Icon(Icons.arrow_forward_ios),
-                        tileColor: Colors.grey.withOpacity(0.5),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                      ),
-                    );
+            physics: const BouncingScrollPhysics(),
+            itemCount: state.projects!.length,
+            itemBuilder: (BuildContext context, int index) {
+              return Padding(
+                padding: EdgeInsets.all(5.r),
+                child: ListTile(
+                  title: Text("${state.projects?[index].projectName}"),
+                  onTap: () {
+                    cubit.getSteps(id: state.projects![index].id).then((value) =>
+                        GoRouter.of(context).push(AppRouter.kStepsView));
                   },
+                  trailing: const Icon(Icons.arrow_forward_ios),
+                  tileColor: Colors.grey.withOpacity(0.5),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
                 ),
+              );
+            },
+          ),
         );
       },
     );
