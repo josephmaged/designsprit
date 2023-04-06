@@ -1,4 +1,5 @@
 import 'package:designsprit/constants.dart';
+import 'package:designsprit/core/network/api_const.dart';
 import 'package:designsprit/core/utils/strings.dart';
 import 'package:designsprit/core/widgets/custom_app_bar.dart';
 import 'package:designsprit/core/widgets/custom_primary_button.dart';
@@ -7,6 +8,7 @@ import 'package:enhance_stepper/enhance_stepper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class CustomStepper extends StatelessWidget {
   const CustomStepper({
@@ -64,18 +66,24 @@ class CustomStepper extends StatelessWidget {
               steps: Constants.stepsList
                   .map(
                     (e) => EnhanceStep(
-                      icon: Icon(
-                        Icons.info,
-                        size: 30.h,
-                      ),
-                      state: StepState.editing,
-                      isActive: cubit.stepIndex == e.id,
-                      title: Text(e.stepName),
-                      content: Align(
-                        alignment: Alignment.centerLeft,
-                        child: Text(e.status),
-                      ),
-                    ),
+                        icon: Icon(
+                          Icons.info,
+                          size: 30.h,
+                        ),
+                        state: StepState.editing,
+                        isActive: cubit.stepIndex == e.id,
+                        title: Text(e.stepName),
+                        content: Align(
+                          alignment: Alignment.centerLeft,
+                          child: Text(e.status),
+                        ),
+                        subtitle: Align(
+                          alignment: Alignment.centerRight,
+                          child: TextButton(
+                            onPressed: () => launchUrl(Uri.parse(ApiConst.attachments(e.attachment!),)),
+                            child: const Text("Resources"),
+                          ),
+                        )),
                   )
                   .toList(),
               onStepCancel: () {

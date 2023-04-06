@@ -11,7 +11,7 @@ class ApiConst {
   static const String registerPath = '$baseUrlApi/Auth/Register';
 
   static String loginPath(String parameters) => '$baseUrlApi/Auth/login/$parameters';
-  static const String updateUserData = 'http://167.86.119.94:4500/api/Auth/UpdateProfile';
+  static const String updateUserData = '$baseUrlApi/Auth/UpdateProfile';
 
   // Home
   static const String getRandomCategories = '$baseUrlApi/Home/GetRandomCategory';
@@ -33,8 +33,11 @@ class ApiConst {
   static String getInstallments({required int uid}) => '$baseUrlApi/PaymentInstallment/GetUserInstallments?userId=$uid';
 
   static String getSteps({required int projectId}) =>
-      '$baseUrlApi/ProjectTrack/GetUserProjectSteps?projectId=$projectId';
+      '$baseUrlApi/ProjectTrack/GetUserProjectSteps?projectId=21';
   static const String updateProjectSteps = '$baseUrlApi/ProjectTrack/SetProjectTrackStatus';
+
+  static String attachments(String parameters)=> '$baseUrl/attatchment/$parameters';
+
 
   // Item List
   static String getItemsByCategoryId(String parameters) =>

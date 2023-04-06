@@ -4,11 +4,13 @@ class Steps extends Equatable {
   final int id;
   final String stepName;
   final String status;
+  final String? attachment;
 
   const Steps({
     required this.id,
     required this.stepName,
     required this.status,
+    this.attachment,
   });
 
   @override
@@ -16,5 +18,6 @@ class Steps extends Equatable {
         id,
         stepName,
         status,
+        attachment,
       ];
 }

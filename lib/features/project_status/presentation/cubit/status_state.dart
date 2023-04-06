@@ -2,7 +2,7 @@ part of 'status_cubit.dart';
 
 class StatusState extends Equatable {
   final List<Projects>? projects;
-  final List<Steps>? steps;
+  final List<Steps> steps;
   final List<ApiResponse>? apiResponse;
   final List<Installments>? installments;
   final RequestState? requestState;
@@ -12,7 +12,7 @@ class StatusState extends Equatable {
 
   const StatusState({
      this.projects ,
-    this.steps,
+    this.steps = const [],
     this.apiResponse,
     this.installments,
     this.requestState,
