@@ -16,13 +16,13 @@ class StepThree extends StatelessWidget {
     var cubit = AddAppointmentCubit.get(context);
     return BlocBuilder<AddAppointmentCubit, AddAppointmentState>(
       builder: (context, state) {
-        switch (state.requestState) {
+        switch (state.timesheetState) {
           case RequestState.loading:
             return const Center(
               child: CircularProgressIndicator(),
             );
           case RequestState.loaded:
-            if(state.responseMessage == "Not avalable time ..") {
+            if(state.timesheetMessage == "Not avalable time ..") {
               Center(
                 child: Image.asset(AssetsData.notFound),
               );
@@ -49,7 +49,7 @@ class StepThree extends StatelessWidget {
                           ),
                         )
                         .toList(),
-                    selectedValue: state.timeSheetValue == 0 ? state.timeSheetResponse.first.id : state.timeSheetValue,
+                    selectedValue: state.timeSheetValue == 0 ? '' : state.timeSheetValue,
                     onChanged: (value) {
                       cubit.updateTimeSheetValue(value);
                     },
@@ -64,6 +64,7 @@ class StepThree extends StatelessWidget {
             return const Center(
               child: CircularProgressIndicator(),
             );
+
         }
       },
     );

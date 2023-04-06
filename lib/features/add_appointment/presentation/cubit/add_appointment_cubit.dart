@@ -37,24 +37,19 @@ class AddAppointmentCubit extends Cubit<AddAppointmentState> {
   final GetFamiliesUseCase getFamiliesUseCase;
 
   AddAppointmentCubit(
-      this.getCategoriesUseCase,
-      this.getCountriesUseCase,
-      this.getGovernmentsUseCase,
-      this.getRegionsUseCase,
-      this.getTimeSheetUseCase,
-      this.setAppointmentUseCase,
-      this.getFamiliesUseCase,
-      ) : super(AddAppointmentState(
-    categoryValue: 0,
-    countryValue: 0,
-    governmentValue: 0,
-    regionValue: 0,
-    timeSheetValue: 0,
-  ));
+    this.getCategoriesUseCase,
+    this.getCountriesUseCase,
+    this.getGovernmentsUseCase,
+    this.getRegionsUseCase,
+    this.getTimeSheetUseCase,
+    this.setAppointmentUseCase,
+    this.getFamiliesUseCase,
+  ) : super(AddAppointmentState());
 
   static AddAppointmentCubit get(context) => BlocProvider.of(context);
 
-  /*String? categoryValue;
+  /*int? familiesValue;
+  String? categoryValue;
   String? countryValue;
   String? governmentValue;
   String? regionValue;
@@ -67,93 +62,87 @@ class AddAppointmentCubit extends Cubit<AddAppointmentState> {
 
   int uid = CacheHelper.getData(key: Constants.userID);
 
-  /*Future<void> getFamilies() async {
-    emit(state.copyWith(requestState: RequestState.loading));
+  Future<void> getFamilies() async {
+    emit(state.copyWith(familyState: RequestState.loading));
 
     final result = await getFamiliesUseCase(const NoParameters());
 
     result.fold((l) {
       emit(state.copyWith(
-        requestState: RequestState.error,
-        responseMessage: l.errMessage,
+        familyState: RequestState.error,
+        familyMessage: l.errMessage,
       ));
     }, (r) {
       emit(state.copyWith(
-        categoriesResponse: r,
-        requestState: RequestState.loaded,
+        familiesResponse: r,
+        familyState: RequestState.loaded,
       ));
+      print(r);
     });
-  }*/
-/*
-  Future<void> getCategories() async {
-    emit(state.copyWith(requestState: RequestState.loading));
+  }
 
-    final result = await getCategoriesUseCase(GetCategoriesParameters(familyId:));
+  Future<void> getCategories() async {
+    emit(state.copyWith(categoryState: RequestState.loading));
+
+    final result = await getCategoriesUseCase(const NoParameters());
 
     result.fold((l) {
       emit(state.copyWith(
-        requestState: RequestState.error,
-        responseMessage: l.errMessage,
+        categoryState: RequestState.error,
+        categoryMessage: l.errMessage,
       ));
     }, (r) {
       emit(state.copyWith(
         categoriesResponse: r,
-        requestState: RequestState.loaded,
+        categoryState: RequestState.loaded,
       ));
-      getCountries();
-      getGovernments();
-      getRegions();
     });
-  }*/
+  }
 
   Future<void> getCountries() async {
-    emit(state.copyWith(requestState: RequestState.loading));
+    emit(state.copyWith(countryState: RequestState.loading));
 
     final result = await getCountriesUseCase(const NoParameters());
 
     result.fold((l) {
       emit(state.copyWith(
-        requestState: RequestState.error,
-        responseMessage: l.errMessage,
+        countryState: RequestState.error,
+        countryMessage: l.errMessage,
       ));
     }, (r) {
-      emit(state.copyWith(
-        countriesResponse: r,
-      ));
+      emit(state.copyWith(countriesResponse: r, countryState: RequestState.loaded));
     });
   }
 
   Future<void> getGovernments() async {
-    emit(state.copyWith(requestState: RequestState.loading));
+    emit(state.copyWith(governmentState: RequestState.loading));
 
     final result = await getGovernmentsUseCase(const NoParameters());
 
     result.fold((l) {
       emit(state.copyWith(
-        requestState: RequestState.error,
-        responseMessage: l.errMessage,
+        governmentState: RequestState.error,
+        governmentMessage: l.errMessage,
       ));
     }, (r) {
-      emit(state.copyWith(
-        governmentsResponse: r,
-      ));
+      emit(state.copyWith(governmentsResponse: r, governmentState: RequestState.loaded));
     });
   }
 
   Future<void> getRegions() async {
-    emit(state.copyWith(requestState: RequestState.loading));
+    emit(state.copyWith(regionState: RequestState.loading));
 
     final result = await getRegionsUseCase(const NoParameters());
 
     result.fold((l) {
       emit(state.copyWith(
-        requestState: RequestState.error,
-        responseMessage: l.errMessage,
+        regionState: RequestState.error,
+        regionMessage: l.errMessage,
       ));
     }, (r) {
       emit(state.copyWith(
         regionsResponse: r,
-        requestState: RequestState.loaded,
+        regionState: RequestState.loaded,
       ));
       getTimeSheet();
     });
@@ -162,19 +151,19 @@ class AddAppointmentCubit extends Cubit<AddAppointmentState> {
   List<TimeSheet> timeSheet = [];
 
   Future<void> getTimeSheet() async {
-    emit(state.copyWith(requestState: RequestState.loading));
+    emit(state.copyWith(timesheetState: RequestState.loading));
 
     final result = await getTimeSheetUseCase(const NoParameters());
 
     result.fold((l) {
       emit(state.copyWith(
-        requestState: RequestState.error,
-        responseMessage: l.errMessage,
+        timesheetState: RequestState.error,
+        timesheetMessage: l.errMessage,
       ));
     }, (r) {
       emit(state.copyWith(
         timeSheetResponse: r,
-        requestState: RequestState.loaded,
+        timesheetState: RequestState.loaded,
       ));
 
       timeSheet = r;
@@ -182,7 +171,7 @@ class AddAppointmentCubit extends Cubit<AddAppointmentState> {
   }
 
   Future<void> setAppointment() async {
-    emit(state.copyWith(requestState: RequestState.loading));
+    emit(state.copyWith(appointmentState: RequestState.loading));
 
     //print(timeSheetValue);
     final result = await setAppointmentUseCase(AppointmentParameters(
@@ -200,8 +189,8 @@ class AddAppointmentCubit extends Cubit<AddAppointmentState> {
 
     result.fold((l) {
       emit(state.copyWith(
-        requestState: RequestState.error,
-        responseMessage: l.errMessage,
+        appointmentState: RequestState.error,
+        appointmentMessage: l.errMessage,
       ));
       Fluttertoast.showToast(
         msg: l.errMessage,
@@ -213,7 +202,7 @@ class AddAppointmentCubit extends Cubit<AddAppointmentState> {
     }, (r) {
       emit(state.copyWith(
         appointmentResponse: r,
-        requestState: RequestState.loaded,
+        appointmentState: RequestState.loaded,
       ));
       Fluttertoast.showToast(
         msg: r.first.message!,
@@ -223,6 +212,15 @@ class AddAppointmentCubit extends Cubit<AddAppointmentState> {
         fontSize: 14.sp,
       );
     });
+  }
+
+  List<Categories>? categoriesDropdown;
+
+  void updateFamiliesValue(int value) {
+    categoriesDropdown = state.categoriesResponse
+        .where((element) => element.familyName.contains(state.familiesResponse[value].familiesName))
+        .toList();
+    emit(state.copyWith(familiesValue: value));
   }
 
   void updateCategoryValue(int value) {
@@ -255,6 +253,10 @@ class AddAppointmentCubit extends Cubit<AddAppointmentState> {
         currentStep: currentStep,
       ),
     );
+
+    getGovernments();
+    getCountries();
+    getRegions();
   }
 
   void minusStep() {
@@ -266,8 +268,7 @@ class AddAppointmentCubit extends Cubit<AddAppointmentState> {
     );
   }
 
-  List<Step> getSteps() =>
-      [
+  List<Step> getSteps() => [
         Step(
           state: currentStep > 0 ? StepState.complete : StepState.indexed,
           title: Text(

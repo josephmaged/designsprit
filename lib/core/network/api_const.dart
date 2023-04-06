@@ -50,7 +50,7 @@ class ApiConst {
       '$baseUrlApi/Notification/UpdateNotification?notifcationId=$parameters';
 
   // Request
-  static String getCategories(int parameters)=> '$baseUrlApi/Category/getCategoriesDropDownList?familyid=$parameters';
+  static const String getCategories = '$baseUrlApi/Category/GetCategories';
   static const String getFamilies = '$baseUrlApi/Family/getFamiliesDropdownList';
   static const String getCountries = '$baseUrlApi/Request/GetCountries';
   static const String getGovernments = '$baseUrlApi/Request/GetGovernmentes';

@@ -1,9 +1,9 @@
 import 'package:designsprit/constants.dart';
 import 'package:designsprit/core/utils/enum.dart';
+import 'package:designsprit/core/utils/validator.dart';
 import 'package:designsprit/core/widgets/custom_dropdown.dart';
 import 'package:designsprit/core/widgets/custom_form_field.dart';
 import 'package:designsprit/core/widgets/custom_multi_dropdown.dart';
-import 'package:designsprit/features/add_appointment/domain/entities/categories.dart';
 import 'package:designsprit/features/add_appointment/presentation/cubit/add_appointment_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -23,19 +23,19 @@ class _StepOneState extends State<StepOne> {
     return BlocBuilder<AddAppointmentCubit, AddAppointmentState>(
       builder: (context, state) {
         return SingleChildScrollView(
-          child: state.requestState == RequestState.loaded
+          child: state.categoryState == RequestState.loaded
               ? Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
                     CustomDropdown(
                       icon: Icons.list,
-                      text: 'Select Category',
-                      items: state.categoriesResponse
+                      text: 'Select Family',
+                      items: state.familiesResponse
                           .map(
                             (item) => DropdownMenuItem<int>(
                               value: item.id,
                               child: Text(
-                                item.name,
+                                item.familiesName,
                                 style: TextStyle(
                                   fontSize: 14.sp,
                                   fontWeight: FontWeight.bold,
@@ -45,9 +45,52 @@ class _StepOneState extends State<StepOne> {
                             ),
                           )
                           .toList(),
+                      selectedValue: state.familiesValue == 0 ? state.familiesResponse.first.id : state.familiesValue,
+                      onChanged: (value) {
+                        cubit.updateFamiliesValue(value);
+                      },
+                    ),
+                    SizedBox(
+                      height: 10.h,
+                    ),
+                    CustomDropdown(
+                      icon: Icons.list,
+                      text: 'Select Category',
+                      items: cubit.categoriesDropdown == null
+                          ? state.categoriesResponse
+                              .map(
+                                (item) => DropdownMenuItem<int>(
+                                  value: item.id,
+                                  child: Text(
+                                    item.name,
+                                    style: TextStyle(
+                                      fontSize: 14.sp,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                    overflow: TextOverflow.ellipsis,
+                                  ),
+                                ),
+                              )
+                              .toList()
+                          : cubit.categoriesDropdown!
+                              .map(
+                                (item) => DropdownMenuItem<int>(
+                                  value: item.id,
+                                  child: Text(
+                                    item.name,
+                                    style: TextStyle(
+                                      fontSize: 14.sp,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                    overflow: TextOverflow.ellipsis,
+                                  ),
+                                ),
+                              )
+                              .toList(),
                       selectedValue: state.categoryValue == 0 ? state.categoriesResponse.first.id : state.categoryValue,
                       onChanged: (value) {
                         cubit.updateCategoryValue(value);
+                        print(value);
                       },
                     ),
                     SizedBox(
@@ -56,7 +99,7 @@ class _StepOneState extends State<StepOne> {
                     CustomTextFormField(
                       controller: cubit.area,
                       textInputType: TextInputType.number,
-                      validator: (value) {},
+                      validator: (value) => Validator.validateEmail(value),
                       label: 'Area',
                       prefixWidget: Icon(
                         Icons.numbers,

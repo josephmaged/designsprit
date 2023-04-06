@@ -16,7 +16,7 @@ import 'package:dio/dio.dart';
 abstract class BaseAppointmentRemoteDataSource {
   Future<List<FamiliesModel>> getFamilies();
 
-  Future<List<CategoriesModel>> getCategories(GetCategoriesParameters parameters);
+  Future<List<CategoriesModel>> getCategories();
 
   Future<List<CountriesModel>> getCountries();
 
@@ -31,8 +31,11 @@ abstract class BaseAppointmentRemoteDataSource {
 
 class AppointmentRemoteDataSource extends BaseAppointmentRemoteDataSource {
   @override
-  Future<List<CategoriesModel>> getCategories(GetCategoriesParameters parameters) async {
-    final response = await Dio().post(ApiConst.getCategories(parameters.familyId), data: {});
+  Future<List<CategoriesModel>> getCategories() async {
+    final response = await Dio().post(
+      ApiConst.getCategories,
+      data: {},
+    );
     print(response);
 
     if (response.statusCode == 200) {

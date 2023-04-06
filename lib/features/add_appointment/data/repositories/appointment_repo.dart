@@ -19,9 +19,9 @@ class AppointmentRepo extends BaseAppointmentRepo {
   AppointmentRepo(this.baseAppointmentRemoteDataSource);
 
   @override
-  Future<Either<Failure, List<Categories>>> getCategories(GetCategoriesParameters parameters) async {
+  Future<Either<Failure, List<Categories>>> getCategories() async {
     try {
-      final result = await baseAppointmentRemoteDataSource.getCategories(parameters);
+      final result = await baseAppointmentRemoteDataSource.getCategories();
       return Right(result);
     } on ServerException catch (failures) {
       return Left(ServerFailure(failures.errorMessageModel.statusMessage));

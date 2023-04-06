@@ -5,14 +5,14 @@ import 'package:designsprit/features/add_appointment/domain/entities/categories.
 import 'package:designsprit/features/add_appointment/domain/repositories/base_appointment_repo.dart';
 import 'package:equatable/equatable.dart';
 
-class GetCategoriesUseCase extends BaseUseCase<List<Categories>, GetCategoriesParameters> {
+class GetCategoriesUseCase extends BaseUseCase<List<Categories>, NoParameters> {
   final BaseAppointmentRepo baseAppointmentRepo;
 
   GetCategoriesUseCase(this.baseAppointmentRepo);
 
   @override
-  Future<Either<Failure, List<Categories>>> call(GetCategoriesParameters parameters) async {
-    return await baseAppointmentRepo.getCategories(parameters);
+  Future<Either<Failure, List<Categories>>> call(NoParameters parameters) async {
+    return await baseAppointmentRepo.getCategories();
   }
 }
 

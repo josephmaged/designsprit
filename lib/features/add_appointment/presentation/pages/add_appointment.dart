@@ -21,9 +21,9 @@ class AddAppointment extends StatelessWidget {
       builder: (context, state) {
         return BlocConsumer<AddAppointmentCubit, AddAppointmentState>(
           listener: (context, state) {
-            if (state.responseMessage == 'added successfully') {
+            if (state.appointmentMessage == 'added successfully') {
               GoRouter.of(context).pushReplacement(AppRouter.kMainScreenView);
-            } else if (state.requestState == RequestState.error) {}
+            } else if (state.appointmentState == RequestState.error) {}
           },
           builder: (context, state) {
             return Scaffold(

@@ -3,6 +3,7 @@ import 'package:designsprit/features/add_appointment/data/repositories/appointme
 import 'package:designsprit/features/add_appointment/domain/repositories/base_appointment_repo.dart';
 import 'package:designsprit/features/add_appointment/domain/use_cases/get_categories_usecase.dart';
 import 'package:designsprit/features/add_appointment/domain/use_cases/get_countries_usecase.dart';
+import 'package:designsprit/features/add_appointment/domain/use_cases/get_families_usecase.dart';
 import 'package:designsprit/features/add_appointment/domain/use_cases/get_governments_usecase.dart';
 import 'package:designsprit/features/add_appointment/domain/use_cases/get_regions_usecase.dart';
 import 'package:designsprit/features/add_appointment/domain/use_cases/get_timesheet_usecase.dart';
@@ -191,6 +192,7 @@ class SetupServiceLocator {
 
     /// Appointment
     /// USE CASE
+    sl.registerLazySingleton(() => GetFamiliesUseCase(sl()));
     sl.registerLazySingleton(() => GetCategoriesUseCase(sl()));
     sl.registerLazySingleton(() => GetCountriesUseCase(sl()));
     sl.registerLazySingleton(() => GetGovernmentsUseCase(sl()));

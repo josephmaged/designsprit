@@ -12,7 +12,7 @@ class StepTwo extends StatelessWidget {
     var cubit = AddAppointmentCubit.get(context);
     return BlocBuilder<AddAppointmentCubit, AddAppointmentState>(
       builder: (context, state) {
-        return state.requestState == RequestState.loaded
+        return state.regionState == RequestState.loaded
             ? Column(
                 children: [
                   CustomDropdown(
@@ -33,7 +33,7 @@ class StepTwo extends StatelessWidget {
                           ),
                         )
                         .toList(),
-                    selectedValue: state.countryValue == 0 ? state.countriesResponse.first.id : state.countryValue,
+                    selectedValue: state.countryValue == 0 ? '' : state.countryValue,
                     onChanged: (value) {
                       cubit.updateCountryValue(value);
                     },

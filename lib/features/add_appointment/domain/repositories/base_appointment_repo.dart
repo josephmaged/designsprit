@@ -13,7 +13,7 @@ import 'package:designsprit/features/add_appointment/domain/use_cases/set_appoin
 abstract class BaseAppointmentRepo {
   Future<Either<Failure, List<Families>>> getFamilies();
 
-  Future<Either<Failure, List<Categories>>> getCategories(GetCategoriesParameters parameters);
+  Future<Either<Failure, List<Categories>>> getCategories();
 
   Future<Either<Failure, List<Countries>>> getCountries();
 

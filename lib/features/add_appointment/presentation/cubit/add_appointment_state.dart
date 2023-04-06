@@ -4,23 +4,37 @@ class AddAppointmentState extends Equatable {
   final int? currentStep;
 
   final List<Families> familiesResponse;
-  final List<Categories> categoriesResponse;
+  late final List<Categories> categoriesResponse;
   final List<Countries> countriesResponse;
   final List<Governments> governmentsResponse;
   final List<Regions> regionsResponse;
-  List<TimeSheet> timeSheetResponse;
+  final List<TimeSheet> timeSheetResponse;
   final List<ApiResponse> appointmentResponse;
 
-  int categoryValue;
-  int countryValue;
-  int governmentValue;
-  int regionValue;
-  int timeSheetValue;
+  final int? familiesValue;
+  final int? categoryValue;
+  final int? countryValue;
+  final int? governmentValue;
+  final int? regionValue;
+  final int? timeSheetValue;
 
-  final RequestState requestState;
-  final String responseMessage;
+  final RequestState familyState;
+  final String familyMessage;
+  final RequestState categoryState;
+  final String categoryMessage;
+  final RequestState governmentState;
+  final String governmentMessage;
+  final RequestState countryState;
+  final String countryMessage;
+  final RequestState regionState;
+  final String regionMessage;
+  final RequestState timesheetState;
+  final String timesheetMessage;
+  final RequestState appointmentState;
+  final String appointmentMessage;
 
   AddAppointmentState({
+    this.currentStep,
     this.familiesResponse = const [],
     this.categoriesResponse = const [],
     this.countriesResponse = const [],
@@ -28,14 +42,26 @@ class AddAppointmentState extends Equatable {
     this.regionsResponse = const [],
     this.timeSheetResponse = const [],
     this.appointmentResponse = const [],
-    required this.categoryValue,
-    required this.countryValue,
-    required this.governmentValue,
-    required this.regionValue,
-    required this.timeSheetValue,
-    this.currentStep,
-    this.requestState = RequestState.loading,
-    this.responseMessage = '',
+    this.familiesValue,
+    this.categoryValue,
+    this.countryValue,
+    this.governmentValue,
+    this.regionValue,
+    this.timeSheetValue,
+    this.familyState = RequestState.loading,
+    this.familyMessage = '',
+    this.categoryState = RequestState.loading,
+    this.categoryMessage = '',
+    this.governmentState = RequestState.loading,
+    this.governmentMessage = '',
+    this.countryState = RequestState.loading,
+    this.countryMessage = '',
+    this.regionState = RequestState.loading,
+    this.regionMessage = '',
+    this.timesheetState = RequestState.loading,
+    this.timesheetMessage = '',
+    this.appointmentState = RequestState.loading,
+    this.appointmentMessage = '',
   });
 
   AddAppointmentState copyWith({
@@ -47,13 +73,26 @@ class AddAppointmentState extends Equatable {
     List<Regions>? regionsResponse,
     List<TimeSheet>? timeSheetResponse,
     List<ApiResponse>? appointmentResponse,
+    int? familiesValue,
     int? categoryValue,
     int? countryValue,
     int? governmentValue,
     int? regionValue,
     int? timeSheetValue,
-    RequestState? requestState,
-    String? responseMessage,
+    RequestState? familyState,
+    String? familyMessage,
+    RequestState? categoryState,
+    String? categoryMessage,
+    RequestState? governmentState,
+    String? governmentMessage,
+    RequestState? countryState,
+    String? countryMessage,
+    RequestState? regionState,
+    String? regionMessage,
+    RequestState? timesheetState,
+    String? timesheetMessage,
+    RequestState? appointmentState,
+    String? appointmentMessage,
   }) {
     return AddAppointmentState(
       currentStep: currentStep ?? this.currentStep,
@@ -64,13 +103,26 @@ class AddAppointmentState extends Equatable {
       regionsResponse: regionsResponse ?? this.regionsResponse,
       timeSheetResponse: timeSheetResponse ?? this.timeSheetResponse,
       appointmentResponse: appointmentResponse ?? this.appointmentResponse,
+      familiesValue: familiesValue ?? this.familiesValue,
       categoryValue: categoryValue ?? this.categoryValue,
       countryValue: countryValue ?? this.countryValue,
       governmentValue: governmentValue ?? this.governmentValue,
       regionValue: regionValue ?? this.regionValue,
       timeSheetValue: timeSheetValue ?? this.timeSheetValue,
-      requestState: requestState ?? this.requestState,
-      responseMessage: responseMessage ?? this.responseMessage,
+      familyState: familyState ?? this.familyState,
+      familyMessage: familyMessage ?? this.familyMessage,
+      categoryState: categoryState ?? this.categoryState,
+      categoryMessage: categoryMessage ?? this.categoryMessage,
+      governmentState: governmentState ?? this.governmentState,
+      governmentMessage: governmentMessage ?? this.governmentMessage,
+      countryState: countryState ?? this.countryState,
+      countryMessage: countryMessage ?? this.countryMessage,
+      regionState: regionState ?? this.regionState,
+      regionMessage: regionMessage ?? this.regionMessage,
+      timesheetState: timesheetState ?? this.timesheetState,
+      timesheetMessage: timesheetMessage ?? this.timesheetMessage,
+      appointmentState: appointmentState ?? this.appointmentState,
+      appointmentMessage: appointmentMessage ?? this.appointmentMessage,
     );
   }
 
@@ -83,13 +135,26 @@ class AddAppointmentState extends Equatable {
         regionsResponse,
         timeSheetResponse,
         appointmentResponse,
+        familiesValue,
         categoryValue,
         countryValue,
         governmentValue,
         regionValue,
         timeSheetValue,
         currentStep,
-        requestState,
-        responseMessage
+        familyState,
+        familyMessage,
+        categoryState,
+        categoryMessage,
+        governmentState,
+        governmentMessage,
+        countryState,
+        countryMessage,
+        regionState,
+        regionMessage,
+        timesheetState,
+        timesheetMessage,
+        appointmentState,
+        appointmentMessage,
       ];
 }
