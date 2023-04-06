@@ -2,8 +2,10 @@ import 'package:designsprit/constants.dart';
 import 'package:designsprit/core/utils/api_response.dart';
 import 'package:designsprit/core/utils/cache_helper.dart';
 import 'package:designsprit/core/utils/enum.dart';
+import 'package:designsprit/features/project_status/domain/entities/installments.dart';
 import 'package:designsprit/features/project_status/domain/entities/project.dart';
 import 'package:designsprit/features/project_status/domain/entities/steps.dart';
+import 'package:designsprit/features/project_status/domain/use_cases/get_installments_usecase.dart';
 import 'package:designsprit/features/project_status/domain/use_cases/get_projects_usecase.dart';
 import 'package:designsprit/features/project_status/domain/use_cases/get_steps_usecase.dart';
 import 'package:designsprit/features/project_status/domain/use_cases/update_project_steps_usecase.dart';
@@ -19,21 +21,23 @@ class StatusCubit extends Cubit<StatusState> {
   final GetStepsUseCase getStepsUseCase;
   final GetProjectsUseCase getProjectsUseCase;
   final UpdateProjectStepsUseCase updateProjectTrackerUseCase;
+  final GetInstallmentsUseCase getInstallmentsUseCase;
 
-  StatusCubit(this.getStepsUseCase, this.updateProjectTrackerUseCase, this.getProjectsUseCase)
+  StatusCubit(
+      this.getStepsUseCase, this.updateProjectTrackerUseCase, this.getProjectsUseCase, this.getInstallmentsUseCase)
       : super(const StatusState());
 
   static StatusCubit get(context) => BlocProvider.of(context);
 
   String fuid = CacheHelper.getData(key: Constants.fID);
+  int uid = CacheHelper.getData(key: Constants.userID);
 
   Future<void> getProjects() async {
     emit(state.copyWith(
       requestState: RequestState.loading,
     ));
 
-    /// Fuid
-    final result = await getProjectsUseCase(ProjectsParameters(fuid: "VWj8dVsuvzfcfJ1y97Bu3Jxs7du1" /*fuid*/));
+    final result = await getProjectsUseCase(ProjectsParameters(fuid: fuid));
 
     result.fold((l) {
       emit(state.copyWith(
@@ -53,8 +57,7 @@ class StatusCubit extends Cubit<StatusState> {
       stepsState: RequestState.loading,
     ));
 
-    ///Steps id
-    final result = await getStepsUseCase(StepsParameters(id: 15 /*id*/));
+    final result = await getStepsUseCase(StepsParameters(id: id));
 
     result.fold((l) {
       emit(state.copyWith(
@@ -67,6 +70,27 @@ class StatusCubit extends Cubit<StatusState> {
         steps: r,
       ));
       Constants.stepsList = r.map((e) => e).toList();
+    });
+  }
+
+  Future<void> getInstallments() async {
+    emit(state.copyWith(
+      stepsState: RequestState.loading,
+    ));
+
+    final result = await getInstallmentsUseCase(GetProjectInstallmentsParameters(uid: uid));
+
+    result.fold((l) {
+      emit(state.copyWith(
+        stepsState: RequestState.error,
+        responseMessage: l.errMessage,
+      ));
+    }, (r) {
+      emit(state.copyWith(
+        stepsState: RequestState.loaded,
+        installments: r,
+      ));
+      print(r);
     });
   }
 
@@ -103,6 +127,19 @@ class StatusCubit extends Cubit<StatusState> {
       );
     });
   }
+
+  List<Tab> tabs = [
+    const Tab(
+      child: Text(
+        'Project Steps',
+      ),
+    ),
+    const Tab(
+      child: Text(
+        'Project Payments',
+      ),
+    ),
+  ];
 
   StepperType stepType = StepperType.vertical;
 

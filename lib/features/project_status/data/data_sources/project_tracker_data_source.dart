@@ -2,8 +2,11 @@ import 'package:designsprit/core/errors/exceptions.dart';
 import 'package:designsprit/core/network/api_const.dart';
 import 'package:designsprit/core/network/error_message_model.dart';
 import 'package:designsprit/core/utils/api_response.dart';
+import 'package:designsprit/features/project_status/data/models/installments_model.dart';
 import 'package:designsprit/features/project_status/data/models/project_model.dart';
 import 'package:designsprit/features/project_status/data/models/steps_model.dart';
+import 'package:designsprit/features/project_status/domain/entities/installments.dart';
+import 'package:designsprit/features/project_status/domain/use_cases/get_installments_usecase.dart';
 import 'package:designsprit/features/project_status/domain/use_cases/get_steps_usecase.dart';
 import 'package:designsprit/features/project_status/domain/use_cases/get_projects_usecase.dart';
 import 'package:designsprit/features/project_status/domain/use_cases/update_project_steps_usecase.dart';
@@ -15,6 +18,8 @@ abstract class BaseProjectStepsDataSource {
   Future<List<StepsModel>> getSteps(StepsParameters parameters);
 
   Future<List<ApiResponse>> updateProjectSteps(UpdateProjectStepsParameters parameters);
+
+  Future<List<Installments>> getInstalments(GetProjectInstallmentsParameters parameters);
 }
 
 class ProjectStepsRemoteDataSource extends BaseProjectStepsDataSource {
@@ -77,6 +82,30 @@ class ProjectStepsRemoteDataSource extends BaseProjectStepsDataSource {
           return data.map((e) => ProjectsModel.fromJson(e)).toList();
         } else if (data is Map<String, dynamic>) {
           return [ProjectsModel.fromJson(data)];
+        }
+      }
+      throw ServerException(
+        errorMessageModel: ErrorMessageModel.fromJson(response.data),
+      );
+    } else {
+      throw ServerException(
+        errorMessageModel: ErrorMessageModel.fromJson(response.data),
+      );
+    }
+  }
+
+  @override
+  Future<List<Installments>> getInstalments(GetProjectInstallmentsParameters parameters) async {
+    final response = await Dio().get(
+      ApiConst.getInstallments(uid: parameters.uid),
+    );
+    if (response.statusCode == 200) {
+      if (response.data.containsKey('data')) {
+        final data = response.data['data'];
+        if (data is List) {
+          return data.map((e) => InstallmentsModel.fromJson(e)).toList();
+        } else if (data is Map<String, dynamic>) {
+          return [InstallmentsModel.fromJson(data)];
         }
       }
       throw ServerException(

@@ -96,7 +96,7 @@ abstract class AppRouter {
       GoRoute(
         path: kProjectsView,
         builder: (context, state) => BlocProvider(
-          create: (context) => sl<StatusCubit>()..getProjects(),
+          create: (context) => sl<StatusCubit>()..getProjects()..getInstallments(),
           child: const TimelineView(),
         ),
       ),
@@ -104,7 +104,7 @@ abstract class AppRouter {
         path: kStepsView,
         builder: (context, state) => BlocProvider(
           create: (context) => sl<StatusCubit>(),
-          child: const CustomStepper(),
+          child: const TimelineView(),
         ),
       ),
       GoRoute(

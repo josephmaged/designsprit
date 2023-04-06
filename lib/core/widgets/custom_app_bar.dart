@@ -8,9 +8,10 @@ class CustomAppBar extends AppBar {
   final VoidCallback? notificationIconClickedCallBack;
   final List<Widget>? listOfActions;
   Color? color = kPrimaryColor;
+  final PreferredSizeWidget? preferredSizeWidget;
 
   CustomAppBar(
-      {required this.titleName, this.listOfActions, this.notificationIconClickedCallBack, this.color, super.key});
+      {this.preferredSizeWidget,required this.titleName, this.listOfActions, this.notificationIconClickedCallBack, this.color, super.key});
 
   @override
   Widget? get title => Text(

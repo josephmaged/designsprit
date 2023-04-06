@@ -4,6 +4,7 @@ class ApiConst {
   static const String baseUrlApi = '$baseUrl/api';
 
   static String getImages(String parameters) => '$baseUrl/imges/$parameters';
+
   static String getChatImages(String parameters) => '$baseUrl/chatMedia/$parameters';
 
   // Auth
@@ -25,6 +26,8 @@ class ApiConst {
 
   // Project Tracker
   static String getProjects({required String fuId}) => '$baseUrlApi/ProjectTrack/GetUserProjects?Fuid=$fuId';
+
+  static String getInstallments({required int uid}) => '$baseUrlApi/PaymentInstallment/GetUserInstallments?userId=$uid';
 
   static String getSteps({required int projectId}) =>
       '$baseUrlApi/ProjectTrack/GetUserProjectSteps?projectId=$projectId';

@@ -4,15 +4,17 @@ class StatusState extends Equatable {
   final List<Projects>? projects;
   final List<Steps>? steps;
   final List<ApiResponse>? apiResponse;
+  final List<Installments>? installments;
   final RequestState? requestState;
   final RequestState? stepsState;
   final String? responseMessage;
   final int? stepIndex;
 
   const StatusState({
-    this.projects,
+     this.projects = const [],
     this.steps,
     this.apiResponse,
+    this.installments,
     this.requestState,
     this.stepsState,
     this.responseMessage,
@@ -23,6 +25,7 @@ class StatusState extends Equatable {
     List<Projects>? projects,
     List<Steps>? steps,
     List<ApiResponse>? apiResponse,
+    List<Installments>? installments,
     RequestState? requestState,
     RequestState? stepsState,
     String? responseMessage,
@@ -32,6 +35,7 @@ class StatusState extends Equatable {
       projects: projects ?? this.projects,
       steps: steps ?? this.steps,
       apiResponse: apiResponse ?? this.apiResponse,
+      installments: installments ?? this.installments,
       requestState: requestState ?? this.requestState,
       stepsState: stepsState ?? this.stepsState,
       responseMessage: responseMessage ?? this.responseMessage,
@@ -45,6 +49,7 @@ class StatusState extends Equatable {
         projects,
         steps,
         apiResponse,
+        installments,
         requestState,
         stepsState,
         responseMessage,
