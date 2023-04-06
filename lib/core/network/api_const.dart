@@ -17,6 +17,9 @@ class ApiConst {
   static const String getRandomCategories = '$baseUrlApi/Home/GetRandomCategory';
   static const String getRandomItems = '$baseUrlApi/Home/GetRandomItems';
 
+  // Categories List
+  static const String getCategoriesList = '$baseUrlApi/Category/GetCategories';
+
   // Item Details
   static String getItemById(String parameters) => '$baseUrlApi/Item/getItembyid/$parameters';
 
@@ -47,7 +50,8 @@ class ApiConst {
       '$baseUrlApi/Notification/UpdateNotification?notifcationId=$parameters';
 
   // Request
-  static const String getCategories = '$baseUrlApi/Category/GetCategories';
+  static String getCategories(int parameters)=> '$baseUrlApi/Category/getCategoriesDropDownList?familyid=$parameters';
+  static const String getFamilies = '$baseUrlApi/Family/getFamiliesDropdownList';
   static const String getCountries = '$baseUrlApi/Request/GetCountries';
   static const String getGovernments = '$baseUrlApi/Request/GetGovernmentes';
   static const String getRegions = '$baseUrlApi/Request/GetRegions';

@@ -5,21 +5,23 @@ import 'package:designsprit/core/utils/api_response.dart';
 import 'package:designsprit/features/add_appointment/data/data_sources/appointment_remote_data_source.dart';
 import 'package:designsprit/features/add_appointment/domain/entities/categories.dart';
 import 'package:designsprit/features/add_appointment/domain/entities/countries.dart';
+import 'package:designsprit/features/add_appointment/domain/entities/families.dart';
 import 'package:designsprit/features/add_appointment/domain/entities/governments.dart';
 import 'package:designsprit/features/add_appointment/domain/entities/regions.dart';
 import 'package:designsprit/features/add_appointment/domain/entities/timeSheet.dart';
 import 'package:designsprit/features/add_appointment/domain/repositories/base_appointment_repo.dart';
+import 'package:designsprit/features/add_appointment/domain/use_cases/get_categories_usecase.dart';
 import 'package:designsprit/features/add_appointment/domain/use_cases/set_appointment.dart';
 
-class AppointmentRepo extends BaseAppointmentRepo{
+class AppointmentRepo extends BaseAppointmentRepo {
   final BaseAppointmentRemoteDataSource baseAppointmentRemoteDataSource;
 
   AppointmentRepo(this.baseAppointmentRemoteDataSource);
 
   @override
-  Future<Either<Failure, List<Categories>>> getCategories() async {
+  Future<Either<Failure, List<Categories>>> getCategories(GetCategoriesParameters parameters) async {
     try {
-      final result = await baseAppointmentRemoteDataSource.getCategories();
+      final result = await baseAppointmentRemoteDataSource.getCategories(parameters);
       return Right(result);
     } on ServerException catch (failures) {
       return Left(ServerFailure(failures.errorMessageModel.statusMessage));
@@ -70,6 +72,16 @@ class AppointmentRepo extends BaseAppointmentRepo{
   Future<Either<Failure, List<ApiResponse>>> setAppointment(AppointmentParameters parameters) async {
     try {
       final result = await baseAppointmentRemoteDataSource.setAppointment(parameters);
+      return Right(result);
+    } on ServerException catch (failures) {
+      return Left(ServerFailure(failures.errorMessageModel.statusMessage));
+    }
+  }
+
+  @override
+  Future<Either<Failure, List<Families>>> getFamilies() async {
+    try {
+      final result = await baseAppointmentRemoteDataSource.getFamilies();
       return Right(result);
     } on ServerException catch (failures) {
       return Left(ServerFailure(failures.errorMessageModel.statusMessage));

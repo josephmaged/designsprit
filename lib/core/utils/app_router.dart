@@ -110,7 +110,7 @@ abstract class AppRouter {
       GoRoute(
         path: kAppointmentView,
         builder: (context, state) => MultiBlocProvider(providers: [
-          BlocProvider(create: (context) => sl<AddAppointmentCubit>()..getCategories()),
+          BlocProvider(create: (context) => sl<AddAppointmentCubit>()/*..getCategories()*/),
           BlocProvider(
             create: (context) => sl<FavoritesCubit>()..getFavorites(),
           ),

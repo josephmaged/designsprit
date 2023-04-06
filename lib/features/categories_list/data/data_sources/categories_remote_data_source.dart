@@ -12,7 +12,7 @@ abstract class BaseCategoriesRemoteDataSource {
 class CategoriesRemoteDataSource extends BaseCategoriesRemoteDataSource {
   @override
   Future<List<CategoriesModel>> getCategories(NoParameters parameters) async {
-    final response = await Dio().post(ApiConst.getCategories, data: {});
+    final response = await Dio().post(ApiConst.getCategoriesList, data: {});
     if (response.statusCode == 200) {
       if (response.data.containsKey('data')) {
         final data = response.data['data'];

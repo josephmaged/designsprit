@@ -3,6 +3,7 @@ part of 'add_appointment_cubit.dart';
 class AddAppointmentState extends Equatable {
   final int? currentStep;
 
+  final List<Families> familiesResponse;
   final List<Categories> categoriesResponse;
   final List<Countries> countriesResponse;
   final List<Governments> governmentsResponse;
@@ -20,6 +21,7 @@ class AddAppointmentState extends Equatable {
   final String responseMessage;
 
   AddAppointmentState({
+    this.familiesResponse = const [],
     this.categoriesResponse = const [],
     this.countriesResponse = const [],
     this.governmentsResponse = const [],
@@ -38,6 +40,7 @@ class AddAppointmentState extends Equatable {
 
   AddAppointmentState copyWith({
     int? currentStep,
+    List<Families>? familiesResponse,
     List<Categories>? categoriesResponse,
     List<Countries>? countriesResponse,
     List<Governments>? governmentsResponse,
@@ -54,6 +57,7 @@ class AddAppointmentState extends Equatable {
   }) {
     return AddAppointmentState(
       currentStep: currentStep ?? this.currentStep,
+      familiesResponse: familiesResponse ?? this.familiesResponse,
       categoriesResponse: categoriesResponse ?? this.categoriesResponse,
       countriesResponse: countriesResponse ?? this.countriesResponse,
       governmentsResponse: governmentsResponse ?? this.governmentsResponse,

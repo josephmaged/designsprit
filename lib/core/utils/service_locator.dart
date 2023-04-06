@@ -94,7 +94,7 @@ class SetupServiceLocator {
     sl.registerFactory(() => RegisterCubit(sl(), sl(), sl()));
     sl.registerFactory(() => MainScreenCubit());
     sl.registerFactory(() => HomeCubit(sl(), sl()));
-    sl.registerFactory(() => AddAppointmentCubit(sl(), sl(), sl(), sl(), sl(), sl()));
+    sl.registerFactory(() => AddAppointmentCubit(sl(), sl(), sl(), sl(), sl(), sl(),sl()));
     sl.registerFactory(() => StatusCubit(sl(), sl(), sl(),sl()));
     sl.registerFactory(() => ItemCubit(sl(), sl(), sl()));
     sl.registerFactory(() => ItemsListCubit(sl()));

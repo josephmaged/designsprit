@@ -3,15 +3,15 @@ import 'package:designsprit/core/usecase/base_usecase.dart';
 import 'package:designsprit/core/utils/api_response.dart';
 import 'package:designsprit/core/utils/cache_helper.dart';
 import 'package:designsprit/core/utils/enum.dart';
-import 'package:designsprit/features/add_appointment/data/models/appointment_model.dart';
-import 'package:designsprit/features/add_appointment/data/models/timesheet_model.dart';
 import 'package:designsprit/features/add_appointment/domain/entities/categories.dart';
 import 'package:designsprit/features/add_appointment/domain/entities/countries.dart';
+import 'package:designsprit/features/add_appointment/domain/entities/families.dart';
 import 'package:designsprit/features/add_appointment/domain/entities/governments.dart';
 import 'package:designsprit/features/add_appointment/domain/entities/regions.dart';
 import 'package:designsprit/features/add_appointment/domain/entities/timeSheet.dart';
 import 'package:designsprit/features/add_appointment/domain/use_cases/get_categories_usecase.dart';
 import 'package:designsprit/features/add_appointment/domain/use_cases/get_countries_usecase.dart';
+import 'package:designsprit/features/add_appointment/domain/use_cases/get_families_usecase.dart';
 import 'package:designsprit/features/add_appointment/domain/use_cases/get_governments_usecase.dart';
 import 'package:designsprit/features/add_appointment/domain/use_cases/get_regions_usecase.dart';
 import 'package:designsprit/features/add_appointment/domain/use_cases/get_timesheet_usecase.dart';
@@ -34,21 +34,23 @@ class AddAppointmentCubit extends Cubit<AddAppointmentState> {
   final GetRegionsUseCase getRegionsUseCase;
   final GetTimeSheetUseCase getTimeSheetUseCase;
   final SetAppointmentUseCase setAppointmentUseCase;
+  final GetFamiliesUseCase getFamiliesUseCase;
 
   AddAppointmentCubit(
-    this.getCategoriesUseCase,
-    this.getCountriesUseCase,
-    this.getGovernmentsUseCase,
-    this.getRegionsUseCase,
-    this.getTimeSheetUseCase,
-    this.setAppointmentUseCase,
-  ) : super(AddAppointmentState(
-          categoryValue: 0,
-          countryValue: 0,
-          governmentValue: 0,
-          regionValue: 0,
-          timeSheetValue: 0,
-        ));
+      this.getCategoriesUseCase,
+      this.getCountriesUseCase,
+      this.getGovernmentsUseCase,
+      this.getRegionsUseCase,
+      this.getTimeSheetUseCase,
+      this.setAppointmentUseCase,
+      this.getFamiliesUseCase,
+      ) : super(AddAppointmentState(
+    categoryValue: 0,
+    countryValue: 0,
+    governmentValue: 0,
+    regionValue: 0,
+    timeSheetValue: 0,
+  ));
 
   static AddAppointmentCubit get(context) => BlocProvider.of(context);
 
@@ -65,10 +67,28 @@ class AddAppointmentCubit extends Cubit<AddAppointmentState> {
 
   int uid = CacheHelper.getData(key: Constants.userID);
 
+  /*Future<void> getFamilies() async {
+    emit(state.copyWith(requestState: RequestState.loading));
+
+    final result = await getFamiliesUseCase(const NoParameters());
+
+    result.fold((l) {
+      emit(state.copyWith(
+        requestState: RequestState.error,
+        responseMessage: l.errMessage,
+      ));
+    }, (r) {
+      emit(state.copyWith(
+        categoriesResponse: r,
+        requestState: RequestState.loaded,
+      ));
+    });
+  }*/
+/*
   Future<void> getCategories() async {
     emit(state.copyWith(requestState: RequestState.loading));
 
-    final result = await getCategoriesUseCase(const NoParameters());
+    final result = await getCategoriesUseCase(GetCategoriesParameters(familyId:));
 
     result.fold((l) {
       emit(state.copyWith(
@@ -84,7 +104,7 @@ class AddAppointmentCubit extends Cubit<AddAppointmentState> {
       getGovernments();
       getRegions();
     });
-  }
+  }*/
 
   Future<void> getCountries() async {
     emit(state.copyWith(requestState: RequestState.loading));
@@ -246,7 +266,8 @@ class AddAppointmentCubit extends Cubit<AddAppointmentState> {
     );
   }
 
-  List<Step> getSteps() => [
+  List<Step> getSteps() =>
+      [
         Step(
           state: currentStep > 0 ? StepState.complete : StepState.indexed,
           title: Text(

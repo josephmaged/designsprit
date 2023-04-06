@@ -1,17 +1,22 @@
 import 'package:designsprit/core/errors/exceptions.dart';
 import 'package:designsprit/core/network/api_const.dart';
 import 'package:designsprit/core/network/error_message_model.dart';
+import 'package:designsprit/core/usecase/base_usecase.dart';
 import 'package:designsprit/core/utils/api_response.dart';
 import 'package:designsprit/features/add_appointment/data/models/categories_model.dart';
 import 'package:designsprit/features/add_appointment/data/models/countries_model.dart';
+import 'package:designsprit/features/add_appointment/data/models/families_model.dart';
 import 'package:designsprit/features/add_appointment/data/models/governments_model.dart';
 import 'package:designsprit/features/add_appointment/data/models/regions_model.dart';
 import 'package:designsprit/features/add_appointment/data/models/timesheet_model.dart';
+import 'package:designsprit/features/add_appointment/domain/use_cases/get_categories_usecase.dart';
 import 'package:designsprit/features/add_appointment/domain/use_cases/set_appointment.dart';
 import 'package:dio/dio.dart';
 
 abstract class BaseAppointmentRemoteDataSource {
-  Future<List<CategoriesModel>> getCategories();
+  Future<List<FamiliesModel>> getFamilies();
+
+  Future<List<CategoriesModel>> getCategories(GetCategoriesParameters parameters);
 
   Future<List<CountriesModel>> getCountries();
 
@@ -26,8 +31,8 @@ abstract class BaseAppointmentRemoteDataSource {
 
 class AppointmentRemoteDataSource extends BaseAppointmentRemoteDataSource {
   @override
-  Future<List<CategoriesModel>> getCategories() async {
-    final response = await Dio().post(ApiConst.getCategories, data: {});
+  Future<List<CategoriesModel>> getCategories(GetCategoriesParameters parameters) async {
+    final response = await Dio().post(ApiConst.getCategories(parameters.familyId), data: {});
     print(response);
 
     if (response.statusCode == 200) {
@@ -180,6 +185,29 @@ class AppointmentRemoteDataSource extends BaseAppointmentRemoteDataSource {
         return data.map((e) => ApiResponse.fromJson(e)).toList();
       } else if (data is Map<String, dynamic>) {
         return [ApiResponse.fromJson(data)];
+      }
+      throw ServerException(
+        errorMessageModel: ErrorMessageModel.fromJson(response.data),
+      );
+    } else {
+      throw ServerException(
+        errorMessageModel: ErrorMessageModel.fromJson(response.data),
+      );
+    }
+  }
+
+  @override
+  Future<List<FamiliesModel>> getFamilies() async {
+    final response = await Dio().get(ApiConst.getFamilies);
+
+    if (response.statusCode == 200) {
+      if (response.data.containsKey('data')) {
+        final data = response.data['data'];
+        if (data is List) {
+          return data.map((e) => FamiliesModel.fromJson(e)).toList();
+        } else if (data is Map<String, dynamic>) {
+          return [FamiliesModel.fromJson(data)];
+        }
       }
       throw ServerException(
         errorMessageModel: ErrorMessageModel.fromJson(response.data),
