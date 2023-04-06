@@ -1,3 +1,6 @@
+import 'dart:isolate';
+import 'dart:ui';
+
 import 'package:designsprit/constants.dart';
 import 'package:designsprit/core/network/api_const.dart';
 import 'package:designsprit/core/utils/strings.dart';
@@ -7,13 +10,47 @@ import 'package:designsprit/features/project_status/presentation/cubit/status_cu
 import 'package:enhance_stepper/enhance_stepper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_downloader/flutter_downloader.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:url_launcher/url_launcher.dart';
+import 'package:path_provider/path_provider.dart';
 
-class CustomStepper extends StatelessWidget {
+class CustomStepper extends StatefulWidget {
   const CustomStepper({
     Key? key,
   }) : super(key: key);
+
+  @override
+  State<CustomStepper> createState() => _CustomStepperState();
+}
+
+class _CustomStepperState extends State<CustomStepper> {
+  final ReceivePort _port = ReceivePort();
+
+  @override
+  void initState() {
+    super.initState();
+
+    IsolateNameServer.registerPortWithName(_port.sendPort, 'downloader_send_port');
+    _port.listen((dynamic data) {
+      String id = data[0];
+      DownloadTaskStatus status = data[1];
+      int progress = data[2];
+      setState((){ });
+    });
+
+    FlutterDownloader.registerCallback(downloadCallback);
+  }
+
+  @override
+  void dispose() {
+    IsolateNameServer.removePortNameMapping('downloader_send_port');
+    super.dispose();
+  }
+
+  static void downloadCallback(String id, DownloadTaskStatus status, int progress) {
+    final SendPort send = IsolateNameServer.lookupPortByName('downloader_send_port')!;
+    send.send([id, status, progress]);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -80,7 +117,17 @@ class CustomStepper extends StatelessWidget {
                         subtitle: Align(
                           alignment: Alignment.centerRight,
                           child: TextButton(
-                            onPressed: () => launchUrl(Uri.parse(ApiConst.attachments(e.attachment!),)),
+                            onPressed: () async {
+                              final externalDir = await getExternalStorageDirectory();
+
+                              FlutterDownloader.enqueue(
+                                url: ApiConst.attachments(e.attachment!),
+                                savedDir: externalDir!.path,
+                                fileName: 'download.${e.stepName}',
+                                showNotification: true,
+                                openFileFromNotification: true,
+                              );
+                            },
                             child: const Text("Resources"),
                           ),
                         )),
