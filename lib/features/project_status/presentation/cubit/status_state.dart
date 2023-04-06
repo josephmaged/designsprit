@@ -11,7 +11,7 @@ class StatusState extends Equatable {
   final int? stepIndex;
 
   const StatusState({
-     this.projects = const [],
+     this.projects ,
     this.steps,
     this.apiResponse,
     this.installments,

@@ -32,17 +32,18 @@ class PaymentView extends StatelessWidget {
                       return ExpansionTile(
                         title: Text(
                           state.installments![index].projectName,
-                          style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.bold),
+                          style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.bold),
                         ),
                         children: [
                           Container(
                             padding: EdgeInsets.symmetric(horizontal: 20.r, vertical: 10.r),
                             decoration: BoxDecoration(
-                                color: kPrimaryColor.withOpacity(0.2),
-                                borderRadius: BorderRadius.only(
-                                  bottomLeft: Radius.circular(10.r),
-                                  bottomRight: Radius.circular(10.r),
-                                )),
+                              color: kPrimaryColor.withOpacity(0.2),
+                              borderRadius: BorderRadius.only(
+                                bottomLeft: Radius.circular(10.r),
+                                bottomRight: Radius.circular(10.r),
+                              ),
+                            ),
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
