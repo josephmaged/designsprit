@@ -28,7 +28,7 @@ class ApiConst {
   static String updateItem = '$baseUrlApi/UserLike/AddUserliked';
 
   // Project Tracker
-  static String getProjects({required String fuId}) => '$baseUrlApi/ProjectTrack/GetUserProjects?Fuid=$fuId';
+  static String getProjects({required int uId}) => '$baseUrlApi/ProjectTrack/GetUserProjectsByUserId?userId=$uId';
 
   static String getInstallments({required int uid}) => '$baseUrlApi/PaymentInstallment/GetUserInstallments?userId=$uid';
 

@@ -37,7 +37,7 @@ class StatusCubit extends Cubit<StatusState> {
       requestState: RequestState.loading,
     ));
 
-    final result = await getProjectsUseCase(ProjectsParameters(fuid: fuid));
+    final result = await getProjectsUseCase(ProjectsParameters(uid: uid));
 
     result.fold((l) {
       emit(state.copyWith(

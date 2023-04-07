@@ -19,10 +19,10 @@ class GetProjectsUseCase extends BaseUseCase<List<Projects>, ProjectsParameters>
 
 
 class ProjectsParameters extends Equatable {
-  final String fuid;
+  final int uid;
 
-  const ProjectsParameters({required this.fuid});
+  const ProjectsParameters({required this.uid});
 
   @override
-  List<Object?> get props => [fuid];
+  List<Object?> get props => [uid];
 }

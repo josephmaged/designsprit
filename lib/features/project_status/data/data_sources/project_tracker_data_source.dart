@@ -73,7 +73,7 @@ class ProjectStepsRemoteDataSource extends BaseProjectStepsDataSource {
   @override
   Future<List<ProjectsModel>> getProjects(ProjectsParameters parameters) async {
     final response = await Dio().get(
-      ApiConst.getProjects(fuId: parameters.fuid),
+      ApiConst.getProjects(uId: parameters.uid),
     );
     if (response.statusCode == 200) {
       if (response.data.containsKey('data')) {
