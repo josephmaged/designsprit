@@ -57,6 +57,8 @@ class StatusCubit extends Cubit<StatusState> {
       stepsState: RequestState.loading,
     ));
 
+    Constants.stepsList = [];
+
     final result = await getStepsUseCase(StepsParameters(id: id));
 
     result.fold((l) {

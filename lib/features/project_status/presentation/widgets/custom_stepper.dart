@@ -3,6 +3,7 @@ import 'dart:ui';
 
 import 'package:designsprit/constants.dart';
 import 'package:designsprit/core/network/api_const.dart';
+import 'package:designsprit/core/utils/assets.dart';
 import 'package:designsprit/core/utils/strings.dart';
 import 'package:designsprit/core/widgets/custom_app_bar.dart';
 import 'package:designsprit/core/widgets/custom_primary_button.dart';
@@ -35,7 +36,7 @@ class _CustomStepperState extends State<CustomStepper> {
       String id = data[0];
       DownloadTaskStatus status = data[1];
       int progress = data[2];
-      setState((){ });
+      setState(() {});
     });
 
     FlutterDownloader.registerCallback(downloadCallback);
@@ -62,89 +63,93 @@ class _CustomStepperState extends State<CustomStepper> {
             listOfActions: [],
             titleName: AppStrings.projectTimeline,
           ),
-          body: SingleChildScrollView(
-            child: EnhanceStepper(
-              stepIconSize: 30.h,
-              type: cubit.stepType,
-              currentStep: cubit.stepIndex,
-              controlsBuilder: (BuildContext context, ControlsDetails details) {
-                return Padding(
-                  padding: EdgeInsets.only(top: 10.h),
-                  child: Row(
-                    children: [
-                      Expanded(
-                        child: CustomPrimaryButton(
-                          press: () {
-                            cubit.updateProjectTracker(stepId: details.stepIndex, status: true);
-                            details.onStepContinue;
-                          },
-                          text: 'ACCEPT',
-                          height: 40.h,
-                        ),
-                      ),
-                      Expanded(
-                        child: TextButton(
-                          onPressed: () {
-                            cubit.updateProjectTracker(stepId: details.stepIndex, status: false);
+          body: Constants.stepsList.isEmpty
+              ? Center(
+                  child: Image.asset(AssetsData.notFound),
+                )
+              : SingleChildScrollView(
+                  child: EnhanceStepper(
+                    stepIconSize: 30.h,
+                    type: cubit.stepType,
+                    currentStep: cubit.stepIndex,
+                    controlsBuilder: (BuildContext context, ControlsDetails details) {
+                      return Padding(
+                        padding: EdgeInsets.only(top: 10.h),
+                        child: Row(
+                          children: [
+                            Expanded(
+                              child: CustomPrimaryButton(
+                                press: () {
+                                  cubit.updateProjectTracker(stepId: details.stepIndex, status: true);
+                                  details.onStepContinue;
+                                },
+                                text: 'ACCEPT',
+                                height: 40.h,
+                              ),
+                            ),
+                            Expanded(
+                              child: TextButton(
+                                onPressed: () {
+                                  cubit.updateProjectTracker(stepId: details.stepIndex, status: false);
 
-                            details.onStepCancel;
-                          },
-                          child: const Text(
-                            'REJECT',
-                            style: TextStyle(color: kSecondaryColor, fontWeight: FontWeight.bold),
-                          ),
+                                  details.onStepCancel;
+                                },
+                                child: const Text(
+                                  'REJECT',
+                                  style: TextStyle(color: kSecondaryColor, fontWeight: FontWeight.bold),
+                                ),
+                              ),
+                            ),
+                          ],
                         ),
-                      ),
-                    ],
-                  ),
-                );
-              },
-              physics: const ClampingScrollPhysics(),
-              steps: Constants.stepsList
-                  .map(
-                    (e) => EnhanceStep(
-                        icon: Icon(
-                          Icons.info,
-                          size: 30.h,
-                        ),
-                        state: StepState.editing,
-                        isActive: cubit.stepIndex == e.id,
-                        title: Text(e.stepName),
-                        content: Align(
-                          alignment: Alignment.centerLeft,
-                          child: Text(e.status),
-                        ),
-                        subtitle: Align(
-                          alignment: Alignment.centerRight,
-                          child: TextButton(
-                            onPressed: () async {
-                              final externalDir = await getExternalStorageDirectory();
+                      );
+                    },
+                    physics: const ClampingScrollPhysics(),
+                    steps: Constants.stepsList
+                        .map(
+                          (e) => EnhanceStep(
+                              icon: Icon(
+                                Icons.info,
+                                size: 30.h,
+                              ),
+                              state: StepState.editing,
+                              isActive: cubit.stepIndex == e.id,
+                              title: Text(e.stepName),
+                              content: Align(
+                                alignment: Alignment.centerLeft,
+                                child: Text(e.status),
+                              ),
+                              subtitle: Align(
+                                alignment: Alignment.centerRight,
+                                child: TextButton(
+                                  onPressed: () async {
+                                    final externalDir = await getExternalStorageDirectory();
 
-                              FlutterDownloader.enqueue(
-                                url: ApiConst.attachments(e.attachment!),
-                                savedDir: externalDir!.path,
-                                fileName: 'download.${e.stepName}',
-                                showNotification: true,
-                                openFileFromNotification: true,
-                              );
-                            },
-                            child: const Text("Resources"),
-                          ),
-                        )),
-                  )
-                  .toList(),
-              onStepCancel: () {
-                cubit.go(-1, false);
-              },
-              onStepContinue: () {
-                cubit.go(1, true);
-              }, /*
+                                    FlutterDownloader.enqueue(
+                                      url: ApiConst.attachments(e.attachment!),
+                                      savedDir: externalDir!.path,
+                                      fileName: 'download.${e.stepName}',
+                                      showNotification: true,
+                                      openFileFromNotification: true,
+                                    );
+                                  },
+                                  child: const Text("Resources"),
+                                ),
+                              )),
+                        )
+                        .toList(),
+                    onStepCancel: () {
+                      cubit.go(-1, false);
+                    },
+                    onStepContinue: () {
+                      cubit.go(1, true);
+                    }, /*
               onStepTapped: (index) {
                 cubit.stepIndex = index;
                 print(index);
               },*/
-            ),
-          ),
+                  ),
+                ),
         );
       },
     );

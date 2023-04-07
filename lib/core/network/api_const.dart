@@ -32,11 +32,12 @@ class ApiConst {
 
   static String getInstallments({required int uid}) => '$baseUrlApi/PaymentInstallment/GetUserInstallments?userId=$uid';
 
+  /// project id
   static String getSteps({required int projectId}) =>
-      '$baseUrlApi/ProjectTrack/GetUserProjectSteps?projectId=21';
+      '$baseUrlApi/ProjectTrack/GetUserProjectSteps?projectId=$projectId';
   static const String updateProjectSteps = '$baseUrlApi/ProjectTrack/SetProjectTrackStatus';
 
-  static String attachments(String parameters)=> '$baseUrl/attatchment/$parameters';
+  static String attachments(String parameters)=> '$baseUrl/attachments/$parameters';
 
 
   // Item List
