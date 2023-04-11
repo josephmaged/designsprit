@@ -4,6 +4,7 @@ import 'package:designsprit/core/utils/validator.dart';
 import 'package:designsprit/core/widgets/custom_dropdown.dart';
 import 'package:designsprit/core/widgets/custom_form_field.dart';
 import 'package:designsprit/core/widgets/custom_multi_dropdown.dart';
+import 'package:designsprit/features/add_appointment/domain/entities/families.dart';
 import 'package:designsprit/features/add_appointment/presentation/cubit/add_appointment_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -32,8 +33,8 @@ class _StepOneState extends State<StepOne> {
                       text: 'Select Family',
                       items: state.familiesResponse
                           .map(
-                            (item) => DropdownMenuItem<int>(
-                              value: item.id,
+                            (item) => DropdownMenuItem<Families>(
+                              value: item,
                               child: Text(
                                 item.familiesName,
                                 style: TextStyle(
@@ -45,7 +46,7 @@ class _StepOneState extends State<StepOne> {
                             ),
                           )
                           .toList(),
-                      selectedValue: state.familiesValue == 0 ? state.familiesResponse.first.id : state.familiesValue,
+                      selectedValue: state.familiesValue ?? state.familiesResponse.first,
                       onChanged: (value) {
                         cubit.updateFamiliesValue(value);
                       },
@@ -56,7 +57,7 @@ class _StepOneState extends State<StepOne> {
                     CustomDropdown(
                       icon: Icons.list,
                       text: 'Select Category',
-                      items: cubit.categoriesDropdown == null
+                      items: state.categoriesDropdown == null
                           ? state.categoriesResponse
                               .map(
                                 (item) => DropdownMenuItem<int>(
@@ -72,7 +73,7 @@ class _StepOneState extends State<StepOne> {
                                 ),
                               )
                               .toList()
-                          : cubit.categoriesDropdown!
+                          : state.categoriesDropdown!
                               .map(
                                 (item) => DropdownMenuItem<int>(
                                   value: item.id,
@@ -90,7 +91,6 @@ class _StepOneState extends State<StepOne> {
                       selectedValue: state.categoryValue == 0 ? state.categoriesResponse.first.id : state.categoryValue,
                       onChanged: (value) {
                         cubit.updateCategoryValue(value);
-                        print(value);
                       },
                     ),
                     SizedBox(

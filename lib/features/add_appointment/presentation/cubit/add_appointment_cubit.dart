@@ -216,11 +216,16 @@ class AddAppointmentCubit extends Cubit<AddAppointmentState> {
 
   List<Categories>? categoriesDropdown;
 
-  void updateFamiliesValue(int value) {
-    categoriesDropdown = state.categoriesResponse
-        .where((element) => element.familyName.contains(state.familiesResponse[value].familiesName))
-        .toList();
-    emit(state.copyWith(familiesValue: value));
+  void updateFamiliesValue(Families value) {
+    state.categoriesDropdown = [];
+    categoriesDropdown =
+        state.categoriesResponse.where((element) => element.familyName.contains(value.familiesName)).toList();
+    print(categoriesDropdown);
+    emit(state.copyWith(
+      familiesValue: value,
+      categoriesDropdown: categoriesDropdown,
+      categoryValue: categoriesDropdown!.first.id,
+    ));
   }
 
   void updateCategoryValue(int value) {

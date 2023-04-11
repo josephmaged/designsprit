@@ -13,6 +13,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_downloader/flutter_downloader.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:path_provider/path_provider.dart';
 
 class CustomStepper extends StatefulWidget {
@@ -121,20 +122,33 @@ class _CustomStepperState extends State<CustomStepper> {
                               ),
                               subtitle: Align(
                                 alignment: Alignment.centerRight,
-                                child: TextButton(
-                                  onPressed: () async {
-                                    final externalDir = await getExternalStorageDirectory();
+                                child: e.attachment != null
+                                    ? TextButton(
+                                        onPressed: () async {
+                                          final externalDir = await getExternalStorageDirectory();
 
-                                    FlutterDownloader.enqueue(
-                                      url: ApiConst.attachments(e.attachment!),
-                                      savedDir: externalDir!.path,
-                                      fileName: 'download.${e.stepName}',
-                                      showNotification: true,
-                                      openFileFromNotification: true,
-                                    );
-                                  },
-                                  child: const Text("Resources"),
-                                ),
+                                          FlutterDownloader.enqueue(
+                                            url: ApiConst.attachments(e.attachment!),
+                                            savedDir: externalDir!.path,
+                                            fileName: 'download.${e.stepName}',
+                                            showNotification: true,
+                                            openFileFromNotification: true,
+                                          );
+                                        },
+                                        child: const Text("Resources"),
+                                      )
+                                    : TextButton(
+                                        onPressed: () async {
+                                          Fluttertoast.showToast(
+                                            msg: 'No Resources Available',
+                                            toastLength: Toast.LENGTH_SHORT,
+                                            gravity: ToastGravity.CENTER,
+                                            timeInSecForIosWeb: 1,
+                                            fontSize: 14.sp,
+                                          );
+                                        },
+                                        child: const Text("Resources"),
+                                      ),
                               )),
                         )
                         .toList(),
@@ -143,11 +157,7 @@ class _CustomStepperState extends State<CustomStepper> {
                     },
                     onStepContinue: () {
                       cubit.go(1, true);
-                    }, /*
-              onStepTapped: (index) {
-                cubit.stepIndex = index;
-                print(index);
-              },*/
+                    },
                   ),
                 ),
         );

@@ -64,7 +64,7 @@ class ItemCubit extends Cubit<ItemState> {
 
   int uid = CacheHelper.getData(key: Constants.userID);
 
-  Future<void> updateItem({required int imageId, required bool isLiked}) async {
+  Future<void> updateItem({required int imageId, required bool isLiked, required String itemId}) async {
     final result = await updateItemUseCase(UpdateItemParameters(uid: uid, itemImageId: imageId, isLiked: !isLiked));
 
     result.fold((l) {
@@ -77,6 +77,8 @@ class ItemCubit extends Cubit<ItemState> {
         updateItemResponse: r,
         requestState: RequestState.loaded,
       ));
+
+      getItemImages(id: itemId);
 
       Fluttertoast.showToast(
         msg: r.first.message!,

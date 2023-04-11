@@ -27,7 +27,7 @@ class _SplashViewBodyState extends State<SplashViewBody> with SingleTickerProvid
     return Center(
       child: Image.asset(
         AssetsData.logo,
-        width: 150.w,
+        width: 100.w,
       ),
     );
   }

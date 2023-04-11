@@ -1,16 +1,16 @@
 part of 'item_cubit.dart';
 
 class ItemState extends Equatable {
-  final List<ItemDetails>? itemDetailsResponse;
-  final List<ListImages>? itemImagesResponse;
-  final List<ApiResponse>? updateItemResponse;
+  final List<ItemDetails> itemDetailsResponse;
+  final List<ListImages> itemImagesResponse;
+  final List<ApiResponse> updateItemResponse;
   final RequestState requestState;
   final String? responseMessage;
 
   const ItemState({
-    this.itemDetailsResponse,
-    this.itemImagesResponse,
-    this.updateItemResponse,
+    this.itemDetailsResponse = const [],
+    this.itemImagesResponse = const [],
+    this.updateItemResponse = const [],
     this.requestState = RequestState.loading,
     this.responseMessage,
   });

@@ -38,7 +38,7 @@ class DetailsScreen extends StatelessWidget {
                             child: Align(
                               alignment: Alignment.center,
                               child: Text(
-                                state.itemDetailsResponse!.first.name.toUpperCase(),
+                                state.itemDetailsResponse.first.name.toUpperCase(),
                                 maxLines: 3,
                                 style: TextStyle(
                                   fontWeight: FontWeight.bold,
@@ -47,7 +47,7 @@ class DetailsScreen extends StatelessWidget {
                               ),
                             ),
                           ),
-                          state.itemImagesResponse!.isEmpty
+                          state.itemImagesResponse.isEmpty
                               ? Image.asset(AssetsData.imageNotFound)
                               : Padding(
                                   padding: EdgeInsets.only(top: 60.h),
@@ -62,7 +62,7 @@ class DetailsScreen extends StatelessWidget {
                                       enlargeFactor: 0.2,
                                       scrollDirection: Axis.horizontal,
                                     ),
-                                    items: state.itemImagesResponse!.map((index) {
+                                    items: state.itemImagesResponse.map((index) {
                                       return Builder(
                                         builder: (BuildContext context) {
                                           return Stack(
@@ -101,6 +101,7 @@ class DetailsScreen extends StatelessWidget {
                                                     cubit.updateItem(
                                                       imageId: index.imgId,
                                                       isLiked: index.isLiked,
+                                                      itemId: state.itemDetailsResponse.first.id.toString()
                                                     );
                                                   },
                                                   child: Container(
@@ -142,7 +143,7 @@ class DetailsScreen extends StatelessWidget {
                                     ),
                                   ),
                                   Text(
-                                    state.itemDetailsResponse!.first.description,
+                                    state.itemDetailsResponse.first.description,
                                     maxLines: 100,
                                   ),
                                 ],

@@ -11,7 +11,9 @@ class AddAppointmentState extends Equatable {
   final List<TimeSheet> timeSheetResponse;
   final List<ApiResponse> appointmentResponse;
 
-  final int? familiesValue;
+  final Families? familiesValue;
+   List<Categories>? categoriesDropdown;
+
   final int? categoryValue;
   final int? countryValue;
   final int? governmentValue;
@@ -43,6 +45,7 @@ class AddAppointmentState extends Equatable {
     this.timeSheetResponse = const [],
     this.appointmentResponse = const [],
     this.familiesValue,
+    this.categoriesDropdown,
     this.categoryValue,
     this.countryValue,
     this.governmentValue,
@@ -73,7 +76,8 @@ class AddAppointmentState extends Equatable {
     List<Regions>? regionsResponse,
     List<TimeSheet>? timeSheetResponse,
     List<ApiResponse>? appointmentResponse,
-    int? familiesValue,
+    Families? familiesValue,
+    List<Categories>? categoriesDropdown,
     int? categoryValue,
     int? countryValue,
     int? governmentValue,
@@ -103,6 +107,7 @@ class AddAppointmentState extends Equatable {
       regionsResponse: regionsResponse ?? this.regionsResponse,
       timeSheetResponse: timeSheetResponse ?? this.timeSheetResponse,
       appointmentResponse: appointmentResponse ?? this.appointmentResponse,
+      categoriesDropdown: categoriesDropdown ?? this.categoriesDropdown,
       familiesValue: familiesValue ?? this.familiesValue,
       categoryValue: categoryValue ?? this.categoryValue,
       countryValue: countryValue ?? this.countryValue,
@@ -135,6 +140,7 @@ class AddAppointmentState extends Equatable {
         regionsResponse,
         timeSheetResponse,
         appointmentResponse,
+        categoriesDropdown,
         familiesValue,
         categoryValue,
         countryValue,
