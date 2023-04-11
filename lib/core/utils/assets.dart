@@ -5,4 +5,5 @@ class AssetsData {
   static const imagesOnboarding3 = 'assets/images/onboarding3.png';
   static const notFound = 'assets/images/Questions.png';
   static const imageNotFound = 'assets/images/image.png';
+  static const aboutUs = 'assets/images/aboutus.png';
 }

@@ -40,6 +40,14 @@ class MorePage extends StatelessWidget {
           },
         ),
         CustomListTile(
+          text: AppStrings.aboutUs,
+          leadingIcon: const Icon(Icons.info_outline),
+          trailingIcon: Icons.arrow_forward_ios,
+          onTap: () {
+            GoRouter.of(context).push(AppRouter.kAboutUsView);
+          },
+        ),
+        CustomListTile(
           text: AppStrings.inviteYourFriends,
           leadingIcon: const Icon(Icons.share),
           trailingIcon: Icons.arrow_forward_ios,

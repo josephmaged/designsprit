@@ -51,6 +51,7 @@ class AppStrings{
   static const String changeLanguage = 'Change Language';
   static const String contactUs = 'Contact Us';
   static const String inviteYourFriends = 'Invite Your Friends';
+  static const String aboutUs = 'About Us';
   static const String logout = 'Logout';
   static const String projectStatus = 'Project Status';
   static const String updateProfile = 'Update';

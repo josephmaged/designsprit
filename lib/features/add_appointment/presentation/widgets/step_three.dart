@@ -3,7 +3,6 @@ import 'package:designsprit/core/utils/assets.dart';
 import 'package:designsprit/core/utils/enum.dart';
 import 'package:designsprit/core/widgets/custom_dropdown.dart';
 import 'package:designsprit/features/add_appointment/presentation/cubit/add_appointment_cubit.dart';
-import 'package:designsprit/features/add_appointment/presentation/widgets/timesheet_dropdown.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';

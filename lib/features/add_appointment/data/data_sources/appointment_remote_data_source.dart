@@ -192,6 +192,10 @@ class AppointmentRemoteDataSource extends BaseAppointmentRemoteDataSource {
       throw ServerException(
         errorMessageModel: ErrorMessageModel.fromJson(response.data),
       );
+    } else if (response.statusCode == 400) {
+      throw ServerException(
+        errorMessageModel: const ErrorMessageModel(statusMessage: 'Please make sure to select all information'),
+      );
     } else {
       throw ServerException(
         errorMessageModel: ErrorMessageModel.fromJson(response.data),

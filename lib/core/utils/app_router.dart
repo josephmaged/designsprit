@@ -1,4 +1,5 @@
 import 'package:designsprit/core/utils/service_locator.dart';
+import 'package:designsprit/features/aboutus/about_us.dart';
 import 'package:designsprit/features/add_appointment/presentation/cubit/add_appointment_cubit.dart';
 import 'package:designsprit/features/add_appointment/presentation/pages/add_appointment.dart';
 import 'package:designsprit/features/auth/login/presentation/cubit/login_cubit.dart';
@@ -48,7 +49,7 @@ abstract class AppRouter {
   static const kStepsView = '/StepsView';
   static const kCategoriesView = '/CategoriesView';
   static const kChatView = '/ChatView';
-  static const kChatDemoView = '/kChatDemoView';
+  static const kAboutUsView = '/AboutUsView';
 
   static final router = GoRouter(
     routes: [
@@ -172,6 +173,12 @@ abstract class AppRouter {
             create: (context) => sl<ChatCubit>()..getChat(),
             child: const ChatContent(),
           );
+        },
+      ),
+      GoRoute(
+        path: kAboutUsView,
+        builder: (context, state) {
+          return const AboutUs();
         },
       ),
     ],
