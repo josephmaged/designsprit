@@ -3,7 +3,7 @@ import 'package:designsprit/features/chat/domain/entities/chat_content.dart';
 class ChatContentModel extends ChatContent {
   const ChatContentModel(
       {required super.id,
-      required super.note,
+       super.note,
       required super.type,
       required super.sentAt,
       super.audioDuration,

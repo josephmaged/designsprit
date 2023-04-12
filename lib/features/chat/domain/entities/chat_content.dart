@@ -2,7 +2,7 @@ import 'package:equatable/equatable.dart';
 
 class ChatContent extends Equatable {
   final int id;
-  final String note;
+  final String? note;
   final int type;
   final String sentAt;
   final double? audioDuration;
@@ -12,7 +12,7 @@ class ChatContent extends Equatable {
 
   const ChatContent({
     required this.id,
-    required this.note,
+     this.note,
     required this.type,
     required this.sentAt,
     this.audioDuration,

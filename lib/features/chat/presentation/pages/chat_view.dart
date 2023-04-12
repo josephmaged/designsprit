@@ -5,6 +5,7 @@ import 'package:designsprit/core/utils/strings.dart';
 import 'package:designsprit/core/widgets/custom_app_bar.dart';
 import 'package:designsprit/features/chat/presentation/cubit/chat_cubit.dart';
 import 'package:designsprit/features/chat/presentation/widgets/messages_list.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -142,6 +143,7 @@ class _BottomChatTextFieldState extends State<BottomChatTextField> {
   }
 
   Widget _buildSuffixTFIcon() {
+    var cubit = ChatCubit.get(context);
     return Row(
       mainAxisSize: MainAxisSize.min,
       children: [
@@ -162,12 +164,41 @@ class _BottomChatTextFieldState extends State<BottomChatTextField> {
                   buildPopUpMenuItem(
                     Icons.video_collection_rounded,
                     'Send Video',
-                    () => ChatCubit.get(context).pickVideo(),
+                    () async {
+                      final result = await FilePicker.platform.pickFiles(
+                        type: FileType.custom,
+                        allowedExtensions: ['mov', 'mp4'],
+                      );
+                      if (result == null) return;
+                      final file = result.files.first;
+                      await cubit.pickVideo(file);
+                    },
                   ),
                   buildPopUpMenuItem(
                     Icons.camera,
                     'Send Image',
-                    () => ChatCubit.get(context).pickImage(),
+                    () async {
+                      final result = await FilePicker.platform.pickFiles(
+                        type: FileType.custom,
+                        allowedExtensions: ['jpeg', 'jpg'],
+                      );
+                      if (result == null) return;
+                      final file = result.files.first;
+                      await cubit.pickImage(file);
+                    },
+                  ),
+                  buildPopUpMenuItem(
+                    Icons.attachment,
+                    'Send Attachment',
+                    () async {
+                      final result = await FilePicker.platform.pickFiles(
+                        type: FileType.custom,
+                        allowedExtensions: ['doc', 'pdf'],
+                      );
+                      if (result == null) return;
+                      final file = result.files.first;
+                      await cubit.pickFile(file);
+                    },
                   ),
                 ];
               },
