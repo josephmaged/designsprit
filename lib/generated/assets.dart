@@ -3,10 +3,11 @@ class Assets {
   Assets._();
 
   static const String fontsGTSectraFineRegular = 'assets/fonts/GTSectraFineRegular.ttf';
+  static const String imagesAboutus = 'assets/images/aboutus.png';
+  static const String imagesOnboarding2 = 'assets/images/onboarding2.png';
   static const String imagesImage = 'assets/images/image.png';
   static const String imagesLogo = 'assets/images/Logo.png';
   static const String imagesOnboarding1 = 'assets/images/onboarding1.png';
-  static const String imagesOnboarding2 = 'assets/images/onboarding2.png';
   static const String imagesOnboarding3 = 'assets/images/onboarding3.png';
   static const String imagesQuestions = 'assets/images/Questions.png';
   static const String imagesSplash = 'assets/images/splash.png';

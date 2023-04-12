@@ -16,7 +16,7 @@ class OnBoardingViewBody extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Padding(
-        padding: EdgeInsets.only(top: 25.h),
+        padding: EdgeInsets.only(top: 100.h),
         child: IntroductionScreen(
           pages: pages,
           showSkipButton: true,

@@ -1,3 +1,4 @@
+
 import 'package:designsprit/core/network/api_const.dart';
 import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
@@ -18,8 +19,7 @@ class _VideoPlayerItemState extends State<VideoPlayerItem> {
   void initState() {
     super.initState();
     _videoPlayerController = VideoPlayerController.network(
-      ApiConst.getChatImages(widget.videoUrl),
-      videoPlayerOptions: VideoPlayerOptions(mixWithOthers: true),
+      ApiConst.getChatMedia(widget.videoUrl),
     )..initialize();
   }
 
@@ -40,7 +40,6 @@ class _VideoPlayerItemState extends State<VideoPlayerItem> {
             alignment: Alignment.center,
             child: IconButton(
               onPressed: () {
-
                 if (isPlaying) {
                   _videoPlayerController.pause();
                 } else {

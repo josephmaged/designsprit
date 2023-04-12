@@ -9,7 +9,7 @@
     </intent>
     </queries>
    <application
-        android:label="designsprit"
+        android:label="Design Spirit"
        android:usesCleartextTraffic="true"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher"
