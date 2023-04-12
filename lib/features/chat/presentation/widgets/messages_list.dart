@@ -34,11 +34,11 @@ class _MessagesListState extends State<MessagesList> {
 
                 final bool isSenderUser =
                     state.requestResponse![index].sender == CacheHelper.getData(key: Constants.userName);
-                var userId = CacheHelper.getData(key: Constants.userName);
+               //var userId = CacheHelper.getData(key: Constants.userName);
 
                 return MessageCard(
                   isSender: isSenderUser,
-                  messageType: message.type.toEnum() ?? MessageType.text,
+                  messageType: message.type.toEnum(),
                   time: '$day / $timesplit',
                   swipeDirection: isSenderUser ? SwipeDirection.right : SwipeDirection.left,
                   message: message.note ?? "",

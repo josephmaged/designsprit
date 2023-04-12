@@ -50,7 +50,6 @@ dependencies:
   audioplayers: ^3.0.1
   flutter_sound: ^9.2.13
   flutter_downloader: ^1.10.2
-  permission_handler: ^8.0.0
 
   # Network
   sqflite: ^2.2.4+1

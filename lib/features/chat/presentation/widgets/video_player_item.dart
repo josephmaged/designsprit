@@ -1,11 +1,11 @@
-
 import 'package:designsprit/core/network/api_const.dart';
 import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
 
 class VideoPlayerItem extends StatefulWidget {
-   VideoPlayerItem({Key? key,required this.videoUrl}) : super(key: key);
+  VideoPlayerItem({Key? key, required this.videoUrl}) : super(key: key);
   String videoUrl;
+
   @override
   State<VideoPlayerItem> createState() => _VideoPlayerItemState();
 }
@@ -17,10 +17,10 @@ class _VideoPlayerItemState extends State<VideoPlayerItem> {
   @override
   void initState() {
     super.initState();
-    _videoPlayerController = VideoPlayerController.network(ApiConst.getImages(widget.videoUrl))
-      ..initialize().then((_) {
-        _videoPlayerController.setVolume(1.0);
-      });
+    _videoPlayerController = VideoPlayerController.network(
+      ApiConst.getChatImages(widget.videoUrl),
+      videoPlayerOptions: VideoPlayerOptions(mixWithOthers: true),
+    )..initialize();
   }
 
   @override
@@ -32,7 +32,7 @@ class _VideoPlayerItemState extends State<VideoPlayerItem> {
   @override
   Widget build(BuildContext context) {
     return AspectRatio(
-      aspectRatio: 16 / 9,
+      aspectRatio: _videoPlayerController.value.aspectRatio,
       child: Stack(
         children: [
           VideoPlayer(_videoPlayerController),
@@ -40,11 +40,13 @@ class _VideoPlayerItemState extends State<VideoPlayerItem> {
             alignment: Alignment.center,
             child: IconButton(
               onPressed: () {
+
                 if (isPlaying) {
                   _videoPlayerController.pause();
                 } else {
                   _videoPlayerController.play();
                 }
+
                 setState(() {
                   isPlaying = !isPlaying;
                 });
@@ -64,7 +66,14 @@ class _VideoPlayerItemState extends State<VideoPlayerItem> {
                       size: 36.0,
                     ),
             ),
-          )
+          ),
+          Align(
+            alignment: Alignment.bottomCenter,
+            child: VideoProgressIndicator(
+              _videoPlayerController,
+              allowScrubbing: true,
+            ),
+          ),
         ],
       ),
     );
