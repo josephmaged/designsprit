@@ -1,34 +1,34 @@
 part of 'home_cubit.dart';
 
 class HomeState extends Equatable {
-  final List<HomeCategoryResponseData> randomCategory;
-  final RequestState randomCategoryState;
-  final String randomCategoryMessage;
+  final List<HomeFamiliesResponseData> randomFamilies;
+  final RequestState randomFamiliesState;
+  final String randomFamiliesMessage;
 
   final List<HomePopularsResponseData> mostPopular;
   final RequestState mostPopularState;
   final String mostPopularMessage;
 
   const HomeState(
-      {this.randomCategory = const [],
-      this.randomCategoryState = RequestState.loading,
-      this.randomCategoryMessage = '',
+      {this.randomFamilies = const [],
+      this.randomFamiliesState = RequestState.loading,
+      this.randomFamiliesMessage = '',
       this.mostPopular = const [],
       this.mostPopularState = RequestState.loading,
       this.mostPopularMessage = ''});
 
   HomeState copyWith({
-    List<HomeCategoryResponseData>? randomCategory,
-    RequestState? randomCategoryState,
-    String? randomCategoryMessage,
+    List<HomeFamiliesResponseData>? randomFamilies,
+    RequestState? randomFamiliesState,
+    String? randomFamiliesMessage,
     List<HomePopularsResponseData>? mostPopular,
     RequestState? mostPopularState,
     String? mostPopularMessage,
   }) {
     return HomeState(
-        randomCategory: randomCategory ?? this.randomCategory,
-        randomCategoryState: randomCategoryState ?? this.randomCategoryState,
-        randomCategoryMessage: randomCategoryMessage ?? this.randomCategoryMessage,
+        randomFamilies: randomFamilies ?? this.randomFamilies,
+        randomFamiliesState: randomFamiliesState ?? this.randomFamiliesState,
+        randomFamiliesMessage: randomFamiliesMessage ?? this.randomFamiliesMessage,
         mostPopular: mostPopular ?? this.mostPopular,
         mostPopularState: mostPopularState ?? this.mostPopularState,
         mostPopularMessage: mostPopularMessage ?? this.mostPopularMessage);
@@ -36,9 +36,9 @@ class HomeState extends Equatable {
 
   @override
   List<Object?> get props => [
-        randomCategory,
-        randomCategoryState,
-        randomCategoryMessage,
+        randomFamilies,
+        randomFamiliesState,
+        randomFamiliesMessage,
         mostPopular,
         mostPopularState,
         mostPopularMessage,

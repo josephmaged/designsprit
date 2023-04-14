@@ -1,5 +1,5 @@
 import 'package:designsprit/core/utils/styles.dart';
-import 'package:designsprit/features/home/presentation/widgets/category_list_view.dart';
+import 'package:designsprit/features/home/presentation/widgets/families_list_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -20,12 +20,12 @@ class HomeViewBody extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const Text(
-                  'Categories',
+                  'Families',
                   style: Styles.textStyle18,
                 ),
                 SizedBox(
                   height: 100.h,
-                  child: const CategoryListView(),
+                  child: const FamiliesListView(),
                 ),
                 SizedBox(
                   height: 30.h,

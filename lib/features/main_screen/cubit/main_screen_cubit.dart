@@ -22,12 +22,13 @@ class MainScreenCubit extends Cubit<MainScreenState> {
 
   List<Widget> screens = [
     const HomeView(),
-    const Categories(),
+    const HomeView(),
+    // const CategoriesListView(),
     const FavoritesView(),
     const MorePage(),
   ];
 
-  List<String> screenNames = ["Home", "Categories", "Favorite", "More"];
+  List<String> screenNames = ["Home", "Families", "Favorite", "More"];
 
   List<IconData> bottomItems = [
     Icons.home,

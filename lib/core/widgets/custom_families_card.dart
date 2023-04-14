@@ -1,12 +1,10 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:designsprit/core/network/api_const.dart';
-import 'package:designsprit/core/utils/styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/svg.dart';
 
-class CustomCategoryCard extends StatelessWidget {
-  const CustomCategoryCard({
+class CustomFamiliesCard extends StatelessWidget {
+  const CustomFamiliesCard({
     Key? key,
     required this.image,
     required this.text,

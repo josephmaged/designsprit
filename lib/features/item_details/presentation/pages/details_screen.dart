@@ -47,7 +47,7 @@ class DetailsScreen extends StatelessWidget {
                               ),
                             ),
                           ),
-                          state.itemImagesResponse.isEmpty
+                          state.itemImagesResponse.isEmpty || state.itemImagesResponse == []
                               ? Image.asset(AssetsData.imageNotFound)
                               : Padding(
                                   padding: EdgeInsets.only(top: 60.h),

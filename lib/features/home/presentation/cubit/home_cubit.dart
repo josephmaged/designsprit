@@ -1,8 +1,8 @@
 import 'package:designsprit/core/usecase/base_usecase.dart';
 import 'package:designsprit/core/utils/enum.dart';
-import 'package:designsprit/features/home/domain/entities/home_category_response_data.dart';
+import 'package:designsprit/features/home/domain/entities/home_families_response_data.dart';
 import 'package:designsprit/features/home/domain/entities/home_populars_response_data.dart';
-import 'package:designsprit/features/home/domain/use_cases/home_categories_use_case.dart';
+import 'package:designsprit/features/home/domain/use_cases/home_families_use_case.dart';
 import 'package:designsprit/features/home/domain/use_cases/home_populars_use_case.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -10,23 +10,23 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 part 'home_state.dart';
 
 class HomeCubit extends Cubit<HomeState> {
-  HomeCubit(this.category, this.popular) : super(const HomeState());
+  HomeCubit(this.families, this.popular) : super(const HomeState());
 
-  final HomeCategoriesUseCase category;
+  final HomeFamiliesUseCase families;
   final HomePopularsUseCase popular;
 
   static HomeCubit get(context) => BlocProvider.of(context);
 
-  Future<void> getCategories() async {
-    final result = await category(const NoParameters());
+  Future<void> getFamilies() async {
+    final result = await families(const NoParameters());
 
     result.fold((l) {
       emit(state.copyWith(
-          randomCategoryState: RequestState.error,
-          randomCategoryMessage: l.errMessage));
+          randomFamiliesState: RequestState.error,
+          randomFamiliesMessage: l.errMessage));
     }, (r) {
       emit(state.copyWith(
-          randomCategory: r, randomCategoryState: RequestState.loaded));
+          randomFamilies: r, randomFamiliesState: RequestState.loaded));
     });
   }
 

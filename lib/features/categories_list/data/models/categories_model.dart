@@ -4,14 +4,10 @@ class CategoriesModel extends Categories {
   const CategoriesModel({
     required super.id,
     required super.name,
-    required super.description,
-     super.image,
   });
 
   factory CategoriesModel.fromJson(Map<String, dynamic> json) => CategoriesModel(
         id: json["id"],
         name: json["name"],
-        description: json["description"],
-        image: json["image"],
       );
 }

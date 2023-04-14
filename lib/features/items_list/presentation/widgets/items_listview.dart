@@ -65,21 +65,27 @@ class ItemsListView extends StatelessWidget {
                               SizedBox(
                                 width: 20.w,
                               ),
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    state.itemsList![index].name,
-                                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20.sp),
-                                  ),
-                                  SizedBox(
-                                    height: 15.h,
-                                  ),
-                                  Text(
-                                    state.itemsList![index].description,
-                                    style: TextStyle(fontSize: 16.sp),
-                                  ),
-                                ],
+                              SizedBox(
+                                width: 230.w,
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      state.itemsList![index].name,
+                                      maxLines: 2,
+                                      style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20.sp),
+                                    ),
+                                    SizedBox(
+                                      height: 10.h,
+                                    ),
+                                    Text(
+                                      state.itemsList![index].description,
+                                      maxLines: 2,
+                                      overflow: TextOverflow.ellipsis,
+                                      style: TextStyle(fontSize: 14.sp),
+                                    ),
+                                  ],
+                                ),
                               ),
                             ],
                           ),

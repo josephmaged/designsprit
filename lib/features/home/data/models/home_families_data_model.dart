@@ -1,13 +1,13 @@
-import 'package:designsprit/features/home/domain/entities/home_category_response_data.dart';
+import 'package:designsprit/features/home/domain/entities/home_families_response_data.dart';
 
-class HomeCategoryDataModel extends HomeCategoryResponseData {
-  const HomeCategoryDataModel(
+class HomeFamiliesDataModel extends HomeFamiliesResponseData {
+  const HomeFamiliesDataModel(
       {required super.name,
       required super.description,
       required super.image,
       required super.id});
 
-  factory HomeCategoryDataModel.fromJson(dynamic json) => HomeCategoryDataModel(
+  factory HomeFamiliesDataModel.fromJson(dynamic json) => HomeFamiliesDataModel(
       id: json['id'],
       name: json['name'],
       description: json['description'],

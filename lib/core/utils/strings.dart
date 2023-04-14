@@ -65,4 +65,5 @@ class AppStrings{
 
   static const String favorites = 'Favorites';
   static const String chat = 'Chat';
+  static const String categories = 'Categories';
 }

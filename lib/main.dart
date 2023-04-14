@@ -57,12 +57,12 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider(
           create: (context) => sl<HomeCubit>()
-            ..getCategories()
+            ..getFamilies()
             ..getIPopulars(),
-        ),
+        ),/*
         BlocProvider(
           create: (context) => sl<CategoriesCubit>()..getCategories(),
-        ),
+        ),*/
       ],
       child: MaterialApp.router(
         routerConfig: AppRouter.router,

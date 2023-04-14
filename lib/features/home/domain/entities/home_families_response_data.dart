@@ -1,12 +1,12 @@
 import 'package:equatable/equatable.dart';
 
-class HomeCategoryResponseData extends Equatable {
+class HomeFamiliesResponseData extends Equatable {
   final int id;
   final String name;
   final String description;
   final String image;
 
-  const HomeCategoryResponseData({
+  const HomeFamiliesResponseData({
     required this.name,
     required this.description,
     required this.image,

@@ -47,7 +47,7 @@ import 'package:designsprit/features/favorites/presentation/cubit/favorites_cubi
 import 'package:designsprit/features/home/data/data_sources/home_remote_data_source.dart';
 import 'package:designsprit/features/home/data/repositories/HomeRepo.dart';
 import 'package:designsprit/features/home/domain/repositories/base_home_repo.dart';
-import 'package:designsprit/features/home/domain/use_cases/home_categories_use_case.dart';
+import 'package:designsprit/features/home/domain/use_cases/home_families_use_case.dart';
 import 'package:designsprit/features/home/domain/use_cases/home_populars_use_case.dart';
 import 'package:designsprit/features/home/presentation/cubit/home_cubit.dart';
 import 'package:designsprit/features/item_details/data/data_sources/ItemDetailsRemoteDataSource.dart';
@@ -136,7 +136,7 @@ class SetupServiceLocator {
 
     /// Home
     /// USE CASES
-    sl.registerLazySingleton(() => HomeCategoriesUseCase(sl()));
+    sl.registerLazySingleton(() => HomeFamiliesUseCase(sl()));
     sl.registerLazySingleton(() => HomePopularsUseCase(sl()));
 
     /// Repository

@@ -5,6 +5,8 @@ import 'package:designsprit/features/add_appointment/presentation/pages/add_appo
 import 'package:designsprit/features/auth/login/presentation/cubit/login_cubit.dart';
 import 'package:designsprit/features/auth/login/presentation/pages/login_view.dart';
 import 'package:designsprit/features/auth/register/presentation/pages/register_view.dart';
+import 'package:designsprit/features/categories_list/presentation/cubit/categories_cubit.dart';
+import 'package:designsprit/features/categories_list/presentation/pages/categories_list.dart';
 import 'package:designsprit/features/change_password/cubit/change_password_cubit.dart';
 import 'package:designsprit/features/change_password/pages/change_password.dart';
 import 'package:designsprit/features/chat/presentation/cubit/chat_cubit.dart';
@@ -138,6 +140,16 @@ abstract class AppRouter {
               categoryId: state.params['id']!,
             ),
           child: ItemsList(categoryId: state.params['id']!),
+        ),
+      ),
+      GoRoute(
+        path: "$kCategoriesView/:id",
+        builder: (context, state) => BlocProvider(
+          create: (context) => sl<CategoriesCubit>()
+            ..getCategories(
+              id: state.params['id']!,
+            ),
+          child: CategoriesListView(categoryId: state.params['id']!),
         ),
       ),
       GoRoute(

@@ -16,8 +16,8 @@ class CategoriesCubit extends Cubit<CategoriesState> {
 
   static CategoriesCubit get(context) => BlocProvider.of(context);
 
-  Future<void> getCategories() async {
-    final result = await getCategoriesUseCase(const NoParameters() );
+  Future<void> getCategories({required String id}) async {
+    final result = await getCategoriesUseCase(CategoriesParameters(id: id));
 
     result.fold((l) {
       emit(

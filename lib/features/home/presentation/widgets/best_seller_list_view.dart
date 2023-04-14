@@ -62,7 +62,7 @@ class BestSellerListView extends StatelessWidget {
               }).toList(),
             );
           case RequestState.error:
-            return CustomErrorWidget(errMessage: state.randomCategoryMessage);
+            return CustomErrorWidget(errMessage: state.mostPopularMessage);
         }
       },
     );

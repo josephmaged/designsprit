@@ -14,11 +14,11 @@ class ApiConst {
   static const String updateUserData = '$baseUrlApi/Auth/UpdateProfile';
 
   // Home
-  static const String getRandomCategories = '$baseUrlApi/Home/GetRandomCategory';
+  static const String getRandomFamily = '$baseUrlApi/Home/GetRandomFamily';
   static const String getRandomItems = '$baseUrlApi/Home/GetRandomItems';
 
   // Categories List
-  static const String getCategoriesList = '$baseUrlApi/Category/GetCategories';
+  static String getCategoriesList(String parameters) => '$baseUrlApi/Category/getCategoriesDropDownList/$parameters';
 
   // Item Details
   static String getItemById(String parameters) => '$baseUrlApi/Item/getItembyid/$parameters';
@@ -37,8 +37,7 @@ class ApiConst {
       '$baseUrlApi/ProjectTrack/GetUserProjectSteps?projectId=$projectId';
   static const String updateProjectSteps = '$baseUrlApi/ProjectTrack/SetProjectTrackStatus';
 
-  static String attachments(String parameters)=> '$baseUrl/attachments/$parameters';
-
+  static String attachments(String parameters) => '$baseUrl/attachments/$parameters';
 
   // Item List
   static String getItemsByCategoryId(String parameters) =>
