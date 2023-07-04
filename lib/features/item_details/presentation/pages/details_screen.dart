@@ -32,21 +32,23 @@ class DetailsScreen extends StatelessWidget {
                       height: MediaQuery.of(context).size.height,
                       child: Stack(
                         children: [
-                          SizedBox(
-                            width: double.infinity,
-                            height: 60.h,
-                            child: Align(
-                              alignment: Alignment.center,
-                              child: Text(
-                                state.itemDetailsResponse.first.name.toUpperCase(),
-                                maxLines: 3,
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 20.sp,
-                                ),
-                              ),
-                            ),
-                          ),
+                          state.itemDetailsResponse.isNotEmpty
+                              ? SizedBox(
+                                  width: double.infinity,
+                                  height: 60.h,
+                                  child: Align(
+                                    alignment: Alignment.center,
+                                    child: Text(
+                                      state.itemDetailsResponse.first.name.toUpperCase() ?? '',
+                                      maxLines: 3,
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 20.sp,
+                                      ),
+                                    ),
+                                  ),
+                                )
+                              : SizedBox(),
                           state.itemImagesResponse.isEmpty || state.itemImagesResponse == []
                               ? Image.asset(AssetsData.imageNotFound)
                               : Padding(
@@ -99,10 +101,9 @@ class DetailsScreen extends StatelessWidget {
                                                 child: InkWell(
                                                   onTap: () {
                                                     cubit.updateItem(
-                                                      imageId: index.imgId,
-                                                      isLiked: index.isLiked,
-                                                      itemId: state.itemDetailsResponse.first.id.toString()
-                                                    );
+                                                        imageId: index.imgId,
+                                                        isLiked: index.isLiked,
+                                                        itemId: state.itemDetailsResponse.first.id.toString());
                                                   },
                                                   child: Container(
                                                     decoration: BoxDecoration(
